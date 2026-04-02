@@ -1,0 +1,146 @@
+[
+  {
+    "filename": "plot_001.png",
+    "cell_index": 4,
+    "output_index": 0,
+    "context": "Visual summaries"
+  },
+  {
+    "filename": "plot_002.png",
+    "cell_index": 6,
+    "output_index": 0,
+    "context": "Years in the profession by career level"
+  },
+  {
+    "filename": "plot_003.png",
+    "cell_index": 8,
+    "output_index": 0,
+    "context": "Years until first formal leadership vs. VP/CDO status"
+  },
+  {
+    "filename": "plot_004.png",
+    "cell_index": 12,
+    "output_index": 0,
+    "context": "1. Does coming from a non-design background versus a design-specific track affect how long it takes to reach leadership?"
+  },
+  {
+    "filename": "plot_005.png",
+    "cell_index": 14,
+    "output_index": 0,
+    "context": "2. Do people with larger current reporting structures differ in background, education, mentorship, or leadership training?"
+  },
+  {
+    "filename": "plot_006.png",
+    "cell_index": 16,
+    "output_index": 0,
+    "context": "3. Are there regional differences in leadership timing, current level, or team size?"
+  },
+  {
+    "filename": "plot_007.png",
+    "cell_index": 18,
+    "output_index": 0,
+    "context": "4. Do people with formal design education differ from those without it in speed of advancement or executive attainment?"
+  },
+  {
+    "filename": "plot_008.png",
+    "cell_index": 20,
+    "output_index": 0,
+    "context": "5. Does the scale of the first design team predict later career level or people-management scope?"
+  },
+  {
+    "filename": "plot_009.png",
+    "cell_index": 21,
+    "output_index": 0,
+    "context": "Plot from cell 21"
+  },
+  {
+    "filename": "plot_010.png",
+    "cell_index": 22,
+    "output_index": 0,
+    "context": "Plot from cell 22"
+  },
+  {
+    "filename": "plot_011.png",
+    "cell_index": 24,
+    "output_index": 0,
+    "context": "Standalone question highlights"
+  },
+  {
+    "filename": "plot_012.png",
+    "cell_index": 26,
+    "output_index": 0,
+    "context": "Career pathway flow"
+  },
+  {
+    "filename": "plot_013.png",
+    "cell_index": 28,
+    "output_index": 0,
+    "context": "Leadership archetype small multiples"
+  },
+  {
+    "filename": "plot_014.png",
+    "cell_index": 30,
+    "output_index": 0,
+    "context": "Years in profession vs. years to first leadership"
+  },
+  {
+    "filename": "plot_015.png",
+    "cell_index": 32,
+    "output_index": 0,
+    "context": "Career setbacks co-occurrence heatmap"
+  },
+  {
+    "filename": "plot_016.png",
+    "cell_index": 34,
+    "output_index": 0,
+    "context": "Leadership entry as a share of career length"
+  },
+  {
+    "filename": "plot_017.png",
+    "cell_index": 36,
+    "output_index": 0,
+    "context": "Age- and career-adjusted leadership timing"
+  },
+  {
+    "filename": "plot_018.png",
+    "cell_index": 38,
+    "output_index": 0,
+    "context": "Exploratory clustering: leadership pathway archetypes"
+  },
+  {
+    "filename": "plot_019.png",
+    "cell_index": 40,
+    "output_index": 0,
+    "context": "Designer founders"
+  },
+  {
+    "filename": "plot_020.png",
+    "cell_index": 42,
+    "output_index": 1,
+    "context": "Tool stack change expectations: Founders vs Corporate designers"
+  },
+  {
+    "filename": "plot_021.png",
+    "cell_index": 44,
+    "output_index": 0,
+    "context": "Characteristics predicting executive leadership"
+  },
+  {
+    "filename": "plot_022.png",
+    "cell_index": 46,
+    "output_index": 0,
+    "context": "Focused pairwise comparisons"
+  },
+  {
+    "filename": "plot_023.png",
+    "cell_index": 56,
+    "output_index": 0,
+    "context": "Statistical significance testing: Founder characteristics"
+  },
+  {
+    "filename": "plot_024.png",
+    "cell_index": 60,
+    "output_index": 2,
+    "context": "Multi-dimensional analysis: Tool stack change expectations"
+  }
+]
