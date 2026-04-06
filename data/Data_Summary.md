@@ -10,7 +10,7 @@ c# Design Leadership Research: Key Findings
 
 Comprehensive demographic breakdown showing age distribution (45% aged 46-55), regional distribution (71% North America), gender balance (54 female, 63 male), career level distribution, and years of professional experience.
 
-![Visual Summaries](./data/plots/plot_001.png)
+![Visual Summaries](./plots/plot_001.png)
 
 ---
 
@@ -20,7 +20,7 @@ Comprehensive demographic breakdown showing age distribution (45% aged 46-55), r
 
 Alluvial flow diagram showing how designers move from varied backgrounds through different educational paths and first organizations to reach diverse leadership positions.
 
-![Career Pathway Flow](./data/plots/plot_012.png)
+![Career Pathway Flow](./plots/plot_012.png)
 
 ---
 
@@ -30,7 +30,7 @@ Alluvial flow diagram showing how designers move from varied backgrounds through
 
 Comprehensive chart showing executive rates across all demographic and career characteristics—age, education, and corporate context matter most.
 
-![Executive Leadership Predictors](./data/plots/plot_021.png)
+![Executive Leadership Predictors](./plots/plot_021.png)
 
 ---
 
@@ -40,7 +40,7 @@ Comprehensive chart showing executive rates across all demographic and career ch
 
 Freelance/independent starts show 38% founder rate vs. 4% for agency starts—early independence breeds later independence.
 
-![Founder Characteristics Significance](./data/plots/plot_023.png)
+![Founder Characteristics Significance](./plots/plot_023.png)
 
 ---
 
@@ -50,7 +50,7 @@ Freelance/independent starts show 38% founder rate vs. 4% for agency starts—ea
 
 Multi-panel analysis showing tool stack expectations across all dimensions—only career ambition differentiates, not role type, background, or education.
 
-![Tool Stack Multi-Dimensional](./data/plots/plot_024.png)
+![Tool Stack Multi-Dimensional](./plots/plot_024.png)
 
 ---
 
