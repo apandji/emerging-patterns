@@ -444,7 +444,7 @@ async function render() {
           .attr("x", getLabelX(d))
           .attr("dy", 13)
           .attr("fill", "var(--muted)")
-          .attr("font-size", 10)
+          .attr("font-size", 12)
           .text(`n=${d.value}`);
       });
 

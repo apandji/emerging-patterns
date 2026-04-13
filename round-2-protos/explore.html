@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Explore All Data · Design Leadership Survey 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
+      --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
       --ink-1: rgba(255,255,255,0.92);
       --ink-2: rgba(255,255,255,0.55);
       --ink-3: rgba(255,255,255,0.30);
@@ -19,24 +21,38 @@
       --bg-0:  #050810;
       --bg-1:  #070B14;
       --bg-2:  #0C1422;
-      --accent:     #81E3BE;
-      --accent-mid: rgba(129,227,190,0.42);
-      --accent-dim: rgba(129,227,190,0.12);
+      --accent:     #7AB8A5;
+      --accent-mid: rgba(122,184,165,0.38);
+      --accent-dim: rgba(122,184,165,0.12);
       --orange:     #F4956A;
       --s1:  8px; --s2: 16px; --s3: 24px; --s4: 32px;
       --s5: 48px; --s6: 64px; --s7: 80px; --s8: 96px;
-      --t-cap:  11px; --t-xs: 12px; --t-sm: 13px;
-      --t-base: 15px; --t-lg: 17px;
-      --lh-base: 1.55; --lh-loose: 1.70;
+      --text-xs:      0.64rem;
+      --text-sm:      0.8rem;
+      --text-md:      0.875rem;
+      --text-base:    1rem;
+      --text-h4:      1.25rem;
+      --text-h3:      1.563rem;
+      --text-h2:      1.953rem;
+      --text-h1:      2.441rem;
+      --text-display: 3.052rem;
+      --leading-tight: 1.15;
+      --leading-body:  1.6;
+      --t-cap:   var(--text-sm);
+      --t-xs:    var(--text-sm);
+      --t-sm:    var(--text-md);
+      --t-base:  var(--text-base);
+      --t-lg:    var(--text-h4);
+      --lh-base: var(--leading-body); --lh-loose: 1.65;
       --ls-caps: 0.10em;
-      --r-sm: 4px; --r-md: 8px; --r-lg: 12px;
+      --r-sm: 4px; --r-md: 6px; --r-lg: 8px;
     }
 
-    html { scroll-behavior: smooth; }
+    html { font-size: 100%; scroll-behavior: smooth; }
     body {
       background: var(--bg-1);
       color: var(--ink-1);
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: var(--font-sans);
       font-size: var(--t-base);
       line-height: var(--lh-base);
       -webkit-font-smoothing: antialiased;
@@ -61,7 +77,7 @@
     }
     .back-link:hover { color: var(--accent); }
     .page-title {
-      font-family: 'DM Serif Display', serif;
+      font-family: var(--font-display);
       font-size: clamp(28px, 4vw, 52px);
       line-height: 1.05;
       color: var(--ink-1);
@@ -91,7 +107,7 @@
       border-bottom: 1px solid var(--ink-4);
     }
     .section-num {
-      font-family: 'DM Serif Display', serif;
+      font-family: var(--font-display);
       font-size: 52px;
       line-height: 0.9;
       color: rgba(255,255,255,0.055);
@@ -99,7 +115,7 @@
       user-select: none;
     }
     .section-title {
-      font-family: 'DM Serif Display', serif;
+      font-family: var(--font-display);
       font-size: clamp(20px, 2.5vw, 30px);
       line-height: 1.15;
       color: var(--ink-1);
@@ -214,9 +230,7 @@
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(5,8,16,0.96);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: #070B14;
       border-bottom: 1px solid var(--ink-4);
       padding: 11px 64px;
       display: flex;
@@ -245,11 +259,11 @@
     }
     .filter-pills { display: flex; gap: 4px; flex-wrap: wrap; }
     .pill {
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: var(--font-sans);
       font-size: 12px;
       font-weight: 500;
       padding: 3px 10px;
-      border-radius: 20px;
+      border-radius: 6px;
       border: 1px solid var(--ink-4);
       background: transparent;
       color: var(--ink-2);
@@ -259,7 +273,12 @@
       line-height: 1.6;
     }
     .pill:hover { border-color: var(--accent-mid); color: var(--ink-1); }
-    .pill.active { background: var(--accent); border-color: var(--accent); color: #050810; font-weight: 700; }
+    .pill.active {
+      background: rgba(122,184,165,0.12);
+      border-color: rgba(122,184,165,0.48);
+      color: var(--ink-1);
+      font-weight: 700;
+    }
     .filter-divider { width: 1px; height: 20px; background: var(--ink-4); flex-shrink: 0; }
     .filter-count {
       margin-left: auto;
@@ -269,7 +288,7 @@
     }
     .filter-count strong { color: var(--accent); font-weight: 700; }
     .filter-reset {
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: var(--font-sans);
       font-size: 11px;
       font-weight: 500;
       color: var(--ink-3);
@@ -290,8 +309,8 @@
       top: 32px;
       left: 50%;
       transform: translateX(-50%) translateY(-12px);
-      background: var(--accent);
-      border: 1px solid rgba(129,227,190,0.60);
+      background: rgba(122,184,165,0.92);
+      border: 1px solid rgba(122,184,165,0.55);
       color: #050810;
       padding: 11px 20px;
       border-radius: var(--r-lg);
@@ -545,8 +564,8 @@ const SCALE_COLORS = [
   'rgba(192,72,40,0.80)',   // 1
   'rgba(244,149,106,0.55)', // 2
   'rgba(255,255,255,0.16)', // 3
-  'rgba(129,227,190,0.50)', // 4
-  'rgba(129,227,190,0.88)', // 5
+  'rgba(122,184,165,0.48)', // 4
+  'rgba(122,184,165,0.85)', // 5
 ];
 
 // ══════════════════════════════════════
@@ -680,7 +699,7 @@ function drawBar(container, items, wide) {
       .attr('y', midY)
       .attr('text-anchor', 'end')
       .attr('dominant-baseline', 'middle')
-      .attr('font-family', 'Inter, -apple-system, sans-serif')
+      .attr('font-family', 'ui-sans-serif, system-ui, sans-serif')
       .attr('font-size', 12)
       .attr('fill', isTop ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.55)')
       .text(trunc(d.label, truncLen));
@@ -697,14 +716,14 @@ function drawBar(container, items, wide) {
       .attr('x', 0).attr('y', y + (ROW_H - BAR_H) / 2)
       .attr('width', barW).attr('height', BAR_H)
       .attr('rx', 3)
-      .attr('fill', isTop ? 'rgba(129,227,190,0.55)' : 'rgba(129,227,190,0.20)');
+      .attr('fill', isTop ? 'rgba(122,184,165,0.52)' : 'rgba(122,184,165,0.18)');
 
     // Count · pct
     g.append('text')
       .attr('x', chartW + 10)
       .attr('y', midY)
       .attr('dominant-baseline', 'middle')
-      .attr('font-family', 'Inter, -apple-system, sans-serif')
+      .attr('font-family', 'ui-sans-serif, system-ui, sans-serif')
       .attr('font-size', 11)
       .attr('fill', 'rgba(255,255,255,0.38)')
       .text(`${d.count} · ${d.pct}%`);
@@ -785,7 +804,7 @@ function drawHistogram(container, rows, col, unit) {
       .attr('x', -5).attr('y', y(t))
       .attr('text-anchor', 'end').attr('dominant-baseline', 'middle')
       .attr('font-size', 9).attr('fill', 'rgba(255,255,255,0.22)')
-      .attr('font-family', 'Inter, -apple-system, sans-serif')
+      .attr('font-family', 'ui-sans-serif, system-ui, sans-serif')
       .text(t);
   });
 
@@ -797,7 +816,7 @@ function drawHistogram(container, rows, col, unit) {
     .attr('width', x.bandwidth())
     .attr('height', b => cH - y(b.length))
     .attr('rx', 3)
-    .attr('fill', b => b.length === maxBin ? 'rgba(129,227,190,0.60)' : 'rgba(129,227,190,0.22)');
+    .attr('fill', b => b.length === maxBin ? 'rgba(122,184,165,0.55)' : 'rgba(122,184,165,0.20)');
 
   // Count labels on bars
   g.selectAll('text.blabel').data(bins.filter(b => b.length > 0)).enter().append('text')
@@ -806,7 +825,7 @@ function drawHistogram(container, rows, col, unit) {
     .attr('y', b => y(b.length) - 3)
     .attr('text-anchor', 'middle')
     .attr('font-size', 9).attr('fill', 'rgba(255,255,255,0.45)')
-    .attr('font-family', 'Inter, -apple-system, sans-serif')
+    .attr('font-family', 'ui-sans-serif, system-ui, sans-serif')
     .text(b => b.length || '');
 
   // X axis labels — show every N ticks to avoid crowding
@@ -817,14 +836,14 @@ function drawHistogram(container, rows, col, unit) {
     .attr('y', cH + 14)
     .attr('text-anchor', 'middle')
     .attr('font-size', 10).attr('fill', 'rgba(255,255,255,0.28)')
-    .attr('font-family', 'Inter, -apple-system, sans-serif')
+    .attr('font-family', 'ui-sans-serif, system-ui, sans-serif')
     .text(b => b.x0);
 
   // Unit label
   svg.append('text')
     .attr('x', mL).attr('y', H - 2)
     .attr('font-size', 10).attr('fill', 'rgba(255,255,255,0.22)')
-    .attr('font-family', 'Inter, -apple-system, sans-serif')
+    .attr('font-family', 'ui-sans-serif, system-ui, sans-serif')
     .text(unit);
 
   // Stats

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How Design Leaders Got Here · 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
   <style>
@@ -15,6 +15,10 @@
        DESIGN TOKENS
     ══════════════════════════════════════════ */
     :root {
+      /* UI sans: native stack — avoids generic “template” pairing with display serif */
+      --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+
       /* Color — semantic ink scale */
       --ink-1:      rgba(255,255,255,0.92);   /* primary text */
       --ink-2:      rgba(255,255,255,0.55);   /* secondary / body */
@@ -27,10 +31,10 @@
       --bg-1:       #070B14;                  /* page default */
       --bg-2:       #0C1422;                  /* alternate sections */
 
-      /* Color — accents */
-      --accent:     #81E3BE;
-      --accent-mid: rgba(129,227,190,0.42);
-      --accent-dim: rgba(129,227,190,0.10);
+      /* Color — accents (muted sage — less neon than pure mint) */
+      --accent:     #7AB8A5;
+      --accent-mid: rgba(122,184,165,0.38);
+      --accent-dim: rgba(122,184,165,0.10);
       --orange:     #F4956A;
       --orange-dim: rgba(244,149,106,0.09);
 
@@ -50,30 +54,45 @@
       --col-gap:   48px;    /* gap between side-by-side columns */
       --max-w:    1280px;   /* max content width */
 
-      /* Type scale — 5 sizes only */
-      --t-cap:   11px;      /* eyebrows, captions, stat labels */
-      --t-xs:    12px;      /* chart axis labels, small UI */
-      --t-sm:    13px;      /* tooltips, footnotes, meta */
-      --t-base:  15px;      /* body copy */
-      --t-lg:    17px;      /* lead / intro text */
+      /* Modular type scale (≈1.25 ratio, rem — assumes 16px root) */
+      --text-xs:      0.64rem;
+      --text-sm:      0.8rem;
+      --text-md:      0.875rem; /* between sm & base — tooltips, secondary UI */
+      --text-base:    1rem;
+      --text-h4:      1.25rem;
+      --text-h3:      1.563rem;
+      --text-h2:      1.953rem;
+      --text-h1:      2.441rem;
+      --text-display: 3.052rem;
+
+      --leading-tight: 1.15;
+      --leading-body:  1.6;
+
+      /* Semantic aliases (used throughout this file) */
+      --t-cap:   var(--text-sm);     /* eyebrows, caps, stat labels */
+      --t-xs:    var(--text-sm);     /* chart chrome, bar rows — legible small */
+      --t-sm:    var(--text-md);     /* tooltips, footnotes */
+      --t-base:  var(--text-base);   /* body */
+      --t-lg:    var(--text-h4);     /* lead / intro */
 
       /* Line heights */
-      --lh-tight: 1.10;
-      --lh-snug:  1.30;
-      --lh-base:  1.55;
-      --lh-loose: 1.70;
+      --lh-tight:   var(--leading-tight);
+      --lh-snug:    1.35;
+      --lh-base:    var(--leading-body);
+      --lh-loose:   1.65;
 
       /* Letter spacing */
-      --ls-caps:  0.10em;   /* all-caps labels */
+      --ls-caps:  0.08em;   /* all-caps labels */
 
-      /* Radius */
+      /* Radius — slightly flatter surfaces (less “app card”) */
       --r-sm:  4px;
-      --r-md:  8px;
-      --r-lg: 12px;
+      --r-md:  6px;
+      --r-lg:  8px;
     }
 
     /* ── Base ── */
     html {
+      font-size: 100%;
       scroll-behavior: smooth;
       scroll-snap-type: y mandatory;
       overflow-y: scroll;
@@ -81,7 +100,7 @@
     body {
       background: var(--bg-1);
       color: var(--ink-1);
-      font-family: 'Inter', -apple-system, sans-serif;
+      font-family: var(--font-sans);
       font-size: var(--t-base);
       line-height: var(--lh-base);
       -webkit-font-smoothing: antialiased;
@@ -101,6 +120,8 @@
       text-transform: uppercase;
       color: var(--ink-3);
       margin-bottom: var(--s2);
+      padding-left: var(--s2);
+      border-left: 2px solid rgba(122,184,165,0.28);
     }
 
     /* Section wrapper — every content section uses this */
@@ -125,8 +146,8 @@
       margin-bottom: var(--s6);
     }
     .section-num {
-      font-family: 'DM Serif Display', serif;
-      font-size: 80px;
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 5rem);
       line-height: 0.85;
       color: rgba(255,255,255,0.055);
       flex-shrink: 0;
@@ -136,8 +157,8 @@
     }
     .section-title-group { max-width: 580px; }
     .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(28px, 3vw, 44px);
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.75rem);
       line-height: var(--lh-tight);
       color: var(--ink-1);
       margin-bottom: var(--s2);
@@ -154,10 +175,9 @@
     .tooltip-base {
       position: absolute;
       pointer-events: none;
-      background: rgba(5,8,16,0.95);
-      backdrop-filter: blur(16px);
+      background: #0A1018;
       border: 1px solid var(--ink-4);
-      border-radius: var(--r-lg);
+      border-radius: var(--r-md);
       padding: var(--s2) var(--s2);
       font-size: var(--t-sm);
       line-height: var(--lh-base);
@@ -166,7 +186,7 @@
       transition: opacity 0.1s;
       white-space: nowrap;
       z-index: 30;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
     }
 
     /* ══════════════════════════════════════════
@@ -182,10 +202,7 @@
       padding: var(--section-y) var(--gutter);
       position: relative;
       overflow: hidden;
-      background:
-        radial-gradient(ellipse 60% 55% at 78% 42%, rgba(129,227,190,0.05) 0%, transparent 100%),
-        radial-gradient(ellipse 45% 65% at 12% 78%, rgba(59,115,183,0.05) 0%, transparent 100%),
-        var(--bg-1);
+      background: var(--bg-1);
     }
     #hero::after {
       content: '';
@@ -203,8 +220,8 @@
       margin-bottom: var(--s5);
     }
     .hero-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(52px, 6.5vw, 96px);
+      font-family: var(--font-display);
+      font-size: clamp(2.75rem, 6.5vw, 4.75rem);
       line-height: var(--lh-tight);
       color: var(--ink-1);
       max-width: 820px;
@@ -220,8 +237,8 @@
     }
     .hero-stats { display: flex; gap: var(--s7); }
     .hero-stat-val {
-      font-family: 'DM Serif Display', serif;
-      font-size: 40px;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.75rem);
       color: var(--ink-1);
       line-height: 1;
       margin-bottom: var(--s1);
@@ -273,10 +290,7 @@
       width: 100%;
       flex: 1;
       min-height: 0;
-      background:
-        radial-gradient(circle at 50% 18%, rgba(255,255,255,0.04) 0%, transparent 40%),
-        radial-gradient(circle at 16% 84%, rgba(255,255,255,0.025) 0%, transparent 32%),
-        #000;
+      background: #000;
     }
     #sankey-chart {
       width: 100%;
@@ -287,16 +301,15 @@
     .s-tooltip {
       position: absolute;
       pointer-events: none;
-      background: rgba(5,8,16,0.95);
-      backdrop-filter: blur(16px);
+      background: #0A1018;
       border: 1px solid var(--ink-4);
-      border-radius: var(--r-lg);
+      border-radius: var(--r-md);
       padding: var(--s2) var(--s2);
       color: var(--ink-1);
       font-size: var(--t-sm);
       line-height: var(--lh-base);
       opacity: 0;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
       max-width: 240px;
       z-index: 20;
       transition: opacity 0.1s;
@@ -308,9 +321,8 @@
       transform: translateX(-50%);
       padding: var(--s1) var(--s3);
       border: 1px solid var(--ink-4);
-      border-radius: var(--r-lg);
-      background: var(--ink-5);
-      backdrop-filter: blur(10px);
+      border-radius: var(--r-md);
+      background: rgba(7,11,20,0.92);
       min-width: 260px;
       text-align: center;
       pointer-events: none;
@@ -339,8 +351,8 @@
     #route-exec   { background: var(--bg-1); }
     #route-founder { background: var(--bg-2); }
     .panel-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(22px, 2.2vw, 32px);
+      font-family: var(--font-display);
+      font-size: clamp(1.375rem, 2.2vw, 2rem);
       line-height: var(--lh-snug);
       color: var(--ink-1);
       margin-bottom: var(--s2);
@@ -424,8 +436,8 @@
       border-radius: var(--r-lg);
     }
     .big-callout-val {
-      font-family: 'DM Serif Display', serif;
-      font-size: 52px;
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 3.25rem);
       line-height: 1;
       color: var(--orange);
       margin-bottom: var(--s1);
@@ -459,8 +471,8 @@
       margin-bottom: var(--s5);
     }
     .bar-callout-stat {
-      font-family: 'DM Serif Display', serif;
-      font-size: 64px;
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 6vw, 4rem);
       line-height: 1;
       color: var(--accent);
       flex-shrink: 0;
@@ -476,10 +488,9 @@
     .stacked-tooltip {
       position: absolute;
       pointer-events: none;
-      background: rgba(5,8,16,0.95);
-      backdrop-filter: blur(16px);
+      background: #0A1018;
       border: 1px solid var(--ink-4);
-      border-radius: var(--r-lg);
+      border-radius: var(--r-md);
       padding: var(--s2) var(--s2);
       font-size: var(--t-sm);
       line-height: var(--lh-base);
@@ -488,7 +499,7 @@
       transition: opacity 0.1s;
       white-space: nowrap;
       z-index: 10;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
     }
     .stacked-tooltip strong { color: var(--accent); }
 
@@ -542,7 +553,7 @@
       .scroll-nav { display: none; }
 
       /* Hero */
-      .hero-title { font-size: clamp(40px, 8vw, 64px); }
+      .hero-title { font-size: clamp(2.25rem, 8vw, 3.5rem); }
       .hero-desc  { margin-bottom: var(--s5); }
       .hero-stats { gap: var(--s5); flex-wrap: wrap; }
 
@@ -564,7 +575,7 @@
         align-items: flex-start;
         gap: var(--s2);
       }
-      .bar-callout-stat { font-size: 48px; }
+      .bar-callout-stat { font-size: clamp(2.5rem, 7vw, 3rem); }
       .bar-callout-desc { max-width: 100%; }
 
       /* Footer */
@@ -582,9 +593,9 @@
       }
 
       /* Hero */
-      .hero-title     { font-size: clamp(34px, 9vw, 48px); }
+      .hero-title     { font-size: clamp(2rem, 9vw, 2.75rem); }
       .hero-desc      { font-size: var(--t-base); }
-      .hero-stat-val  { font-size: 32px; }
+      .hero-stat-val  { font-size: clamp(1.75rem, 6vw, 2rem); }
       .hero-meta      { margin-bottom: var(--s4); }
 
       /* Sankey header even more compact */
@@ -594,15 +605,15 @@
       }
 
       /* Narrower bar labels so the track doesn't get squeezed out */
-      .bar-lbl { width: 96px; font-size: 10px; }
-      .bar-val  { width: 32px; font-size: 10px; }
+      .bar-lbl { width: 96px; font-size: var(--text-xs); }
+      .bar-val  { width: 32px; font-size: var(--text-xs); }
 
       /* Panel title minimum size */
-      .panel-title { font-size: clamp(20px, 5.5vw, 28px); }
+      .panel-title { font-size: clamp(1.25rem, 5.5vw, 1.75rem); }
 
       /* Big callout number */
-      .big-callout-val  { font-size: 40px; }
-      .bar-callout-stat { font-size: 40px; }
+      .big-callout-val  { font-size: clamp(2.25rem, 8vw, 2.5rem); }
+      .bar-callout-stat { font-size: clamp(2.25rem, 8vw, 2.5rem); }
 
       /* Explore CTA button — full-width on tiny screens */
       .explore-cta-btn { width: 100%; justify-content: center; }
@@ -670,8 +681,8 @@
     }
     .explore-cta-inner { max-width: 600px; margin: 0 auto; }
     .explore-cta-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(28px, 3.5vw, 48px);
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3.5vw, 3rem);
       line-height: 1.1;
       color: var(--ink-1);
       margin-bottom: var(--s3);
@@ -687,19 +698,21 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 14px 32px;
-      background: var(--accent);
-      color: #050810;
+      padding: 12px 28px;
+      background: transparent;
+      color: var(--accent);
       font-size: var(--t-base);
-      font-weight: 700;
+      font-weight: 600;
       text-decoration: none;
-      border-radius: var(--r-lg);
-      letter-spacing: 0.01em;
-      transition: background 0.15s, transform 0.12s;
+      border: 1px solid rgba(122,184,165,0.45);
+      border-radius: var(--r-sm);
+      letter-spacing: 0.02em;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
     .explore-cta-btn:hover {
-      background: rgba(129,227,190,0.80);
-      transform: translateY(-2px);
+      background: rgba(122,184,165,0.08);
+      border-color: rgba(122,184,165,0.65);
+      color: rgba(255,255,255,0.92);
     }
   </style>
 </head>
@@ -936,8 +949,8 @@ function renderSankey() {
     muted:     "rgba(255,255,255,0.56)",
     line:      "#ffffff",
     lineSoft:  "rgba(255,255,255,0.09)",
-    accent:    "rgba(129,227,190,0.95)",
-    accentSft: "rgba(129,227,190,0.22)",
+    accent:    "rgba(122,184,165,0.95)",
+    accentSft: "rgba(122,184,165,0.22)",
     node:      "rgba(255,255,255,0.18)",
     nodeStr:   "rgba(255,255,255,0.28)",
     stroke:    "rgba(255,255,255,0.42)",
@@ -1054,8 +1067,8 @@ function renderSankey() {
     svg.append("g").selectAll("text").data(stageTitles).join("text")
       .attr("x",(_,i)=>graph.nodes.find(n=>n.depth===i).x0+9)
       .attr("y",28).attr("text-anchor","middle")
-      .attr("fill","rgba(255,255,255,0.80)").attr("font-size",13).attr("font-weight",700)
-      .attr("font-family","Inter, -apple-system, sans-serif").attr("letter-spacing","0.07em")
+      .attr("fill","rgba(255,255,255,0.80)").attr("font-size",14).attr("font-weight",700)
+      .attr("font-family","ui-sans-serif, system-ui, sans-serif").attr("letter-spacing","0.07em")
       .text(d=>d);
 
     totEl.text(`${totalPaths} distinct pathways represented`);
@@ -1106,8 +1119,8 @@ function renderSankey() {
     function la(d){ return d.depth===0 ? "end" : "start"; }
 
     const lbSel = nd.append("text")
-      .attr("font-size",12).attr("fill",C.text).attr("pointer-events","none")
-      .attr("font-family","Inter, -apple-system, sans-serif")
+      .attr("font-size",13).attr("fill",C.text).attr("pointer-events","none")
+      .attr("font-family","ui-sans-serif, system-ui, sans-serif")
       .attr("x",d=>lx(d)).attr("y",d=>(d.y0+d.y1)/2)
       .attr("text-anchor",d=>la(d)).attr("dy","0.35em")
       .each(function(d){
@@ -1116,7 +1129,7 @@ function renderSankey() {
           t.append("tspan").attr("x",lx(d)).attr("dy",i===0?0:13).text(line);
         });
         t.append("tspan").attr("x",lx(d)).attr("dy",13)
-          .attr("fill",C.muted).attr("font-size",10).text(`n=${d.value}`);
+          .attr("fill",C.muted).attr("font-size",11).text(`n=${d.value}`);
       });
 
   }
@@ -1146,8 +1159,8 @@ renderSankey();
   data.forEach(d => {
     const pctW = (d.pct / maxPct * 100).toFixed(2);
     const baseW = (baseline / maxPct * 100).toFixed(2);
-    const fillColor = d.above ? "rgba(129,227,190,0.65)" : "rgba(255,255,255,0.22)";
-    const valColor  = d.above ? "rgba(129,227,190,0.9)"  : "rgba(255,255,255,0.45)";
+    const fillColor = d.above ? "rgba(122,184,165,0.58)" : "rgba(255,255,255,0.22)";
+    const valColor  = d.above ? "rgba(122,184,165,0.88)"  : "rgba(255,255,255,0.45)";
 
     const row = document.createElement("div");
     row.className = "bar-row";
@@ -1204,8 +1217,8 @@ renderSankey();
 (function() {
   // Accent green for high-agreement, fading to dim for the small dissenting tail
   const segments = [
-    { label: "A lot",       rating: 5, n: 78, color: "rgba(129,227,190,0.82)", hoverColor: "rgba(129,227,190,1.0)"  },
-    { label: "Quite a bit", rating: 4, n: 33, color: "rgba(129,227,190,0.38)", hoverColor: "rgba(129,227,190,0.58)" },
+    { label: "A lot",       rating: 5, n: 78, color: "rgba(122,184,165,0.75)", hoverColor: "rgba(122,184,165,0.95)"  },
+    { label: "Quite a bit", rating: 4, n: 33, color: "rgba(122,184,165,0.36)", hoverColor: "rgba(122,184,165,0.55)" },
     { label: "Moderate",    rating: 3, n: 6,  color: "rgba(255,255,255,0.12)", hoverColor: "rgba(255,255,255,0.22)" },
     { label: "A little",    rating: 2, n: 2,  color: "rgba(255,255,255,0.06)", hoverColor: "rgba(255,255,255,0.14)" },
   ];
@@ -1288,7 +1301,7 @@ renderSankey();
     .attr("x", d => d.x + d.w / 2)
     .attr("y", barY - 9)
     .attr("text-anchor", "middle")
-    .attr("font-family", "Inter, -apple-system, sans-serif")
+    .attr("font-family", "ui-sans-serif, system-ui, sans-serif")
     .attr("font-size", 12)
     .attr("letter-spacing", "0.03em")
     .attr("fill", d => d.rating >= 4 ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.28)")
