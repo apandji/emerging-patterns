@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore All Data · Design Leadership Survey 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Host+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --font-sans: "Space Mono", ui-monospace, "Courier New", monospace;
+      --font-display: "Host Grotesk", ui-sans-serif, system-ui, sans-serif;
+      --font-numbers: "Bitcount Prop Single", "Space Mono", monospace;
+      --ink-1: rgba(36,36,36,0.92);
+      --ink-2: rgba(36,36,36,0.68);
+      --ink-3: rgba(36,36,36,0.52);
+      --ink-4: rgba(36,36,36,0.12);
+      --ink-5: rgba(36,36,36,0.05);
+      --grid-line-width: 0.5px;
+      --grid-line-color: rgba(0, 0, 0, 0.088);
+      --grid-cell-size: 24px;
+      --grid-cell-size-tight: 8px;
+      --section-divider-weight: 1.5px;
+      --section-divider-color: rgba(36, 36, 36, 0.42);
+      --bg-0:  #F5F5F5;
+      --bg-1:  #FCFCFC;
+      --bg-2:  #F4F0EC;
+      --accent:     #EB653F;
+      --accent-mid: rgba(235,101,63,0.38);
+      --accent-dim: rgba(235,101,63,0.12);
+      --orange:     #EB653F;
+      --s1:  8px; --s2: 16px; --s3: 24px; --s4: 32px;
+      --s5: 48px; --s6: 64px; --s7: 80px; --s8: 96px;
+      --gutter:    64px;
+      --section-y: 64px;
+      --col-gap:   48px;
+      --text-xs:      0.6875rem;
+      --text-sm:      0.8125rem;
+      --text-md:      0.9375rem;
+      --text-base:    1rem;
+      --text-lead:    1.125rem;
+      --text-h4:      1.3125rem;
+      --text-h3:      1.625rem;
+      --text-h2:      2rem;
+      --text-h1:      2.5rem;
+      --text-display: 3.125rem;
+      --leading-tight: 1.1;
+      --leading-body:  1.57;
+      --t-cap:   var(--text-sm);
+      --t-xs:    var(--text-sm);
+      --t-sm:    var(--text-md);
+      --t-base:  var(--text-base);
+      --t-lg:    var(--text-lead);
+      --lh-tight: var(--leading-tight);
+      --lh-snug:  1.32;
+      --lh-base:  var(--leading-body);
+      --lh-loose: 1.62;
+      --ls-caps: 0.08em;
+      --orange-dim: rgba(235,101,63,0.09);
+      --r-sm: 4px; --r-md: 6px; --r-lg: 8px;
+    }
+
+    html { font-size: 100%; scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg-1);
+      background-image:
+        linear-gradient(var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width)),
+        linear-gradient(90deg, var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width));
+      background-size: var(--grid-cell-size) var(--grid-cell-size);
+      color: var(--ink-1);
+      font-family: var(--font-sans);
+      font-size: var(--t-base);
+      line-height: var(--lh-base);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Page header ── */
+    .page-header {
+      padding: var(--s5) var(--gutter) var(--s5);
+      border-bottom: var(--section-divider-weight) solid var(--section-divider-color);
+      background: var(--bg-1);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: var(--t-sm);
+      font-weight: 500;
+      color: var(--ink-3);
+      text-decoration: none;
+      margin-bottom: var(--s3);
+      transition: color 0.15s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-h2), 3.25vw + 0.25rem, var(--text-h1));
+      font-weight: 700;
+      letter-spacing: -0.028em;
+      line-height: 1.06;
+      color: var(--ink-1);
+      margin-bottom: var(--s1);
+    }
+    .page-title em { font-style: normal; color: var(--accent); }
+    .page-subtitle {
+      font-size: var(--t-lg);
+      line-height: var(--lh-loose);
+      color: var(--ink-2);
+      max-width: 36rem;
+    }
+
+    /* ── Main ── */
+    main {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 var(--gutter) var(--s7);
+    }
+
+    /* ── Section ── */
+    .data-section { margin-top: var(--s6); }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: var(--s3);
+      margin-bottom: var(--s4);
+      padding-bottom: var(--s3);
+      border-bottom: 1px solid var(--ink-4);
+    }
+    .section-num {
+      font-family: var(--font-sans);
+      font-size: var(--t-cap);
+      font-weight: 700;
+      letter-spacing: var(--ls-caps);
+      text-transform: uppercase;
+      color: var(--ink-3);
+      flex-shrink: 0;
+      user-select: none;
+      padding: 2px var(--s2);
+      border: 1px solid var(--ink-4);
+      border-radius: var(--r-sm);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 1.85vw + 0.65rem, var(--text-h2));
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: var(--lh-tight);
+      color: var(--ink-1);
+    }
+
+    /* ── Question grid ── */
+    .q-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--s3);
+    }
+
+    /* ── Question card ── */
+    .q-card {
+      background: var(--bg-1);
+      border: 1px solid var(--ink-4);
+      border-radius: var(--r-lg);
+      padding: var(--s4);
+    }
+    .q-card.wide { grid-column: span 2; }
+    .q-label {
+      font-family: var(--font-display);
+      font-size: var(--text-h4);
+      font-weight: 600;
+      letter-spacing: -0.015em;
+      color: var(--ink-1);
+      margin-bottom: var(--s2);
+      line-height: var(--lh-snug);
+    }
+
+    .q-eyebrow {
+      display: block;
+      font-size: var(--t-cap);
+      font-weight: 600;
+      letter-spacing: var(--ls-caps);
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: var(--s1);
+    }
+    .q-question {
+      font-size: var(--t-base);
+      color: var(--ink-2);
+      line-height: var(--lh-base);
+      margin-bottom: var(--s2);
+    }
+    .q-chart { width: 100%; }
+
+    /* ── Scale chart ── */
+    .scale-wrap { width: 100%; }
+    .scale-bar-row {
+      display: flex;
+      height: 44px;
+      border-radius: var(--r-md);
+      overflow: hidden;
+      margin-bottom: var(--s1);
+      background: var(--ink-5);
+    }
+    .scale-seg {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.15s;
+      overflow: hidden;
+    }
+    .scale-seg span {
+      font-size: var(--t-cap);
+      font-weight: 600;
+      color: rgba(255,255,255,0.82);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .scale-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: var(--s1);
+    }
+    .scale-endpoints {
+      display: flex;
+      justify-content: space-between;
+      font-size: var(--t-cap);
+      color: var(--ink-3);
+      margin-top: 4px;
+      flex: 1;
+    }
+    .scale-mean {
+      font-size: var(--t-sm);
+      color: var(--ink-2);
+      white-space: nowrap;
+    }
+    .scale-mean strong {
+      font-size: var(--text-h4);
+      font-weight: 700;
+      color: var(--accent);
+      margin-right: 2px;
+    }
+
+    /* ── Histogram stats ── */
+    .hist-stats {
+      display: flex;
+      gap: var(--s3);
+      margin-top: var(--s1);
+    }
+    .stat-item { text-align: center; }
+    .stat-val {
+      font-family: var(--font-numbers);
+      font-size: var(--t-base);
+      font-weight: 600;
+      color: rgba(36,36,36,0.80);
+    }
+    .stat-key {
+      font-size: var(--t-cap);
+      font-weight: 600;
+      color: var(--ink-3);
+      text-transform: uppercase;
+      letter-spacing: var(--ls-caps);
+    }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--bg-1);
+      border-bottom: 1px solid var(--ink-4);
+      padding: 11px var(--gutter);
+      display: flex;
+      align-items: center;
+      gap: var(--s3);
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: var(--t-cap);
+      font-weight: 600;
+      letter-spacing: var(--ls-caps);
+      text-transform: uppercase;
+      color: var(--ink-3);
+      flex-shrink: 0;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .filter-group-name {
+      font-size: var(--t-cap);
+      font-weight: 600;
+      color: var(--ink-3);
+      white-space: nowrap;
+    }
+    .filter-pills { display: flex; gap: 4px; flex-wrap: wrap; }
+    .pill {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--ink-4);
+      background: transparent;
+      color: var(--ink-2);
+      cursor: pointer;
+      transition: all 0.12s;
+      white-space: nowrap;
+      line-height: 1.6;
+    }
+    .pill:hover { border-color: var(--accent-mid); color: var(--ink-1); }
+    .pill.active {
+      background: rgba(235,101,63,0.10);
+      border-color: rgba(235,101,63,0.45);
+      color: var(--ink-1);
+      font-weight: 700;
+    }
+    .filter-divider { width: 1px; height: 20px; background: var(--ink-4); flex-shrink: 0; }
+    .filter-count {
+      margin-left: auto;
+      font-size: var(--t-xs);
+      color: var(--ink-3);
+      white-space: nowrap;
+    }
+    .filter-count strong { color: var(--accent); font-weight: 700; }
+    .filter-reset {
+      font-family: var(--font-sans);
+      font-size: var(--t-cap);
+      font-weight: 500;
+      color: var(--ink-3);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      transition: color 0.12s, opacity 0.12s;
+    }
+    .filter-reset:hover { color: var(--ink-1); }
+    .filter-reset:disabled { opacity: 0; pointer-events: none; }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      top: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-12px);
+      background: rgba(235,101,63,0.92);
+      border: 1px solid rgba(235,101,63,0.55);
+      color: #FCFCFC;
+      padding: 11px 20px;
+      border-radius: var(--r-lg);
+      font-size: var(--t-sm);
+      font-weight: 600;
+      opacity: 0;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      pointer-events: none;
+      z-index: 200;
+      white-space: nowrap;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .toast.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .toast-icon { margin-right: 7px; }
+
+    /* ── Loading / error ── */
+    #loading {
+      text-align: center;
+      padding: 80px;
+      color: var(--ink-3);
+      font-size: var(--t-base);
+    }
+    #error {
+      text-align: center;
+      padding: 80px 40px;
+      color: var(--orange);
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    #error h3 { margin-bottom: 12px; }
+    #error code {
+      display: block;
+      margin-top: 12px;
+      font-size: var(--t-xs);
+      color: var(--ink-3);
+      font-family: monospace;
+      background: rgba(36,36,36,0.04);
+      padding: 8px 12px;
+      border-radius: var(--r-md);
+      border: 1px solid var(--ink-4);
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      padding: var(--s5) var(--gutter);
+      border-top: var(--section-divider-weight) solid var(--section-divider-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: var(--s2);
+    }
+    .footer-note {
+      font-size: var(--t-sm);
+      color: var(--ink-3);
+      line-height: var(--lh-loose);
+      max-width: 560px;
+    }
+    .footer-brand {
+      font-size: var(--t-cap);
+      font-weight: 600;
+      color: var(--ink-3);
+      letter-spacing: var(--ls-caps);
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ── Map ── */
+    .map-wrap { position: relative; width: 100%; }
+    .map-tooltip {
+      position: absolute;
+      pointer-events: none;
+      background: #FCFCFC;
+      border: 1px solid var(--ink-4);
+      border-radius: var(--r-md);
+      padding: 6px var(--s2);
+      font-size: var(--t-sm);
+      color: var(--ink-1);
+      opacity: 0;
+      transition: opacity 0.1s;
+      white-space: nowrap;
+      z-index: 30;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    }
+    path.country { transition: fill 0.12s; }
+  </style>
+</head>
+<body>
+
+<header class="page-header">
+  <a href="index.html" class="back-link">← Back to findings</a>
+  <h1 class="page-title">Explore <em>all</em> the data</h1>
+  <p class="page-subtitle">Every survey question, visualized &nbsp;·&nbsp; 119 design leaders &nbsp;·&nbsp; 2026</p>
+</header>
+
+<div class="filter-bar" id="filter-bar" style="display:none">
+  <span class="filter-label">Filter</span>
+  <div class="filter-group">
+    <span class="filter-group-name">Age</span>
+    <div class="filter-pills" id="pills-age"></div>
+  </div>
+  <div class="filter-divider"></div>
+  <div class="filter-group">
+    <span class="filter-group-name">Gender</span>
+    <div class="filter-pills" id="pills-gender"></div>
+  </div>
+  <div class="filter-divider"></div>
+  <div class="filter-group">
+    <span class="filter-group-name">Region</span>
+    <div class="filter-pills" id="pills-region"></div>
+  </div>
+  <div class="filter-divider"></div>
+  <button class="filter-reset" id="filter-reset" disabled>Clear filters</button>
+  <span class="filter-count" id="filter-count"></span>
+</div>
+
+<div id="loading">Loading survey data…</div>
+
+<div id="error" style="display:none">
+  <h3>Couldn't load the CSV file.</h3>
+  <p>Open this page through a local server (e.g. VS Code Live Server) rather than directly from the file system.</p>
+  <code>round-2-protos/explore.html → ../data/quant-survey-responses-raw.csv</code>
+</div>
+
+<main id="main-content" style="display:none"></main>
+
+<div class="toast" id="toast"><span class="toast-icon">⚠</span><span id="toast-msg"></span></div>
+
+<footer class="page-footer">
+  <div class="footer-note">
+    Survey of 119 design leaders &nbsp;·&nbsp; Fielded March 2026<br>
+    Multi-select questions allow more than one answer per respondent — totals may exceed 100%. Free-text and open-ended responses are not shown.
+  </div>
+  <div class="footer-brand">Design Leadership Research &nbsp;·&nbsp; 2026</div>
+</footer>
+
+<script>
+// ══════════════════════════════════════
+// QUESTION DEFINITIONS
+// ══════════════════════════════════════
+
+const SECTIONS = [
+  {
+    num: '01', title: 'Who They Are',
+    questions: [
+      { label: 'Age range', col: 'Select the age range that applies', type: 'bar',
+        order: ['24-35','36-45','46-55','56-65','65+'] },
+      { label: 'Gender identity', col: 'What gender do you identify with?', type: 'bar' },
+      { label: 'Region', col: 'In what region do you currently live / work?', type: 'map', wide: true },
+      { label: 'Years as a professional designer', wide: true,
+        col: 'How many years have you been a professional designer? (regardless of career level)',
+        type: 'hist', unit: 'years' },
+    ]
+  },
+  {
+    num: '02', title: 'Path to Design',
+    questions: [
+      { label: 'Academic / professional background before design', wide: true,
+        col: 'Before starting your design career, what was your primary academic or professional trajectory?',
+        type: 'bar' },
+      { label: 'Highest design education completed',
+        col: 'What is the highest level of design education you have completed?',
+        type: 'bar',
+        order: ["I hold a Master's degree or higher in design.", "I hold an undergraduate degree in design",
+                "I hold a degree in design from a community college.", "I have a bootcamp certificate.",
+                "I did not study design formally."] },
+      { label: 'When first considered design as a career',
+        col: 'When did you first consider design as a career path', type: 'bar' },
+      { label: 'Confidence when first considering design',
+        col: 'When you first considered design as a career path, what was your level of confidence in your decision?',
+        type: 'scale', lo: 'No confidence', hi: 'Complete confidence' },
+      { label: 'Support from people around you',
+        col: 'How supportive were the people around you about pursuing design as career?',
+        type: 'scale', lo: 'Not at all supportive', hi: 'Extremely supportive' },
+      { label: 'Natural leadership qualities growing up',
+        col: 'To what degree do you feel like you displayed natural qualities of leadership when you were growing up?',
+        type: 'scale', lo: 'Not at all', hi: 'Very strongly' },
+      { label: 'How you describe your entry into design', wide: true,
+        col: 'How would you describe your entry into design as a career?', type: 'bar' },
+      { label: '"Someone actively invited or guided me into design"',
+        col: 'How much do you agree with the following statement: "Someone actively invited or guided me into the design field (e.g., a mentor, professor, or peer)."',
+        type: 'scale', lo: 'Strongly disagree', hi: 'Strongly agree' },
+      { label: 'First career job — designer or different field?',
+        col: 'Was your first career job as a designer or in a different profession/industry?', type: 'bar' },
+    ]
+  },
+  {
+    num: '03', title: 'First Role',
+    questions: [
+      { label: 'Scale of first design team',
+        col: ' How would you describe the scale of the first design team you worked in?', type: 'bar' },
+      { label: 'Type of first organization',
+        col: ' How would you describe the type of organization you first worked in as a designer?', type: 'bar' },
+      { label: 'First design discipline(s)', wide: true,
+        col: ' How would you describe the design discipline / practice of your first professional design job?',
+        type: 'multi' },
+    ]
+  },
+  {
+    num: '04', title: 'Current Role',
+    questions: [
+      { label: 'Current career level (grouped)', wide: true,
+        col: 'What career level best describes your current position?',
+        type: 'bar', mapFn: 'level',
+        order: ['CDO / Chief','VP','Director','Manager','Senior IC / Lead','Consulting / founding','Other / hybrid'] },
+      { label: 'Sufficiently onboarded / trained for current role',
+        col: 'When you began your current role, to what degree were you sufficiently onboarded or trained? ',
+        type: 'scale', lo: 'Not at all', hi: 'Completely' },
+      { label: 'Influence of coaches, mentors, or sponsors',
+        col: "As you've advanced in your career, how much have coaches, mentors, or sponsors influenced your journey? ",
+        type: 'scale', lo: 'Not at all', hi: 'Greatly' },
+      { label: 'Formal management / leadership training received',
+        col: "As you've advanced in your carer, have you received formal training in management or leadership? ",
+        type: 'scale', lo: 'None at all', hi: 'Extensive' },
+    ]
+  },
+  {
+    num: '05', title: 'Career Setbacks & Growth',
+    questions: [
+      { label: 'Major career setbacks (select all that apply)', wide: true,
+        col: 'Which of the following have been major setbacks in your career [select all that apply]',
+        type: 'multi' },
+      { label: 'Years until first formal design leadership role',
+        col: 'How many years into your career did you first hold a formal design leadership role? (i.e. managing people or leading a project/initiative)',
+        type: 'hist', unit: 'years into career' },
+      { label: 'Designers who report up to you',
+        col: 'In your current role, how many designers report up to you? (directly or indirectly)',
+        type: 'hist', unit: 'designers' },
+      { label: 'Factors most important to career advancement (top 3)', wide: true,
+        col: 'Which factors have been most important to you advancing in your career as a design leader? [select at most 3]',
+        type: 'multi' },
+    ]
+  },
+  {
+    num: '06', title: 'Looking Forward',
+    questions: [
+      { label: 'How design industry will evolve in next 5 years',
+        col: 'In the next 5 years, how do you expect the global design industry to evolve?',
+        type: 'scale', lo: 'Stay the same', hi: 'Change dramatically' },
+      { label: 'How much tool stack will change in next 5 years',
+        col: 'In the next 5 years, how much do you expect your tool stack to change?',
+        type: 'scale', lo: 'Very little', hi: 'Completely' },
+      { label: 'Intended career trajectory (next 5 years)', wide: true,
+        col: 'In the next 5 years, which direction best describes your intended career trajectory? ',
+        type: 'bar' },
+      { label: 'Actively investing in own career growth',
+        col: 'How much are you actively investing in your own career aspirations?',
+        type: 'scale', lo: 'Not much', hi: 'A great deal' },
+      { label: 'Developing successors / next-gen leaders',
+        col: 'How much are you actively developing successors or next-generation leaders in your team or org?',
+        type: 'scale', lo: 'Not much', hi: 'A great deal' },
+      { label: 'People mentored in past 3 years',
+        col: 'How many people have you mentored in the past 3 years? (rough estimate)',
+        type: 'hist', unit: 'people' },
+      { label: 'Engaged in activities outside primary role (select all)', wide: true,
+        col: 'Outside of your primary role, are you currently engaged in any of the following? (Select all that apply)',
+        type: 'multi' },
+    ]
+  },
+];
+
+// ══════════════════════════════════════
+// COLORS
+// ══════════════════════════════════════
+
+const SCALE_COLORS = [
+  'rgba(192,72,40,0.80)',   // 1
+  'rgba(235,101,63,0.40)',  // 2
+  'rgba(36,36,36,0.12)',   // 3
+  'rgba(235,101,63,0.55)', // 4
+  'rgba(235,101,63,0.88)', // 5
+];
+
+// ══════════════════════════════════════
+// WORLD MAP
+// ══════════════════════════════════════
+
+const COUNTRY_REGIONS = {};
+(function() {
+  const set = (ids, r) => ids.forEach(id => { COUNTRY_REGIONS[id] = r; });
+  set([124,840,484,304,320,84,340,222,558,188,591,192,332,214,388,780,44,630,52,308,659,662,670,28,212], 'North America');
+  set([32,68,76,152,170,218,328,604,600,858,862,740,254,226], 'South / Central America');
+  set([8,20,40,56,70,100,112,191,196,203,208,233,246,250,276,300,348,352,372,380,428,438,440,442,470,492,498,528,578,616,620,642,643,688,703,705,724,752,756,804,807,826,51,268,31], 'Europe');
+  set([4,50,64,96,104,116,144,156,158,344,360,392,408,410,417,418,458,462,496,524,586,608,702,704,764,762,795,860,626], 'Asia');
+  set([48,364,368,376,400,414,422,512,634,275,682,760,784,887,792], 'Middle East');
+  set([12,24,204,72,108,120,140,148,174,178,180,262,818,231,232,266,270,288,324,384,404,426,430,434,466,478,504,508,516,562,566,646,678,686,694,706,710,716,728,748,768,788,800,834,894,732], 'Africa');
+  set([36,554,242,296,520,584,583,548,570,585,598,882,90,776,798], 'Australia / NZ / Pacific Islands');
+})();
+
+let _worldData = null;
+
+function drawMap(container, rows, col) {
+  const counts = new Map();
+  rows.forEach(r => {
+    const v = (r[col] || '').trim();
+    if (v) counts.set(v, (counts.get(v) || 0) + 1);
+  });
+  const total = rows.length;
+  const regionMax = Math.max(...counts.values());
+  const FONT = 'ui-sans-serif, system-ui, -apple-system, sans-serif';
+  const W = 960, H = 460;
+
+  const wrap = d3.select(container).append('div').attr('class', 'map-wrap');
+  const svg = wrap.append('svg')
+    .attr('width', '100%').attr('height', H)
+    .attr('viewBox', `0 0 ${W} ${H}`)
+    .attr('preserveAspectRatio', 'xMidYMid meet')
+    .style('font-family', FONT);
+  const tooltip = wrap.append('div').attr('class', 'map-tooltip');
+
+  const projection = d3.geoNaturalEarth1()
+    .scale(155).translate([W / 2, H / 2 + 16]);
+  const path = d3.geoPath().projection(projection);
+
+  function regionColor(region) {
+    const count = region ? (counts.get(region) || 0) : 0;
+    if (!count) return 'rgba(36,36,36,0.05)';
+    const t = Math.sqrt(count / regionMax);
+    return `rgba(235,101,63,${(0.15 + t * 0.65).toFixed(2)})`;
+  }
+
+  function renderWorld(world) {
+    const countries = topojson.feature(world, world.objects.countries);
+
+    svg.append('path')
+      .datum(d3.geoGraticule()())
+      .attr('d', path)
+      .attr('fill', 'none')
+      .attr('stroke', 'rgba(36,36,36,0.06)')
+      .attr('stroke-width', 0.4);
+
+    svg.selectAll('path.country')
+      .data(countries.features)
+      .enter().append('path')
+      .attr('class', 'country')
+      .attr('d', path)
+      .attr('fill', d => regionColor(COUNTRY_REGIONS[+d.id]))
+      .attr('stroke', 'rgba(36,36,36,0.25)')
+      .attr('stroke-width', 0.4)
+      .on('mousemove', function(event, d) {
+        const region = COUNTRY_REGIONS[+d.id];
+        const count = region ? counts.get(region) : 0;
+        if (!count) { tooltip.style('opacity', 0); return; }
+        const pct = Math.round(count / total * 100);
+        const [mx, my] = d3.pointer(event, wrap.node());
+        tooltip
+          .style('opacity', 1)
+          .style('left', `${mx + 14}px`)
+          .style('top', `${my - 36}px`)
+          .html(`<strong>${region}</strong>&ensp;${count}&thinsp;&middot;&thinsp;${pct}%`);
+      })
+      .on('mouseleave', () => tooltip.style('opacity', 0));
+
+    const legendItems = [...counts.entries()].sort((a, b) => b[1] - a[1]);
+    const lg = svg.append('g').attr('transform', `translate(16,${H - 14 - legendItems.length * 18})`);
+    legendItems.forEach(([region, count], i) => {
+      const pct = Math.round(count / total * 100);
+      const t = Math.sqrt(count / regionMax);
+      lg.append('rect')
+        .attr('x', 0).attr('y', i * 18).attr('width', 10).attr('height', 10).attr('rx', 2)
+        .attr('fill', `rgba(235,101,63,${(0.15 + t * 0.65).toFixed(2)})`);
+      lg.append('text')
+        .attr('x', 16).attr('y', i * 18 + 9)
+        .attr('dominant-baseline', 'middle')
+        .attr('font-size', 11).attr('fill', 'rgba(36,36,36,0.55)')
+        .text(`${region}  ·  ${count} (${pct}%)`);
+    });
+  }
+
+  if (_worldData) {
+    renderWorld(_worldData);
+  } else {
+    fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+      .then(r => r.json())
+      .then(world => { _worldData = world; renderWorld(world); })
+      .catch(() => {
+        d3.select(container).append('p')
+          .style('color', 'var(--ink-3)').style('font-size', 'var(--t-sm)')
+          .text('Map unavailable — open via a local server.');
+      });
+  }
+}
+
+// ══════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════
+
+function trunc(str, n) {
+  const s = String(str || '').trim();
+  return s.length > n ? s.slice(0, n - 1) + '…' : s;
+}
+
+// Split multi-select values respecting parentheses
+function parseMulti(val) {
+  const result = [];
+  let depth = 0, curr = '';
+  for (const c of String(val || '')) {
+    if (c === '(') { depth++; curr += c; }
+    else if (c === ')') { depth--; curr += c; }
+    else if (c === ',' && depth === 0) {
+      const s = curr.trim();
+      if (s) result.push(s);
+      curr = '';
+    } else {
+      curr += c;
+    }
+  }
+  const s = curr.trim();
+  if (s) result.push(s);
+  return result;
+}
+
+function mapLevel(v) {
+  const t = String(v || '').trim().toLowerCase();
+  if (!t) return 'Other / hybrid';
+  if (['founder','partner','consulting','consultant','advisor','mentor'].some(k => t.includes(k))) return 'Consulting / founding';
+  if (['chief','cdo'].some(k => t.includes(k))) return 'CDO / Chief';
+  if (['vp','svp','vice president'].some(k => t.includes(k))) return 'VP';
+  if (t.includes('director')) return 'Director';
+  if (['manager','managing'].some(k => t.includes(k))) return 'Manager';
+  if (['staff','principal','senior / lead','lead designer','senior ic','ic ','student','uxr','researcher'].some(k => t.includes(k))) return 'Senior IC / Lead';
+  if (['freelance','independent'].some(k => t.includes(k))) return 'Consulting / founding';
+  return 'Other / hybrid';
+}
+
+function countValues(rows, col, opts) {
+  const counts = new Map();
+  rows.forEach(r => {
+    let val = (r[col] || '').trim();
+    if (!val) return;
+    if (opts?.mapFn === 'level') val = mapLevel(val);
+    counts.set(val, (counts.get(val) || 0) + 1);
+  });
+  return counts;
+}
+
+function countMultiSelect(rows, col) {
+  const counts = new Map();
+  rows.forEach(r => {
+    parseMulti(r[col]).forEach(item => {
+      counts.set(item, (counts.get(item) || 0) + 1);
+    });
+  });
+  return counts;
+}
+
+function sortedItems(countMap, order) {
+  let items = Array.from(countMap.entries()).map(([label, count]) => ({ label, count }));
+  if (order) {
+    items.sort((a, b) => {
+      const ai = order.indexOf(a.label), bi = order.indexOf(b.label);
+      if (ai !== -1 && bi !== -1) return ai - bi;
+      if (ai !== -1) return -1;
+      if (bi !== -1) return 1;
+      return b.count - a.count;
+    });
+  } else {
+    items.sort((a, b) => b.count - a.count);
+  }
+  const total = items.reduce((s, d) => s + d.count, 0);
+  return items.map(d => ({ ...d, pct: Math.round(d.count / total * 100) }));
+}
+
+// ══════════════════════════════════════
+// CHART RENDERERS
+// ══════════════════════════════════════
+
+const ML = 200; // label margin
+const MR = 76;
+const MT = 6;
+const MB = 6;
+const ROW_H = 32;
+const BAR_H = 18;
+const ML_WIDE = 280;
+const MR_WIDE = 90;
+
+function drawBar(container, items, wide) {
+  if (!items.length) return;
+  const ml = wide ? ML_WIDE : ML;
+  const mr = wide ? MR_WIDE : MR;
+  const VW = wide ? 1100 : 700;
+  const chartW = VW - ml - mr;
+  const maxVal = Math.max(...items.map(d => d.count));
+  const n = items.length;
+  const H = n * ROW_H + MT + MB;
+  const truncLen = wide ? 42 : 30;
+
+  const FONT = 'ui-sans-serif, system-ui, -apple-system, sans-serif';
+
+  const svg = d3.select(container).append('svg')
+    .attr('width', '100%')
+    .attr('height', H)
+    .attr('viewBox', `0 0 ${VW} ${H}`)
+    .attr('preserveAspectRatio', 'xMinYMid meet')
+    .style('font-family', FONT);
+
+  const g = svg.append('g').attr('transform', `translate(${ml},${MT})`);
+
+  items.forEach((d, i) => {
+    const y = i * ROW_H;
+    const midY = y + ROW_H / 2;
+    const barW = Math.max(2, (d.count / maxVal) * chartW);
+    const isTop = d.count === maxVal;
+
+
+    // Label
+    g.append('text')
+      .attr('x', -10)
+      .attr('y', midY)
+      .attr('text-anchor', 'end')
+      .attr('dominant-baseline', 'middle')
+      .attr('font-size', 12)
+      .attr('font-weight', isTop ? 600 : 400)
+      .attr('fill', isTop ? 'rgba(36,36,36,0.88)' : 'rgba(36,36,36,0.55)')
+      .text(trunc(d.label, truncLen));
+
+    // Bar bg
+    g.append('rect')
+      .attr('x', 0).attr('y', y + (ROW_H - BAR_H) / 2)
+      .attr('width', chartW).attr('height', BAR_H)
+      .attr('rx', 3)
+      .attr('fill', 'rgba(36,36,36,0.05)');
+
+    // Bar fill
+    g.append('rect')
+      .attr('x', 0).attr('y', y + (ROW_H - BAR_H) / 2)
+      .attr('width', barW).attr('height', BAR_H)
+      .attr('rx', 3)
+      .attr('fill', isTop ? 'rgba(235,101,63,0.75)' : 'rgba(235,101,63,0.30)');
+
+    // Pct
+    g.append('text')
+      .attr('x', chartW + 10)
+      .attr('y', midY)
+      .attr('dominant-baseline', 'middle')
+      .attr('font-size', 11)
+      .attr('fill', isTop ? 'rgba(36,36,36,0.75)' : 'rgba(36,36,36,0.42)')
+      .text(`${d.pct}%`);
+  });
+}
+
+function drawScale(container, rows, col, lo, hi) {
+  const counts = new Map([1,2,3,4,5].map(r => [r, 0]));
+  let total = 0;
+  rows.forEach(r => {
+    const v = parseInt((r[col] || '').trim(), 10);
+    if (v >= 1 && v <= 5) { counts.set(v, counts.get(v) + 1); total++; }
+  });
+  if (!total) return;
+
+  const mean = [1,2,3,4,5].reduce((s, r) => s + r * counts.get(r), 0) / total;
+
+  const wrap = d3.select(container).append('div').attr('class', 'scale-wrap');
+  const barRow = wrap.append('div').attr('class', 'scale-bar-row');
+
+  [1,2,3,4,5].forEach(r => {
+    const cnt = counts.get(r);
+    const pct = cnt / total * 100;
+    if (pct < 0.5) return;
+    const seg = barRow.append('div')
+      .attr('class', 'scale-seg')
+      .style('width', `${pct}%`)
+      .style('background', SCALE_COLORS[r - 1])
+      .style('min-width', pct > 4 ? '20px' : '0');
+    if (pct > 9) seg.append('span').text(`${Math.round(pct)}%`);
+  });
+
+  const footer = wrap.append('div').attr('class', 'scale-footer');
+  const epDiv = footer.append('div').attr('class', 'scale-endpoints');
+  epDiv.append('span').text(`1 — ${lo}`);
+  epDiv.append('span').text(`${hi} — 5`);
+  footer.append('div').attr('class', 'scale-mean')
+    .html(`<strong>${mean.toFixed(1)}</strong><span style="color:var(--ink-3);font-size:var(--t-cap)"> / 5 avg</span>`);
+}
+
+function drawHistogram(container, rows, col, unit) {
+  const nums = rows.map(r => parseFloat((r[col] || '').trim()))
+    .filter(v => !isNaN(v) && v >= 0 && v < 1000);
+  if (!nums.length) return;
+
+  const mn = d3.min(nums), mx = d3.max(nums);
+  let thresh;
+  if (mx <= 20) thresh = d3.range(0, mx + 2, 1);
+  else if (mx <= 60) thresh = d3.range(0, mx + 5, 5);
+  else thresh = d3.range(0, mx + 10, 10);
+
+  const bins = d3.bin().thresholds(thresh)(nums);
+
+  const VW = 700, H = 180;
+  const mL = 30, mR = 20, mT = 18, mB = 30;
+  const cW = VW - mL - mR, cH = H - mT - mB;
+
+  const x = d3.scaleBand().domain(bins.map(b => b.x0)).range([0, cW]).padding(0.18);
+  const y = d3.scaleLinear().domain([0, d3.max(bins, b => b.length)]).nice().range([cH, 0]);
+  const maxBin = d3.max(bins, b => b.length);
+
+  const FONT = 'ui-sans-serif, system-ui, -apple-system, sans-serif';
+
+  const svg = d3.select(container).append('svg')
+    .attr('width', '100%')
+    .attr('height', H)
+    .attr('viewBox', `0 0 ${VW} ${H}`)
+    .attr('preserveAspectRatio', 'xMinYMid meet')
+    .style('font-family', FONT);
+
+  const g = svg.append('g').attr('transform', `translate(${mL},${mT})`);
+
+  // Grid lines
+  y.ticks(4).forEach(t => {
+    g.append('line')
+      .attr('x1', 0).attr('y1', y(t))
+      .attr('x2', cW).attr('y2', y(t))
+      .attr('stroke', 'rgba(36,36,36,0.10)')
+      .attr('stroke-dasharray', '3,3');
+    g.append('text')
+      .attr('x', -5).attr('y', y(t))
+      .attr('text-anchor', 'end').attr('dominant-baseline', 'middle')
+      .attr('font-size', 10).attr('fill', 'rgba(36,36,36,0.45)')
+      .text(t);
+  });
+
+  // Bars
+  g.selectAll('rect.bar').data(bins).enter().append('rect')
+    .attr('class', 'bar')
+    .attr('x', b => x(b.x0))
+    .attr('y', b => y(b.length))
+    .attr('width', x.bandwidth())
+    .attr('height', b => cH - y(b.length))
+    .attr('rx', 3)
+    .attr('fill', b => b.length === maxBin ? 'rgba(235,101,63,0.75)' : 'rgba(235,101,63,0.30)');
+
+  // Count labels on bars
+  g.selectAll('text.blabel').data(bins.filter(b => b.length > 0)).enter().append('text')
+    .attr('class', 'blabel')
+    .attr('x', b => x(b.x0) + x.bandwidth() / 2)
+    .attr('y', b => y(b.length) - 3)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', 10).attr('fill', 'rgba(36,36,36,0.60)')
+    .text(b => b.length || '');
+
+  // X axis labels — show every N ticks to avoid crowding
+  const showEvery = bins.length > 14 ? 3 : bins.length > 8 ? 2 : 1;
+  g.selectAll('text.xlabel').data(bins.filter((_, i) => i % showEvery === 0)).enter().append('text')
+    .attr('class', 'xlabel')
+    .attr('x', b => x(b.x0) + x.bandwidth() / 2)
+    .attr('y', cH + 14)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', 11).attr('fill', 'rgba(36,36,36,0.55)')
+    .text(b => b.x0);
+
+  // Unit label
+  svg.append('text')
+    .attr('x', mL).attr('y', H - 2)
+    .attr('font-size', 10).attr('fill', 'rgba(36,36,36,0.45)')
+    .attr('font-style', 'italic')
+    .text(unit);
+
+  // Stats
+  const statsDiv = d3.select(container).append('div').attr('class', 'hist-stats');
+  [
+    ['Median', d3.median(nums)?.toFixed(1)],
+    ['Mean',   d3.mean(nums)?.toFixed(1)],
+    ['Min',    d3.min(nums)],
+    ['Max',    d3.max(nums)],
+    ['n',      nums.length],
+  ].forEach(([k, v]) => {
+    const item = statsDiv.append('div').attr('class', 'stat-item');
+    item.append('div').attr('class', 'stat-val').text(v);
+    item.append('div').attr('class', 'stat-key').text(k);
+  });
+}
+
+// ══════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════
+
+function renderAll(rows) {
+  const total = rows.length;
+  const mainEl = document.getElementById('main-content');
+
+  SECTIONS.forEach(section => {
+    const secEl = document.createElement('div');
+    secEl.className = 'data-section';
+
+    const headerEl = document.createElement('div');
+    headerEl.className = 'section-header';
+    headerEl.innerHTML = `<span class="section-num">${section.num}</span><h2 class="section-title">${section.title}</h2>`;
+    secEl.appendChild(headerEl);
+
+    const gridEl = document.createElement('div');
+    gridEl.className = 'q-grid';
+
+    section.questions.forEach(q => {
+      const card = document.createElement('div');
+      card.className = q.wide ? 'q-card wide' : 'q-card';
+
+      card.innerHTML = `<p class="q-label">${q.label}</p>`;
+
+      const chartEl = document.createElement('div');
+      chartEl.className = 'q-chart';
+      card.appendChild(chartEl);
+
+      if (q.type === 'scale') {
+        drawScale(chartEl, rows, q.col, q.lo, q.hi);
+
+      } else if (q.type === 'bar') {
+        const counts = countValues(rows, q.col, { mapFn: q.mapFn });
+        const items = sortedItems(counts, q.order);
+        drawBar(chartEl, items, q.wide);
+
+      } else if (q.type === 'hist') {
+        drawHistogram(chartEl, rows, q.col, q.unit || '');
+
+      } else if (q.type === 'map') {
+        drawMap(chartEl, rows, q.col);
+
+      } else if (q.type === 'multi') {
+        const counts = countMultiSelect(rows, q.col);
+        const items = sortedItems(counts).map(d => ({ ...d, pct: Math.round(d.count / total * 100) }));
+        drawBar(chartEl, items, true);
+      }
+
+      gridEl.appendChild(card);
+    });
+
+    secEl.appendChild(gridEl);
+    mainEl.appendChild(secEl);
+  });
+}
+
+// ══════════════════════════════════════
+// FILTER STATE
+// ══════════════════════════════════════
+
+let allRows = [];
+const filters = { age: 'all', gender: 'all', region: 'all' };
+
+const COL_AGE    = 'Select the age range that applies';
+const COL_GENDER = 'What gender do you identify with?';
+const COL_REGION = 'In what region do you currently live / work?';
+const AGE_ORDER  = ['24-35','36-45','46-55','56-65','65+'];
+
+function applyFilters() {
+  return allRows.filter(r => {
+    if (filters.age    !== 'all' && (r[COL_AGE]    || '').trim() !== filters.age)    return false;
+    if (filters.gender !== 'all' && (r[COL_GENDER] || '').trim() !== filters.gender) return false;
+    if (filters.region !== 'all' && (r[COL_REGION] || '').trim() !== filters.region) return false;
+    return true;
+  });
+}
+
+function refresh() {
+  const filtered   = applyFilters();
+  const isFiltered = Object.values(filters).some(v => v !== 'all');
+
+  document.getElementById('filter-count').innerHTML = isFiltered
+    ? `<strong>${filtered.length}</strong> of ${allRows.length} respondents`
+    : `${allRows.length} respondents`;
+  document.getElementById('filter-reset').disabled = !isFiltered;
+
+  const mainEl = document.getElementById('main-content');
+  mainEl.innerHTML = '';
+  renderAll(filtered);
+}
+
+function buildPills(containerId, values, filterKey, order) {
+  const container = document.getElementById(containerId);
+  const sorted = order
+    ? [...values].sort((a, b) => {
+        const ai = order.indexOf(a), bi = order.indexOf(b);
+        if (ai !== -1 && bi !== -1) return ai - bi;
+        if (ai !== -1) return -1; if (bi !== -1) return 1;
+        return a.localeCompare(b);
+      })
+    : [...values].sort((a, b) => a.localeCompare(b));
+
+  const allPill = document.createElement('button');
+  allPill.className = 'pill active';
+  allPill.textContent = 'All';
+  allPill.dataset.val = 'all';
+  allPill.addEventListener('click', () => setFilter(filterKey, 'all', container));
+  container.appendChild(allPill);
+
+  sorted.forEach(val => {
+    const btn = document.createElement('button');
+    btn.className = 'pill';
+    btn.textContent = val;
+    btn.dataset.val = val;
+    btn.addEventListener('click', () => setFilter(filterKey, val, container));
+    container.appendChild(btn);
+  });
+}
+
+let toastTimer = null;
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  toast.classList.add('visible');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('visible'), 3500);
+}
+
+function setFilter(key, val, pillContainer) {
+  const prev = filters[key];
+  filters[key] = val;
+
+  if (applyFilters().length < 5) {
+    filters[key] = prev; // revert
+    showToast('Not enough data — fewer than 5 respondents match this filter.');
+    return;
+  }
+
+  pillContainer.querySelectorAll('.pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.val === val);
+  });
+  refresh();
+}
+
+// ══════════════════════════════════════
+// LOAD DATA
+// ══════════════════════════════════════
+
+d3.csv('../data/quant-survey-responses-raw.csv').then(rows => {
+  allRows = rows;
+
+  const ages    = new Set(rows.map(r => (r[COL_AGE]    || '').trim()).filter(Boolean));
+  const genders = new Set(rows.map(r => (r[COL_GENDER] || '').trim()).filter(Boolean));
+  const regions = new Set(rows.map(r => (r[COL_REGION] || '').trim()).filter(Boolean));
+
+  buildPills('pills-age',    ages,    'age',    AGE_ORDER);
+  buildPills('pills-gender', genders, 'gender', ['Male','Female','Non binary']);
+  buildPills('pills-region', regions, 'region', null);
+
+  document.getElementById('filter-reset').addEventListener('click', () => {
+    filters.age = filters.gender = filters.region = 'all';
+    document.querySelectorAll('.pill').forEach(p => {
+      p.classList.toggle('active', p.dataset.val === 'all');
+    });
+    refresh();
+  });
+
+  document.getElementById('loading').style.display    = 'none';
+  document.getElementById('filter-bar').style.display = '';
+  document.getElementById('main-content').style.display = 'block';
+  refresh();
+}).catch(() => {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('error').style.display   = 'block';
+});
+</script>
+</body>
+</html>
