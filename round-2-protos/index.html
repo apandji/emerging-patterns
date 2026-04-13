@@ -271,7 +271,7 @@
        SANKEY SECTION
     ══════════════════════════════════════════ */
     #sankey-section {
-      background: #000;
+      background: var(--bg-1);
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -282,7 +282,7 @@
     #sankey-section .section-wrap {
       padding-top: var(--s6);
       padding-bottom: var(--s3);
-      background: #000;
+      background: var(--bg-1);
       flex-shrink: 0;
     }
     #sankey-wrap {
@@ -290,7 +290,7 @@
       width: 100%;
       flex: 1;
       min-height: 0;
-      background: #000;
+      background: var(--bg-1);
     }
     #sankey-chart {
       width: 100%;
@@ -348,8 +348,24 @@
       scroll-snap-align: start;
       scroll-snap-stop: always;
     }
-    #route-exec   { background: var(--bg-1); }
-    #route-founder { background: var(--bg-2); }
+    #route-origins { background: var(--bg-1); }
+    .route-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s6);
+      align-items: start;
+    }
+    .route-col-label {
+      font-size: var(--t-cap);
+      font-weight: 700;
+      letter-spacing: var(--ls-caps);
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: var(--s3);
+    }
+    @media (max-width: 820px) {
+      .route-cols { grid-template-columns: 1fr; }
+    }
     .panel-title {
       font-family: var(--font-display);
       font-size: clamp(1.375rem, 2.2vw, 2rem);
@@ -456,13 +472,13 @@
       scroll-snap-align: start;
       scroll-snap-stop: always;
     }
-    .full-panel.alt-bg { background: var(--bg-2); }
+    .full-panel.alt-bg { background: var(--bg-1); }
     /* Constrain content width so the bar doesn't span absurdly wide */
     .full-panel .panel-desc { max-width: 600px; }
     .full-panel .stacked-bar-wrap { max-width: 100%; }
 
     /* ══════════════════════════════════════════
-       FINDING 04 — STACKED BAR
+       FINDING 03 — STACKED BAR
     ══════════════════════════════════════════ */
     .bar-callout-row {
       display: flex;
@@ -569,7 +585,7 @@
       /* Bar rows in findings 02 & 03 */
       .bar-lbl { width: 120px; }
 
-      /* Finding 04 — stack callout stat above description */
+      /* Finding 03 — stack callout stat above description */
       .bar-callout-row {
         flex-direction: column;
         align-items: flex-start;
@@ -668,7 +684,7 @@
     ══════════════════════════════════════════ */
     .explore-cta {
       padding: var(--s8) var(--gutter);
-      background: var(--bg-0);
+      background: var(--bg-1);
       border-top: 1px solid var(--ink-4);
       text-align: center;
       min-height: 100vh;
@@ -721,9 +737,8 @@
 <nav class="scroll-nav" aria-label="Section navigation">
   <button class="scroll-nav-dot active" data-target="#hero"><span class="dot-label">Intro</span></button>
   <button class="scroll-nav-dot" data-target="#sankey-section"><span class="dot-label">Career Pathways</span></button>
-  <button class="scroll-nav-dot" data-target="#route-exec"><span class="dot-label">Executive Track</span></button>
-  <button class="scroll-nav-dot" data-target="#route-founder"><span class="dot-label">Founder Track</span></button>
-  <button class="scroll-nav-dot" data-target="#finding-04"><span class="dot-label">Tool Stack</span></button>
+  <button class="scroll-nav-dot" data-target="#route-origins"><span class="dot-label">Starting Points</span></button>
+  <button class="scroll-nav-dot" data-target="#finding-03"><span class="dot-label">Tool Stack</span></button>
   <button class="scroll-nav-dot" data-target=".explore-cta"><span class="dot-label">Explore All</span></button>
 </nav>
 
@@ -733,8 +748,8 @@
 ════════════════════════════════════ -->
 <section id="hero">
   <div class="hero-meta">Design Leadership Survey &middot; n=119 &middot; 2026</div>
-  <h1 class="hero-title">How design leaders<br><em>got here</em></h1>
-  <p class="hero-desc">119 design leaders surveyed across every level, background, and path. Fewer barriers than you'd expect — and sharper forks than you'd imagine.</p>
+  <h1 class="hero-title">Design leadership is at<br>an <em>inflection point</em></h1>
+  <p class="hero-desc">119 design leaders surveyed on how they got here, what's disrupting their careers, and where they think the profession is headed. The picture that emerges is one of structural change, fractured paths, and a field asking hard questions about its own future.</p>
   <div class="hero-stats">
     <div>
       <div class="hero-stat-val">119</div>
@@ -745,7 +760,7 @@
       <div class="hero-stat-lbl">Survey dimensions</div>
     </div>
     <div>
-      <div class="hero-stat-val">4</div>
+      <div class="hero-stat-val">3</div>
       <div class="hero-stat-lbl">Key findings</div>
     </div>
   </div>
@@ -762,8 +777,8 @@
 <div id="sankey-section">
   <div class="section-wrap">
     <span class="panel-eyebrow">Finding 01 &middot; Career Pathways</span>
-    <h2 class="panel-title">Many paths. No single route<br>to <em>design leadership</em>.</h2>
-    <p class="panel-desc">How 119 design leaders moved from academic or professional background &rarr; design education &rarr; first organization &rarr; current career level. Hover any node or flow to trace connections.</p>
+    <h2 class="panel-title">No single ladder.<br><em>Many different routes.</em></h2>
+    <p class="panel-desc">From humanities to engineering, agency to non-profit, solo IC to CDO — the paths here are as varied as the leaders themselves. What was once imagined as a ladder has become a lattice. The diversity of routes isn't an exception — it's the norm. Hover any node or flow to trace connections.</p>
   </div>
   <div id="sankey-wrap">
     <svg id="sankey-chart" viewBox="0 0 1400 780" preserveAspectRatio="xMidYMid meet"></svg>
@@ -777,41 +792,40 @@
 
 
 <!-- ════════════════════════════════════
-     FINDING 02 — EXECUTIVE TRACK
+     FINDING 02 — STARTING POINTS
 ════════════════════════════════════ -->
-<div id="route-exec" class="route-panel">
-    <span class="panel-eyebrow">Finding 02 &middot; Executive Track</span>
-    <h2 class="panel-title">The executive track takes<br><em>time and investment</em></h2>
-    <p class="panel-desc">Age, advanced education, and a corporate start are the strongest predictors of reaching VP, CDO, or Chief. Only 14% of this cohort made it — but the pattern is consistent across every dimension.</p>
-    <div id="exec-chart"></div>
-    <div class="baseline-note">
-      <span class="dash-line"></span>
-      14.3% baseline executive rate across all 119 leaders
+<div id="route-origins" class="route-panel">
+  <span class="panel-eyebrow">Finding 02 &middot; Origins &amp; Outcomes</span>
+  <h2 class="panel-title">The fork happens<br><em>earlier than you think</em></h2>
+  <p class="panel-desc">Your first professional context does more than start a career — it shapes the arc of it. Leaders who began freelance or independent are 9&times; more likely to eventually found a company. Those who started inside large design organizations show higher rates of reaching the executive track. The divergence happens before education, before title, before almost anything else.</p>
+  <div class="route-cols">
+    <div>
+      <div class="route-col-label">The executive track</div>
+      <div id="exec-chart"></div>
+      <div class="baseline-note">
+        <span class="dash-line"></span>
+        14.3% baseline executive rate across all 119 leaders
+      </div>
+    </div>
+    <div>
+      <div class="route-col-label">The founder track</div>
+      <div id="founder-chart"></div>
+      <div class="big-callout">
+        <div class="big-callout-val">9&times;</div>
+        <div class="big-callout-lbl">higher founder rate for freelance starters vs. agency starters<br>(37.5% vs. 4.3%, Fisher's exact p=0.025)</div>
+      </div>
     </div>
   </div>
-
-<!-- ════════════════════════════════════
-     FINDING 03 — FOUNDER TRACK
-════════════════════════════════════ -->
-<div id="route-founder" class="route-panel">
-    <span class="panel-eyebrow">Finding 03 &middot; Founder Track</span>
-    <h2 class="panel-title">Early independence breeds<br><span class="oj">later independence</span></h2>
-    <p class="panel-desc">Starting your career freelance or independent is the single strongest predictor of eventually founding. The fork happens at your very first job — before education, before level, before anything else.</p>
-    <div id="founder-chart"></div>
-    <div class="big-callout">
-      <div class="big-callout-val">9&times;</div>
-      <div class="big-callout-lbl">higher founder rate for freelance starters vs. agency starters<br>(37.5% vs. 4.3%, Fisher's exact p=0.025)</div>
-    </div>
 </div>
 
 
 <!-- ════════════════════════════════════
-     FINDING 04 — TOOL STACK
+     FINDING 03 — TOOL STACK
 ════════════════════════════════════ -->
-<div id="finding-04" class="full-panel alt-bg">
-  <span class="panel-eyebrow">Finding 04 &middot; Future Expectations</span>
-  <h2 class="panel-title">Everyone expects the tools to <em>change</em>.</h2>
-  <p class="panel-desc">"How much do you expect your tool stack to change in the next 5 years?" Nearly every leader said significantly — across every background, level, age, and region.</p>
+<div id="finding-03" class="full-panel alt-bg">
+  <span class="panel-eyebrow">Finding 03 &middot; The Road Ahead</span>
+  <h2 class="panel-title">The tools are changing.<br><em>Everything else will too.</em></h2>
+  <p class="panel-desc">92% of design leaders expect significant changes to their tool stack over the next five years. But this isn't a software story — it's a structural one. When the tools that shape how we research, ideate, prototype, and deliver are evolving this quickly, the nature of design work itself begins to change. Leaders who once enforced process will need to guide principles. Teams that once scaled by headcount will need to deliver more with less.</p>
 
   <div class="stacked-bar-wrap">
     <div id="stacked-bar-chart"></div>
@@ -826,8 +840,8 @@
 <section class="explore-cta">
   <div class="explore-cta-inner">
     <span class="eyebrow">Dive deeper</span>
-    <h2 class="explore-cta-title">Want to explore <em>all</em> of the data?</h2>
-    <p class="explore-cta-desc">Every survey question, visualized — from demographics and early career moments to setbacks, mentorship, and future intentions.</p>
+    <h2 class="explore-cta-title">There's more beneath<br>the <em>surface</em></h2>
+    <p class="explore-cta-desc">Mentorship gaps. Burnout patterns. How leaders are rethinking what comes next — and why nearly half are pessimistic about the future of the field. The complete survey, all 30 questions, fully visualized.</p>
     <a href="explore.html" class="explore-cta-btn">Explore all 30 questions →</a>
   </div>
 </section>
