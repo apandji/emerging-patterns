@@ -195,15 +195,15 @@
     }
     .q-chart { width: 100%; }
 
-    /* ── Scale chart ── */
+    /* ── Scale chart (pill bar + labels below — matches index Finding 03) ── */
     .scale-wrap { width: 100%; }
     .scale-bar-row {
       display: flex;
-      height: 44px;
-      border-radius: var(--r-md);
+      height: 72px;
+      border-radius: 9999px;
       overflow: hidden;
-      margin-bottom: var(--s1);
-      background: var(--ink-5);
+      margin-bottom: var(--s2);
+      background: #242424;
     }
     .scale-seg {
       height: 100%;
@@ -213,12 +213,22 @@
       transition: opacity 0.15s;
       overflow: hidden;
     }
-    .scale-seg span {
-      font-size: var(--t-cap);
-      font-weight: 600;
-      color: rgba(255,255,255,0.82);
-      white-space: nowrap;
-      pointer-events: none;
+    .scale-seg-labels-row {
+      display: flex;
+      width: 100%;
+      align-items: flex-start;
+      margin-bottom: var(--s2);
+      font-family: var(--font-sans);
+      font-size: 10px;
+      letter-spacing: 0.02em;
+      color: rgba(36,36,36,0.48);
+      line-height: 1.35;
+    }
+    .scale-seg-label {
+      text-align: center;
+      flex-shrink: 0;
+      padding: 0 2px;
+      box-sizing: border-box;
     }
     .scale-footer {
       display: flex;
@@ -621,12 +631,13 @@ const SECTIONS = [
 // COLORS
 // ══════════════════════════════════════
 
+/* Likert stacked bars only: ramp from light to full accent (horizontal bars + histogram stay solid #EB653F) */
 const SCALE_COLORS = [
-  'rgba(192,72,40,0.80)',   // 1
-  'rgba(235,101,63,0.40)',  // 2
-  'rgba(36,36,36,0.12)',   // 3
-  'rgba(235,101,63,0.55)', // 4
-  'rgba(235,101,63,0.88)', // 5
+  'rgba(235,101,63,0.30)',  // 1
+  'rgba(235,101,63,0.42)',  // 2
+  'rgba(235,101,63,0.56)',  // 3
+  'rgba(235,101,63,0.78)',  // 4
+  '#EB653F', // 5
 ];
 
 // ══════════════════════════════════════
@@ -655,7 +666,7 @@ function drawMap(container, rows, col) {
   });
   const total = rows.length;
   const regionMax = Math.max(...counts.values());
-  const FONT = 'ui-sans-serif, system-ui, -apple-system, sans-serif';
+  const FONT = "'Space Mono', ui-monospace, monospace";
   const W = 960, H = 460;
 
   const wrap = d3.select(container).append('div').attr('class', 'map-wrap');
@@ -827,10 +838,12 @@ const ML = 200; // label margin
 const MR = 76;
 const MT = 6;
 const MB = 6;
-const ROW_H = 32;
-const BAR_H = 18;
+const ROW_H = 44;
+const BAR_H = 22;
 const ML_WIDE = 280;
 const MR_WIDE = 90;
+
+let _exploreBarClipId = 0;
 
 function drawBar(container, items, wide) {
   if (!items.length) return;
@@ -843,7 +856,7 @@ function drawBar(container, items, wide) {
   const H = n * ROW_H + MT + MB;
   const truncLen = wide ? 42 : 30;
 
-  const FONT = 'ui-sans-serif, system-ui, -apple-system, sans-serif';
+  const FONT = "'Space Mono', ui-monospace, monospace";
 
   const svg = d3.select(container).append('svg')
     .attr('width', '100%')
@@ -852,47 +865,54 @@ function drawBar(container, items, wide) {
     .attr('preserveAspectRatio', 'xMinYMid meet')
     .style('font-family', FONT);
 
+  const defs = svg.append('defs');
   const g = svg.append('g').attr('transform', `translate(${ml},${MT})`);
 
   items.forEach((d, i) => {
     const y = i * ROW_H;
     const midY = y + ROW_H / 2;
-    const barW = Math.max(2, (d.count / maxVal) * chartW);
-    const isTop = d.count === maxVal;
+    const barW = Math.max(0, (d.count / maxVal) * chartW);
+    const barY = y + (ROW_H - BAR_H) / 2;
+    const pillR = BAR_H / 2;
+    const clipId = `explore-bar-clip-${_exploreBarClipId++}`;
 
+    defs.append('clipPath')
+      .attr('id', clipId)
+      .append('rect')
+      .attr('x', 0)
+      .attr('y', barY)
+      .attr('width', chartW)
+      .attr('height', BAR_H)
+      .attr('rx', pillR)
+      .attr('ry', pillR);
 
-    // Label
     g.append('text')
       .attr('x', -10)
       .attr('y', midY)
       .attr('text-anchor', 'end')
       .attr('dominant-baseline', 'middle')
       .attr('font-size', 12)
-      .attr('font-weight', isTop ? 600 : 400)
-      .attr('fill', isTop ? 'rgba(36,36,36,0.88)' : 'rgba(36,36,36,0.55)')
+      .attr('font-weight', 500)
+      .attr('fill', 'rgba(36,36,36,0.62)')
       .text(trunc(d.label, truncLen));
 
-    // Bar bg
-    g.append('rect')
-      .attr('x', 0).attr('y', y + (ROW_H - BAR_H) / 2)
+    const barG = g.append('g').attr('clip-path', `url(#${clipId})`);
+    barG.append('rect')
+      .attr('x', 0).attr('y', barY)
       .attr('width', chartW).attr('height', BAR_H)
-      .attr('rx', 3)
-      .attr('fill', 'rgba(36,36,36,0.05)');
-
-    // Bar fill
-    g.append('rect')
-      .attr('x', 0).attr('y', y + (ROW_H - BAR_H) / 2)
+      .attr('fill', '#242424');
+    barG.append('rect')
+      .attr('x', 0).attr('y', barY)
       .attr('width', barW).attr('height', BAR_H)
-      .attr('rx', 3)
-      .attr('fill', isTop ? 'rgba(235,101,63,0.75)' : 'rgba(235,101,63,0.30)');
+      .attr('fill', '#EB653F');
 
-    // Pct
     g.append('text')
       .attr('x', chartW + 10)
       .attr('y', midY)
       .attr('dominant-baseline', 'middle')
       .attr('font-size', 11)
-      .attr('fill', isTop ? 'rgba(36,36,36,0.75)' : 'rgba(36,36,36,0.42)')
+      .attr('font-weight', 600)
+      .attr('fill', '#EB653F')
       .text(`${d.pct}%`);
   });
 }
@@ -910,17 +930,32 @@ function drawScale(container, rows, col, lo, hi) {
 
   const wrap = d3.select(container).append('div').attr('class', 'scale-wrap');
   const barRow = wrap.append('div').attr('class', 'scale-bar-row');
+  const labelsRow = wrap.append('div').attr('class', 'scale-seg-labels-row');
 
-  [1,2,3,4,5].forEach(r => {
+  const visible = [];
+  [1, 2, 3, 4, 5].forEach(r => {
     const cnt = counts.get(r);
     const pct = cnt / total * 100;
     if (pct < 0.5) return;
-    const seg = barRow.append('div')
+    visible.push({ r, cnt, pct });
+  });
+
+  visible.forEach(({ r, pct }) => {
+    const flex = `0 0 ${pct}%`;
+    barRow.append('div')
       .attr('class', 'scale-seg')
-      .style('width', `${pct}%`)
-      .style('background', SCALE_COLORS[r - 1])
-      .style('min-width', pct > 4 ? '20px' : '0');
-    if (pct > 9) seg.append('span').text(`${Math.round(pct)}%`);
+      .style('flex', flex)
+      .style('background', SCALE_COLORS[r - 1]);
+  });
+
+  visible.forEach(({ r, pct }) => {
+    const flex = `0 0 ${pct}%`;
+    const pctRounded = Math.round(pct);
+    const line = pct >= 8 ? `${pctRounded}% · ${r}/5` : `${pctRounded}%`;
+    labelsRow.append('div')
+      .attr('class', 'scale-seg-label')
+      .style('flex', flex)
+      .text(line);
   });
 
   const footer = wrap.append('div').attr('class', 'scale-footer');
@@ -950,9 +985,8 @@ function drawHistogram(container, rows, col, unit) {
 
   const x = d3.scaleBand().domain(bins.map(b => b.x0)).range([0, cW]).padding(0.18);
   const y = d3.scaleLinear().domain([0, d3.max(bins, b => b.length)]).nice().range([cH, 0]);
-  const maxBin = d3.max(bins, b => b.length);
 
-  const FONT = 'ui-sans-serif, system-ui, -apple-system, sans-serif';
+  const FONT = "'Space Mono', ui-monospace, monospace";
 
   const svg = d3.select(container).append('svg')
     .attr('width', '100%')
@@ -978,14 +1012,17 @@ function drawHistogram(container, rows, col, unit) {
   });
 
   // Bars
+  const bandW = x.bandwidth();
+  const barRx = Math.min(6, bandW / 2);
   g.selectAll('rect.bar').data(bins).enter().append('rect')
     .attr('class', 'bar')
     .attr('x', b => x(b.x0))
     .attr('y', b => y(b.length))
-    .attr('width', x.bandwidth())
+    .attr('width', bandW)
     .attr('height', b => cH - y(b.length))
-    .attr('rx', 3)
-    .attr('fill', b => b.length === maxBin ? 'rgba(235,101,63,0.75)' : 'rgba(235,101,63,0.30)');
+    .attr('rx', barRx)
+    .attr('ry', barRx)
+    .attr('fill', '#EB653F');
 
   // Count labels on bars
   g.selectAll('text.blabel').data(bins.filter(b => b.length > 0)).enter().append('text')

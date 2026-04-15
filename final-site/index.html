@@ -410,7 +410,10 @@
       scroll-snap-align: start;
       scroll-snap-stop: always;
     }
-    #route-origins { background: var(--bg-1); }
+    #route-origins {
+      position: relative;
+      background: var(--bg-1);
+    }
     .route-cols {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -487,6 +490,42 @@
       text-align: right;
       flex-shrink: 0;
     }
+
+    /* Finding 02 — pill bars (accent fill + ink remainder) */
+    #route-origins .bar-track {
+      height: 16px;
+      background: transparent;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    #route-origins .bar-stack {
+      display: flex;
+      width: 100%;
+      height: 100%;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+    #route-origins .bar-fill {
+      flex: 0 0 auto;
+      min-width: 0;
+      height: 100%;
+      border-radius: 0;
+    }
+    #route-origins .bar-remainder {
+      flex: 1 1 auto;
+      min-width: 0;
+      height: 100%;
+      background: var(--ink-1);
+    }
+    #route-origins .bar-baseline {
+      z-index: 2;
+      width: 2px;
+      margin-left: -1px;
+      border-radius: 1px;
+      background: rgba(252, 252, 252, 0.85);
+      box-shadow: 0 0 0 1px rgba(36, 36, 36, 0.15);
+    }
+
     .baseline-note {
       display: flex;
       align-items: center;
@@ -564,7 +603,13 @@
       max-width: 440px;
     }
     .stacked-bar-wrap { position: relative; }
-    #stacked-bar-chart svg { display: block; width: 100%; overflow: visible; }
+    #stacked-bar-chart svg {
+      display: block;
+      width: 100%;
+      overflow: visible;
+      /* Slight vertical breathing room for pill + labels */
+      margin-top: var(--s1);
+    }
     .stacked-tooltip {
       position: absolute;
       pointer-events: none;
@@ -581,7 +626,33 @@
       z-index: 10;
       box-shadow: 0 6px 20px rgba(0,0,0,0.35);
     }
+    .stacked-bar-wrap .stacked-tooltip {
+      max-width: min(22rem, calc(100vw - 2rem));
+      white-space: normal;
+      line-height: var(--lh-loose);
+    }
     .stacked-tooltip strong { color: var(--accent); }
+
+    /* Finding 02 — horizontal bar rows (exec + founder) */
+    .route-bar-tooltip {
+      position: absolute;
+      pointer-events: none;
+      left: 0;
+      top: 0;
+      max-width: min(22rem, calc(100% - 1.5rem));
+      padding: var(--s2) var(--s3);
+      background: #FCFCFC;
+      border: 1px solid var(--ink-4);
+      border-radius: var(--r-md);
+      font-size: var(--t-sm);
+      line-height: var(--lh-loose);
+      color: var(--ink-1);
+      opacity: 0;
+      transition: opacity 0.12s;
+      white-space: normal;
+      z-index: 25;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+    }
 
     /* ══════════════════════════════════════════
        FOOTER
@@ -799,6 +870,45 @@
       border-color: rgba(235,101,63,0.65);
       color: rgba(36,36,36,0.92);
     }
+
+    /* About this project — prose block below explore CTA */
+    .about-project {
+      padding: var(--s7) var(--gutter) var(--s6);
+      background: var(--bg-2);
+      border-top: var(--section-divider-weight) solid var(--section-divider-color);
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+    .about-project-inner {
+      max-width: 42rem;
+    }
+    .about-project-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 2vw + 0.5rem, var(--text-h2));
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: var(--lh-tight);
+      color: var(--ink-1);
+      margin-bottom: var(--s4);
+    }
+    .about-project-body p {
+      font-size: var(--t-base);
+      color: var(--ink-2);
+      line-height: var(--lh-loose);
+      margin-bottom: var(--s3);
+    }
+    .about-project-body p:last-child {
+      margin-bottom: 0;
+    }
+    .about-project-body a {
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .about-project-body a:hover {
+      color: var(--ink-1);
+    }
   </style>
 </head>
 <body>
@@ -809,6 +919,7 @@
   <button class="scroll-nav-dot" data-target="#route-origins"><span class="dot-label">Starting Points</span></button>
   <button class="scroll-nav-dot" data-target="#finding-03"><span class="dot-label">Tool Stack</span></button>
   <button class="scroll-nav-dot" data-target=".explore-cta"><span class="dot-label">Explore All</span></button>
+  <button class="scroll-nav-dot" data-target="#about-project"><span class="dot-label">About</span></button>
 </nav>
 
 
@@ -881,6 +992,7 @@
       </div>
     </div>
   </div>
+  <div id="route-bar-tooltip" class="route-bar-tooltip" aria-hidden="true"></div>
 </div>
 
 
@@ -908,6 +1020,21 @@
     <h2 class="explore-cta-title">There's more beneath<br>the <em>surface</em></h2>
     <p class="explore-cta-desc">Mentorship gaps. Burnout patterns. How leaders are rethinking what comes next — and why nearly half are pessimistic about the future of the field. The complete survey, all 30 questions, fully visualized.</p>
     <a href="explore.html" class="explore-cta-btn">Explore all 30 questions →</a>
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════
+     ABOUT THIS PROJECT
+════════════════════════════════════ -->
+<section id="about-project" class="about-project" aria-labelledby="about-project-heading">
+  <div class="about-project-inner">
+    <h2 id="about-project-heading" class="about-project-title">About this project</h2>
+    <div class="about-project-body">
+      <p>This site summarizes quantitative findings from a 2026 survey of 119 design leaders: how they entered the field, their first organizations, current level, tool expectations, and outlook on the profession. The story sections highlight three main findings; the <a href="explore.html">explore</a> view shows every survey question with optional filters for age, gender, and region.</p>
+      <p>Analysis combines descriptive summaries with standard inferential tests where appropriate (for example comparisons of rates and scale responses). The footer notes sample composition and methods at a glance; treat any downloadable raw data as sensitive if it contains identifiable fields.</p>
+      <p>Visualizations and this narrative build are part of ongoing design leadership research on career pathways and the changing context of senior design roles.</p>
+    </div>
   </div>
 </section>
 
@@ -1238,15 +1365,19 @@ renderSankey();
   data.forEach(d => {
     const pctW = (d.pct / maxPct * 100).toFixed(2);
     const baseW = (baseline / maxPct * 100).toFixed(2);
-    const fillColor = d.above ? "rgba(235,101,63,0.58)" : "rgba(36,36,36,0.18)";
-    const valColor  = d.above ? "rgba(235,101,63,0.88)"  : "rgba(36,36,36,0.38)";
+    const fillColor = d.above ? "#EB653F" : "rgba(235,101,63,0.5)";
+    const valColor  = d.above ? "#EB653F" : "rgba(36,36,36,0.55)";
 
     const row = document.createElement("div");
     row.className = "bar-row";
+    row.dataset.tooltip = `${d.pct.toFixed(1)}% of design leaders surveyed in the "${d.label}" category are executives.`;
     row.innerHTML = `
       <div class="bar-lbl"><strong>${d.label}</strong></div>
       <div class="bar-track">
-        <div class="bar-fill" style="width:${pctW}%;background:${fillColor};"></div>
+        <div class="bar-stack">
+          <div class="bar-fill" style="width:${pctW}%;background:${fillColor};"></div>
+          <div class="bar-remainder" aria-hidden="true"></div>
+        </div>
         <div class="bar-baseline" style="left:${baseW}%;"></div>
       </div>
       <div class="bar-val" style="color:${valColor}">${d.pct.toFixed(1)}%</div>
@@ -1272,16 +1403,21 @@ renderSankey();
 
   data.forEach(d => {
     const pctW = (d.pct / maxPct * 100).toFixed(2);
-    const fillColor = d.hi ? "#EB653F" : "rgba(36,36,36,0.18)";
-    const valColor  = d.hi ? "#EB653F" : "rgba(36,36,36,0.38)";
+    const fillColor = d.hi ? "#EB653F" : "rgba(235,101,63,0.5)";
+    const valColor  = d.hi ? "#EB653F" : "rgba(36,36,36,0.55)";
     const valText   = d.pct > 0 ? d.pct.toFixed(1) + "%" : "—";
 
     const row = document.createElement("div");
     row.className = "bar-row";
+    const founderPct = d.pct.toFixed(1);
+    row.dataset.tooltip = `${founderPct}% of design leaders surveyed whose first organization was "${d.label}" are founders.`;
     row.innerHTML = `
       <div class="bar-lbl"><strong>${d.label}</strong></div>
       <div class="bar-track">
-        <div class="bar-fill" style="width:${pctW}%;background:${fillColor};"></div>
+        <div class="bar-stack">
+          <div class="bar-fill" style="width:${pctW}%;background:${fillColor};"></div>
+          <div class="bar-remainder" aria-hidden="true"></div>
+        </div>
       </div>
       <div class="bar-val" style="color:${valColor}">${valText}</div>
     `;
@@ -1289,22 +1425,70 @@ renderSankey();
   });
 })();
 
+(function wireFinding02BarTooltip() {
+  const panel = document.getElementById("route-origins");
+  const tip = document.getElementById("route-bar-tooltip");
+  if (!panel || !tip) return;
+
+  function hide() {
+    tip.style.opacity = "0";
+    tip.setAttribute("aria-hidden", "true");
+  }
+
+  panel.addEventListener("mousemove", (e) => {
+    const row = e.target.closest(".bar-row");
+    if (!row || !panel.contains(row)) {
+      hide();
+      return;
+    }
+    const msg = row.dataset.tooltip;
+    if (!msg) {
+      hide();
+      return;
+    }
+    tip.textContent = msg;
+    tip.removeAttribute("aria-hidden");
+    const pr = panel.getBoundingClientRect();
+    let x = e.clientX - pr.left + 12;
+    let y = e.clientY - pr.top + 12;
+    tip.style.opacity = "1";
+
+    const tw = tip.offsetWidth;
+    const th = tip.offsetHeight;
+    const pad = 8;
+    if (x + tw > pr.width - pad) x = Math.max(pad, pr.width - tw - pad);
+    if (y + th > pr.height - pad) y = Math.max(pad, pr.height - th - pad);
+
+    tip.style.left = `${x}px`;
+    tip.style.top = `${y}px`;
+  });
+
+  panel.addEventListener("mouseleave", hide);
+})();
+
+
+
+
 
 /* ══════════════════════════════════════════
    4. STACKED BAR — TOOL CHANGE CONSENSUS
 ══════════════════════════════════════════ */
 (function() {
-  // Accent green for high-agreement, fading to dim for the small dissenting tail
+  // Pill bar: accent orange for strong agreement, ink for the dissenting tail (matches Finding 02)
   const segments = [
-    { label: "A lot",       rating: 5, n: 78, color: "rgba(235,101,63,0.75)", hoverColor: "rgba(235,101,63,0.95)"  },
-    { label: "Quite a bit", rating: 4, n: 33, color: "rgba(235,101,63,0.36)", hoverColor: "rgba(235,101,63,0.55)" },
-    { label: "Moderate",    rating: 3, n: 6,  color: "rgba(36,36,36,0.12)",   hoverColor: "rgba(36,36,36,0.20)"   },
-    { label: "A little",    rating: 2, n: 2,  color: "rgba(36,36,36,0.06)",   hoverColor: "rgba(36,36,36,0.12)"   },
+    { label: "A lot",       rating: 5, n: 78, color: "#EB653F", hoverColor: "rgba(235,101,63,0.88)" },
+    { label: "Quite a bit", rating: 4, n: 33, color: "rgba(235,101,63,0.52)", hoverColor: "rgba(235,101,63,0.72)" },
+    { label: "Moderate",    rating: 3, n: 6,  color: "#242424",               hoverColor: "rgba(36,36,36,0.88)" },
+    { label: "A little",    rating: 2, n: 2,  color: "rgba(36,36,36,0.62)",   hoverColor: "rgba(36,36,36,0.78)" },
   ];
   const total = 119;
-  const BAR_H = 96;
-  const LABEL_H = 28;
-  const H = LABEL_H + 8 + BAR_H;
+  const BAR_H = 72;
+  const barPadTop = 12;
+  const belowGap = 14;
+  const belowLabelH = 34;
+  const barPadBottom = 14;
+  const H = barPadTop + BAR_H + belowGap + belowLabelH + barPadBottom;
+  const clipId = "stacked-bar-pill-clip";
 
   const container = document.getElementById("stacked-bar-chart");
   const W = container.getBoundingClientRect().width || 900;
@@ -1326,65 +1510,77 @@ renderSankey();
     return { ...s, pct, x, w };
   });
 
-  const barY = LABEL_H + 8;
+  const barY = barPadTop;
+  const pillR = BAR_H / 2;
+  const belowY = barY + BAR_H + belowGap + 12;
 
-  // Background track
-  svg.append("rect")
-    .attr("x", 0).attr("y", barY)
-    .attr("width", W).attr("height", BAR_H)
-    .attr("rx", 6)
-    .attr("fill", "rgba(36,36,36,0.05)");
+  svg.append("defs")
+    .append("clipPath")
+    .attr("id", clipId)
+    .append("rect")
+    .attr("x", 0)
+    .attr("y", barY)
+    .attr("width", W)
+    .attr("height", BAR_H)
+    .attr("rx", pillR)
+    .attr("ry", pillR);
 
-  // Segments
-  const segs = svg.selectAll("g.seg").data(computed).join("g").attr("class", "seg");
+  const barLayer = svg.append("g").attr("clip-path", `url(#${clipId})`);
+
+  barLayer.append("rect")
+    .attr("x", 0)
+    .attr("y", barY)
+    .attr("width", W)
+    .attr("height", BAR_H)
+    .attr("fill", "#242424");
+
+  const segs = barLayer.selectAll("g.seg").data(computed).join("g").attr("class", "seg");
 
   segs.append("rect")
     .attr("x", d => d.x)
     .attr("y", barY)
     .attr("width", d => Math.max(0, d.w))
     .attr("height", BAR_H)
-    .attr("rx", (_, i, arr) => {
-      if (i === 0) return 6;
-      if (i === arr.length - 1) return 6;
-      return 0;
-    })
     .attr("fill", d => d.color)
     .style("cursor", "default")
     .on("mousemove", function(event, d) {
       d3.select(this).attr("fill", d.hoverColor);
       const wrap = document.querySelector(".stacked-bar-wrap");
       const wr = wrap.getBoundingClientRect();
+      const pctStr = (d.pct * 100).toFixed(1);
+      const agreement = d.label.toLowerCase();
       tip.style("opacity", 1)
          .style("left", `${event.clientX - wr.left + 14}px`)
          .style("top",  `${event.clientY - wr.top - 60}px`)
-         .html(`<strong>Rating ${d.rating} — ${d.label}</strong><br>${d.n} leaders &nbsp;·&nbsp; ${(d.pct*100).toFixed(1)}%`);
+         .html(
+           `<strong>${pctStr}%</strong> of design leaders surveyed expect <strong>${agreement}</strong> change to their design tool stack over the next five years.<br>` +
+           `<span style="color:rgba(36,36,36,0.52);font-size:12px">Scale: ${d.rating}/5 · ${d.n} of ${total} responses</span>`
+         );
     })
     .on("mouseleave", function(event, d) {
       d3.select(this).attr("fill", d.color);
       tip.style("opacity", 0);
     });
 
-  // Hairline dividers between segments (dark bg color, visible on both green and dim)
-  computed.slice(1).forEach(d => {
-    svg.append("line")
-      .attr("x1", d.x).attr("y1", barY)
-      .attr("x2", d.x).attr("y2", barY + BAR_H)
-      .attr("stroke", "rgba(252,252,252,0.8)")
-      .attr("stroke-width", 1.5)
-      .attr("pointer-events", "none");
-  });
+  const labelsBelow = svg.append("g")
+    .attr("class", "stacked-bar-labels-below")
+    .attr("pointer-events", "none");
 
-  // Labels above each segment (only if wide enough to fit)
-  segs.filter(d => d.w > 52)
-    .append("text")
-    .attr("x", d => d.x + d.w / 2)
-    .attr("y", barY - 9)
-    .attr("text-anchor", "middle")
-    .attr("font-family", "'Space Mono', ui-monospace, monospace")
-    .attr("font-size", 12)
-    .attr("letter-spacing", "0.03em")
-    .attr("fill", d => d.rating >= 4 ? "rgba(36,36,36,0.65)" : "rgba(36,36,36,0.38)")
-    .text(d => `${(d.pct*100).toFixed(0)}%  ·  ${d.label}`);
+  computed.forEach(d => {
+    if (d.w < 22) return;
+    const cx = d.x + d.w / 2;
+    const pctStr = `${(d.pct * 100).toFixed(0)}%`;
+    const line = d.w >= 48 ? `${pctStr} · ${d.label}` : pctStr;
+    labelsBelow.append("text")
+      .attr("x", cx)
+      .attr("y", belowY)
+      .attr("text-anchor", "middle")
+      .attr("font-family", "'Space Mono', ui-monospace, monospace")
+      .attr("font-size", d.w >= 48 ? 11 : 10)
+      .attr("letter-spacing", "0.02em")
+      .attr("fill", "rgba(36,36,36,0.48)")
+      .text(line);
+  });
 })();
 
 /* ══════════════════════════════════════════
