@@ -1,4 +1,4 @@
-const DATA_PATH = "../data/quant-survey-responses-raw.csv";
+const DATA_PATH = "data/quant-survey-responses-raw.csv";
 
 const COLUMNS = {
   background: "Before starting your design career, what was your primary academic or professional trajectory?",
