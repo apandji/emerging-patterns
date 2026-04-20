@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How Design Leaders Got Here · 2026</title>
+  <title>Change As a Constant · Design Leadership in 2026</title>
+  <meta name="description" content="Survey findings from 119 design leaders: career pathways, starting points, and how the field expects to change over the next five years." />
+  <meta property="og:title" content="Change As a Constant · Design Leadership in 2026" />
+  <meta property="og:description" content="Survey findings from 119 design leaders: career pathways, starting points, and how the field expects to change over the next five years." />
+  <meta property="og:type" content="website" />
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    (function(){var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.dataset.theme='dark';})();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Host+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
@@ -21,32 +29,32 @@
       --font-display: "Host Grotesk", ui-sans-serif, system-ui, sans-serif;
       --font-numbers: "Bitcount Prop Single", "Space Mono", monospace;
 
-      /* Color — semantic ink scale */
-      --ink-1:      rgba(36,36,36,0.92);      /* primary text */
-      --ink-2:      rgba(36,36,36,0.68);      /* secondary / body */
-      --ink-3:      rgba(36,36,36,0.52);      /* captions, labels */
-      --ink-4:      rgba(36,36,36,0.12);      /* borders */
-      --ink-5:      rgba(36,36,36,0.05);      /* ghost fills */
+      /* Ink — warm charcoal (less cold gray / “template UI”) */
+      --ink-1:      rgba(42, 38, 34, 0.94);
+      --ink-2:      rgba(42, 38, 34, 0.70);
+      --ink-3:      rgba(42, 38, 34, 0.48);
+      --ink-4:      rgba(42, 38, 34, 0.14);
+      --ink-5:      rgba(42, 38, 34, 0.045);
 
-      /* Background grid & full-width section rules (single source of truth) */
+      /* Background grid — low contrast, large cells (editorial, not “dev tool”) */
       --grid-line-width: 0.5px;
-      --grid-line-color: rgba(0, 0, 0, 0.088);
-      --grid-cell-size: 24px;
-      --grid-cell-size-tight: 8px;
-      --section-divider-weight: 1.5px;
-      --section-divider-color: rgba(36, 36, 36, 0.42);
+      --grid-line-color: rgba(42, 38, 34, 0.038);
+      --grid-cell-size: 40px;
+      --grid-cell-size-tight: 10px;
+      --section-divider-weight: 1px;
+      --section-divider-color: rgba(42, 38, 34, 0.14);
 
-      /* Color — surfaces */
-      --bg-0:       #F5F5F5;
-      --bg-1:       #FCFCFC;                  /* page default */
-      --bg-2:       #F4F0EC;                  /* alternate sections */
+      /* Surfaces — warm paper */
+      --bg-0:       #EDE8E0;
+      --bg-1:       #F7F5F0;
+      --bg-2:       #EDE6DC;
 
-      /* Color — accents */
-      --accent:     #EB653F;
-      --accent-mid: rgba(235,101,63,0.38);
-      --accent-dim: rgba(235,101,63,0.10);
-      --orange:     #EB653F;
-      --orange-dim: rgba(235,101,63,0.09);
+      /* Accent — vivid coral-terracotta (editorial, not neon) */
+      --accent:     #E25D45;
+      --accent-mid: rgba(226, 93, 69, 0.36);
+      --accent-dim: rgba(226, 93, 69, 0.12);
+      --orange:     #E25D45;
+      --orange-dim: rgba(226, 93, 69, 0.09);
 
       /* Spacing — strict 8px grid */
       --s1:  8px;
@@ -65,7 +73,7 @@
       --col-gap:   48px;    /* gap between side-by-side columns */
       --max-w:    1280px;   /* max content width */
 
-      /* Modular type scale (≈1.25 ratio, rem — assumes 16px root) */
+      /* Modular type scale (≈1.25 ratio, rem — scales with html font-size) */
       --text-xs:      0.6875rem;
       --text-sm:      0.8125rem;
       --text-md:      0.9375rem;
@@ -93,8 +101,8 @@
       --lh-base:    var(--leading-body);
       --lh-loose:   1.62;
 
-      /* Letter spacing */
-      --ls-caps:  0.08em;   /* all-caps labels */
+      /* Letter spacing — tighter than “poster caps” */
+      --ls-caps:  0.05em;
 
       /* Radius — slightly flatter surfaces (less “app card”) */
       --r-sm:  4px;
@@ -102,12 +110,72 @@
       --r-lg:  8px;
     }
 
+    /* ── Dark mode token overrides ── */
+    [data-theme="dark"] {
+      --bg-0: #1C1915;
+      --bg-1: #221F1B;
+      --bg-2: #2A2620;
+      --ink-1: rgba(245, 240, 232, 0.94);
+      --ink-2: rgba(245, 240, 232, 0.70);
+      --ink-3: rgba(245, 240, 232, 0.48);
+      --ink-4: rgba(245, 240, 232, 0.14);
+      --ink-5: rgba(245, 240, 232, 0.045);
+      --grid-line-color: rgba(245, 240, 232, 0.055);
+      --section-divider-color: rgba(245, 240, 232, 0.14);
+      --accent-mid: rgba(226, 93, 69, 0.45);
+      --accent-dim: rgba(226, 93, 69, 0.15);
+      --orange-dim: rgba(226, 93, 69, 0.12);
+    }
+    /* ── Dark mode: Sankey SVG elements (CSS overrides presentation attributes) ── */
+    [data-theme="dark"] .sankey-band        { fill: rgba(245,240,232,0.04); }
+    [data-theme="dark"] .sankey-node        { fill: rgba(245,240,232,0.55); }
+    [data-theme="dark"] .sankey-node-str    { fill: rgba(245,240,232,0.70); }
+    [data-theme="dark"] .sankey-link        { stroke: rgba(245,240,232,0.75); }
+    [data-theme="dark"] .sankey-link-soft   { stroke: rgba(245,240,232,0.18); }
+    [data-theme="dark"] .sankey-stage-label { fill: rgba(245,240,232,0.65); }
+    [data-theme="dark"] .sankey-node-label  { fill: rgba(245,240,232,0.88); }
+    [data-theme="dark"] .sankey-count       { fill: rgba(245,240,232,0.52); }
+    [data-theme="dark"] .stacked-bar-label  { fill: rgba(245,240,232,0.55); }
+    /* ── Dark mode: misc hardcoded element overrides ── */
+    [data-theme="dark"] .s-stats    { background: rgba(30,27,23,0.94); }
+    [data-theme="dark"] .s-stats-total { color: rgba(245,240,232,0.80); }
+    [data-theme="dark"] .bar-val    { color: rgba(245,240,232,0.65) !important; }
+    [data-theme="dark"] .scroll-nav-dot       { background: rgba(245,240,232,0.22); }
+    [data-theme="dark"] .scroll-nav-dot:hover { background: rgba(245,240,232,0.45); }
+    /* ── Theme toggle button ── */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 16px;
+      width: 20px;
+      height: 20px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 0;
+      color: var(--ink-3);
+      align-self: flex-end;
+      transition: color 0.2s;
+    }
+    .theme-toggle:hover { color: var(--ink-2); }
+    .theme-toggle svg { width: 14px; height: 14px; display: block; }
+    .theme-icon-sun  { display: none; }
+    .theme-icon-moon { display: block; }
+    [data-theme="dark"] .theme-icon-sun  { display: block; }
+    [data-theme="dark"] .theme-icon-moon { display: none; }
+
     /* ── Base ── */
     html {
-      font-size: 100%;
+      /* ~18px body at default UA 16px — improves long-form + UI legibility */
+      font-size: 112.5%;
       scroll-behavior: smooth;
-      scroll-snap-type: y mandatory;
+      /* Softer than mandatory — less “fighting” the scroll wheel */
+      scroll-snap-type: y proximity;
       overflow-y: scroll;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
     }
     body {
       background-color: var(--bg-1);
@@ -116,10 +184,97 @@
         linear-gradient(90deg, var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width));
       background-size: var(--grid-cell-size) var(--grid-cell-size);
       color: var(--ink-1);
-      font-family: var(--font-sans);
+      font-family: var(--font-display);
       font-size: var(--t-base);
       line-height: var(--lh-base);
       -webkit-font-smoothing: antialiased;
+    }
+
+    /* Custom cursor — accent circle (mouse only; off when reduced motion) */
+    @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+      html.use-circle-cursor * {
+        cursor: none !important;
+      }
+      html.use-circle-cursor input,
+      html.use-circle-cursor textarea {
+        cursor: text !important;
+      }
+      .cursor-dot {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+        background: rgba(226, 93, 69, 0.2);
+        background: color-mix(in srgb, var(--accent) 22%, transparent);
+        pointer-events: none;
+        z-index: 2147483646;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.15s ease;
+      }
+      html.use-circle-cursor .cursor-dot {
+        display: block;
+      }
+    }
+
+    /* Focus — keyboard-visible only */
+    :focus:not(:focus-visible) {
+      outline: none;
+    }
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+    .scroll-nav-dot:focus-visible {
+      outline-offset: 5px;
+      border-radius: 50%;
+    }
+    .explore-cta-btn:focus-visible {
+      border-radius: var(--r-sm);
+    }
+
+    /* Narrative body — Host Grotesk reads easier at length than all-mono */
+    .hero-desc,
+    .panel-desc,
+    .explore-cta-desc,
+    .about-project-body,
+    .bar-callout-desc,
+    .big-callout-lbl,
+    .section-desc {
+      font-family: var(--font-display);
+    }
+
+    /* Scroll-in + chart fade (respects reduced motion below) */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        opacity: 0;
+        transform: translateY(12px);
+        transition:
+          opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .chart-fade {
+        opacity: 0;
+        transition: opacity 0.45s ease;
+      }
+      .chart-fade.is-visible {
+        opacity: 1;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal,
+      .chart-fade {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
     }
 
     /* Full-height vertical margin rules — near viewport edges; content uses --gutter (wider) */
@@ -150,23 +305,40 @@
     .eyebrow,
     .panel-eyebrow {
       display: block;
-      font-weight: 600;
-      letter-spacing: var(--ls-caps);
-      text-transform: uppercase;
-      color: var(--ink-3);
       margin-bottom: var(--s2);
       padding-left: 0;
     }
     .eyebrow {
+      font-family: var(--font-display);
       font-size: var(--t-cap);
-    }
-    /* Finding labels — smaller than deck / CTA eyebrows */
-    .panel-eyebrow {
-      font-size: var(--text-xs);
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      margin-bottom: var(--s1);
+      font-weight: 600;
+      letter-spacing: var(--ls-caps);
+      text-transform: uppercase;
       color: var(--ink-3);
+    }
+    /* Finding kicker — matches scroll nav: accent “Finding n” + strong title (same words as nav) */
+    .panel-eyebrow {
+      font-family: var(--font-display);
+      margin-bottom: var(--s2);
+      line-height: 1.35;
+    }
+    .panel-eyebrow-finding {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: var(--text-md);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .panel-eyebrow-sep {
+      color: var(--ink-3);
+      font-weight: 500;
+      font-size: var(--text-md);
+    }
+    .panel-eyebrow-name {
+      color: var(--ink-1);
+      font-weight: 600;
+      font-size: clamp(var(--text-md), 0.92rem + 0.35vw, var(--text-lead));
+      letter-spacing: 0.02em;
     }
 
     /* Section wrapper — every content section uses this */
@@ -194,7 +366,7 @@
       font-family: var(--font-display);
       font-size: clamp(3rem, 8vw, 5rem);
       line-height: 0.85;
-      color: rgba(36,36,36,0.07);
+      color: rgba(42, 38, 34, 0.07);
       flex-shrink: 0;
       width: 68px;
       margin-top: -2px;
@@ -222,7 +394,7 @@
     .tooltip-base {
       position: absolute;
       pointer-events: none;
-      background: #FCFCFC;
+      background: var(--bg-1);
       border: 1px solid var(--ink-4);
       border-radius: var(--r-md);
       padding: var(--s2) var(--s2);
@@ -233,7 +405,7 @@
       transition: opacity 0.1s;
       white-space: nowrap;
       z-index: 30;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      box-shadow: 0 8px 24px rgba(42, 38, 34, 0.1);
     }
 
     /* ══════════════════════════════════════════
@@ -277,9 +449,10 @@
         transparent 82%
       );
     }
-    #hero > * {
+    .hero-inner {
       position: relative;
       z-index: 1;
+      width: 100%;
     }
     #hero::after {
       content: '';
@@ -288,14 +461,6 @@
       height: var(--section-divider-weight);
       background: var(--section-divider-color);
       z-index: 2;
-    }
-    .hero-meta {
-      font-size: var(--t-cap);
-      font-weight: 500;
-      letter-spacing: var(--ls-caps);
-      text-transform: uppercase;
-      color: var(--ink-3);
-      margin-bottom: var(--s5);
     }
     .hero-title {
       font-family: var(--font-display);
@@ -325,6 +490,7 @@
       margin-bottom: var(--s1);
     }
     .hero-stat-lbl {
+      font-family: var(--font-display);
       font-size: var(--t-cap);
       color: var(--ink-3);
       text-transform: uppercase;
@@ -334,25 +500,50 @@
        SANKEY SECTION
     ══════════════════════════════════════════ */
     #sankey-section {
+      position: relative;
       background: var(--bg-1);
+      /* Fill one viewport; dvh tracks mobile browser chrome better than vh */
       height: 100vh;
+      max-height: 100vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
       scroll-snap-align: start;
-      scroll-snap-stop: always;
+      scroll-snap-stop: normal;
+    }
+    @supports (height: 100dvh) {
+      #sankey-section {
+        height: 100dvh;
+        max-height: 100dvh;
+      }
+    }
+    /* Short viewports (landscape phone, small laptop): prioritize chart height */
+    @media (max-height: 700px) {
+      #sankey-section .section-wrap {
+        max-height: min(38vh, 300px);
+        padding-top: var(--s3);
+        padding-bottom: var(--s1);
+      }
+      #sankey-wrap { padding-bottom: var(--s4); }
     }
     #sankey-section .section-wrap {
-      padding-top: var(--s6);
-      padding-bottom: var(--s3);
+      padding-top: var(--s5);
+      padding-bottom: var(--s2);
       background: var(--bg-1);
-      flex-shrink: 0;
+      flex: 0 1 auto;
+      min-height: 0;
+      /* Never let copy consume the whole slide — chart always keeps room */
+      max-height: min(42vh, 420px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
     }
     #sankey-wrap {
       position: relative;
       width: 100%;
-      flex: 1;
+      flex: 1 1 0;
       min-height: 0;
+      /* Reserve space so the floating stats badge doesn’t cover flows */
+      padding-bottom: var(--s5);
       background: var(--bg-1);
     }
     #sankey-chart {
@@ -364,7 +555,7 @@
     .s-tooltip {
       position: absolute;
       pointer-events: none;
-      background: #FCFCFC;
+      background: var(--bg-1);
       border: 1px solid var(--ink-4);
       border-radius: var(--r-md);
       padding: var(--s2) var(--s2);
@@ -372,26 +563,31 @@
       font-size: var(--t-sm);
       line-height: var(--lh-base);
       opacity: 0;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      box-shadow: 0 8px 28px rgba(42, 38, 34, 0.12);
       max-width: 240px;
       z-index: 20;
       transition: opacity 0.1s;
     }
     .s-stats {
-      flex-shrink: 0;
-      align-self: center;
+      position: absolute;
+      left: 50%;
+      bottom: var(--s3);
+      transform: translateX(-50%);
+      z-index: 4;
       padding: var(--s1) var(--s3);
-      margin: var(--s2) 0 var(--s3);
+      margin: 0;
       border: 1px solid var(--ink-4);
       border-radius: var(--r-md);
-      background: transparent;
+      background: rgba(247, 245, 240, 0.94);
+      backdrop-filter: blur(8px);
       min-width: 260px;
+      max-width: min(520px, calc(100vw - var(--gutter) * 2));
       text-align: center;
       pointer-events: none;
     }
     .s-stats-total {
       font-size: var(--t-xs);
-      color: rgba(36,36,36,0.80);
+      color: rgba(42,38,34,0.80);
       letter-spacing: 0.02em;
     }
     .s-stats-active {
@@ -408,7 +604,7 @@
       border-top: var(--section-divider-weight) solid var(--section-divider-color);
       min-height: 100vh;
       scroll-snap-align: start;
-      scroll-snap-stop: always;
+      scroll-snap-stop: normal;
     }
     #route-origins {
       position: relative;
@@ -421,11 +617,12 @@
       align-items: start;
     }
     .route-col-label {
-      font-size: var(--t-cap);
-      font-weight: 700;
-      letter-spacing: var(--ls-caps);
-      text-transform: uppercase;
-      color: var(--ink-3);
+      font-family: var(--font-display);
+      font-size: var(--t-sm);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-transform: none;
+      color: var(--ink-2);
       margin-bottom: var(--s3);
     }
     @media (max-width: 820px) {
@@ -448,6 +645,7 @@
       line-height: var(--lh-loose);
       margin-bottom: var(--s5);
     }
+    #sankey-section .panel-desc { margin-bottom: var(--s2); }
 
     /* Bar chart rows — shared by findings 02 + 03 */
     .bar-row {
@@ -457,6 +655,7 @@
       margin-bottom: var(--s1);
     }
     .bar-lbl {
+      font-family: var(--font-sans);
       font-size: var(--t-xs);
       color: var(--ink-2);
       width: 158px;
@@ -484,6 +683,7 @@
       background: var(--ink-3);
     }
     .bar-val {
+      font-family: var(--font-sans);
       font-size: var(--t-xs);
       font-weight: 600;
       width: 38px;
@@ -522,7 +722,7 @@
       width: 2px;
       margin-left: -1px;
       border-radius: 1px;
-      background: rgba(252, 252, 252, 0.85);
+      background: rgba(247, 245, 240, 0.88);
       box-shadow: 0 0 0 1px rgba(36, 36, 36, 0.15);
     }
 
@@ -551,7 +751,7 @@
       margin-top: var(--s5);
       padding: var(--s3) var(--s4);
       background: var(--orange-dim);
-      border: 1px solid rgba(235,101,63,0.18);
+      border: 1px solid rgba(226, 93, 69, 0.2);
       border-radius: var(--r-lg);
     }
     .big-callout-val {
@@ -573,7 +773,7 @@
       border-top: var(--section-divider-weight) solid var(--section-divider-color);
       min-height: 100vh;
       scroll-snap-align: start;
-      scroll-snap-stop: always;
+      scroll-snap-stop: normal;
     }
     .full-panel.alt-bg { background: var(--bg-1); }
     /* Constrain content width so the bar doesn't span absurdly wide */
@@ -583,25 +783,6 @@
     /* ══════════════════════════════════════════
        FINDING 03 — STACKED BAR
     ══════════════════════════════════════════ */
-    .bar-callout-row {
-      display: flex;
-      align-items: baseline;
-      gap: var(--s4);
-      margin-bottom: var(--s5);
-    }
-    .bar-callout-stat {
-      font-family: var(--font-numbers);
-      font-size: clamp(3rem, 6vw, 4rem);
-      line-height: 1;
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-    .bar-callout-desc {
-      font-size: var(--t-base);
-      color: var(--ink-2);
-      line-height: var(--lh-loose);
-      max-width: 440px;
-    }
     .stacked-bar-wrap { position: relative; }
     #stacked-bar-chart svg {
       display: block;
@@ -613,7 +794,7 @@
     .stacked-tooltip {
       position: absolute;
       pointer-events: none;
-      background: #FCFCFC;
+      background: var(--bg-1);
       border: 1px solid var(--ink-4);
       border-radius: var(--r-md);
       padding: var(--s2) var(--s2);
@@ -624,7 +805,7 @@
       transition: opacity 0.1s;
       white-space: nowrap;
       z-index: 10;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+      box-shadow: 0 8px 28px rgba(42, 38, 34, 0.12);
     }
     .stacked-bar-wrap .stacked-tooltip {
       max-width: min(22rem, calc(100vw - 2rem));
@@ -641,7 +822,7 @@
       top: 0;
       max-width: min(22rem, calc(100% - 1.5rem));
       padding: var(--s2) var(--s3);
-      background: #FCFCFC;
+      background: var(--bg-1);
       border: 1px solid var(--ink-4);
       border-radius: var(--r-md);
       font-size: var(--t-sm);
@@ -651,7 +832,7 @@
       transition: opacity 0.12s;
       white-space: normal;
       z-index: 25;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+      box-shadow: 0 8px 24px rgba(42, 38, 34, 0.11);
     }
 
     /* ══════════════════════════════════════════
@@ -667,16 +848,18 @@
       flex-wrap: wrap;
     }
     .footer-note {
+      font-family: var(--font-display);
       font-size: var(--t-sm);
       color: var(--ink-3);
       line-height: var(--lh-loose);
       max-width: 560px;
     }
     .footer-brand {
+      font-family: var(--font-display);
       font-size: var(--t-cap);
       font-weight: 600;
       color: var(--ink-3);
-      letter-spacing: var(--ls-caps);
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       white-space: nowrap;
     }
@@ -750,12 +933,12 @@
       .hero-title     { font-size: clamp(2rem, 8.5vw, 2.625rem); }
       .hero-desc      { font-size: var(--t-base); }
       .hero-stat-val  { font-size: clamp(1.75rem, 6vw, 2rem); }
-      .hero-meta      { margin-bottom: var(--s4); }
 
       /* Sankey header even more compact */
       #sankey-section .section-wrap {
         padding-top: var(--s3);
         padding-bottom: var(--s1);
+        max-height: min(48vh, 360px);
       }
 
       /* Narrower bar labels so the track doesn't get squeezed out */
@@ -774,53 +957,74 @@
     }
 
     /* ══════════════════════════════════════════
-       SCROLL DOT NAV
+       SCROLL DOT NAV — label + dot row, clear of frame line
     ══════════════════════════════════════════ */
     .scroll-nav {
       position: fixed;
-      right: 28px;
+      /* Sit left of the decorative margin rule so type never crosses the frame line */
+      right: max(calc(var(--margin-rule-inset) + 12px), 20px);
       top: 50%;
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      align-items: flex-end;
+      gap: 10px;
       z-index: 100;
     }
+    .scroll-nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+    .scroll-nav-label {
+      font-family: var(--font-display);
+      font-size: var(--t-sm);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--ink-3);
+      text-align: right;
+      white-space: nowrap;
+      line-height: 1.25;
+      pointer-events: none;
+      transition: color 0.15s, font-weight 0.15s;
+    }
+    .scroll-nav-item.is-active .scroll-nav-label {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .scroll-nav-item:hover .scroll-nav-label {
+      color: var(--ink-2);
+    }
+    .scroll-nav-item.is-active:hover .scroll-nav-label {
+      color: var(--accent);
+    }
     .scroll-nav-dot {
-      position: relative;
-      width: 6px;
-      height: 6px;
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: rgba(36,36,36,0.18);
+      background: rgba(42,38,34,0.22);
       border: none;
       padding: 0;
       cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s, box-shadow 0.2s;
       display: block;
     }
-    .scroll-nav-dot:hover  { background: rgba(36,36,36,0.50); }
-    .scroll-nav-dot.active { background: var(--accent); transform: scale(1.55); }
-    .dot-label {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: var(--t-cap);
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      color: var(--ink-2);
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 0.15s;
-      pointer-events: none;
+    .scroll-nav-dot:hover {
+      background: rgba(42,38,34,0.45);
     }
-    .scroll-nav:hover .dot-label { opacity: 1; }
-    .scroll-nav-dot.active .dot-label { color: var(--accent); }
+    .scroll-nav-dot.active {
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(226, 93, 69, 0.22);
+    }
 
     /* ══════════════════════════════════════════
        EXPLORE CTA
     ══════════════════════════════════════════ */
     .explore-cta {
+      position: relative;
+      overflow: hidden;
       padding: var(--s8) var(--gutter);
       background: var(--bg-1);
       border-top: var(--section-divider-weight) solid var(--section-divider-color);
@@ -831,9 +1035,40 @@
       justify-content: center;
       align-items: center;
       scroll-snap-align: start;
-      scroll-snap-stop: always;
+      scroll-snap-stop: normal;
     }
-    .explore-cta-inner { max-width: 600px; margin: 0 auto; }
+    /* Same tight grid + fade treatment as #hero::before */
+    .explore-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width)),
+        linear-gradient(90deg, var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width));
+      background-size: var(--grid-cell-size-tight) var(--grid-cell-size-tight);
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.95) 0%,
+        rgba(0,0,0,0.45) 38%,
+        rgba(0,0,0,0.12) 62%,
+        transparent 82%
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.95) 0%,
+        rgba(0,0,0,0.45) 38%,
+        rgba(0,0,0,0.12) 62%,
+        transparent 82%
+      );
+    }
+    .explore-cta-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin: 0 auto;
+    }
     .explore-cta-title {
       font-family: var(--font-display);
       font-size: clamp(1.625rem, 2.5vw + 0.5rem, var(--text-h1));
@@ -860,15 +1095,23 @@
       font-size: var(--t-base);
       font-weight: 600;
       text-decoration: none;
-      border: 1px solid rgba(235,101,63,0.45);
+      border: 1px solid rgba(226,93,69,0.45);
       border-radius: var(--r-sm);
       letter-spacing: 0.02em;
       transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
     .explore-cta-btn:hover {
-      background: rgba(235,101,63,0.08);
-      border-color: rgba(235,101,63,0.65);
-      color: rgba(36,36,36,0.92);
+      background: rgba(226,93,69,0.08);
+      border-color: rgba(226,93,69,0.65);
+      color: rgba(42,38,34,0.92);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .explore-cta-btn {
+        transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.2s ease;
+      }
+      .explore-cta-btn:hover {
+        transform: translateY(-2px);
+      }
     }
 
     /* About this project — prose block below explore CTA */
@@ -877,7 +1120,7 @@
       background: var(--bg-2);
       border-top: var(--section-divider-weight) solid var(--section-divider-color);
       scroll-snap-align: start;
-      scroll-snap-stop: always;
+      scroll-snap-stop: normal;
     }
     .about-project-inner {
       max-width: 42rem;
@@ -912,14 +1155,45 @@
   </style>
 </head>
 <body>
+<div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
 
 <nav class="scroll-nav" aria-label="Section navigation">
-  <button class="scroll-nav-dot active" data-target="#hero"><span class="dot-label">Intro</span></button>
-  <button class="scroll-nav-dot" data-target="#sankey-section"><span class="dot-label">Career Pathways</span></button>
-  <button class="scroll-nav-dot" data-target="#route-origins"><span class="dot-label">Starting Points</span></button>
-  <button class="scroll-nav-dot" data-target="#finding-03"><span class="dot-label">Tool Stack</span></button>
-  <button class="scroll-nav-dot" data-target=".explore-cta"><span class="dot-label">Explore All</span></button>
-  <button class="scroll-nav-dot" data-target="#about-project"><span class="dot-label">About</span></button>
+  <div class="scroll-nav-item is-active">
+    <span class="scroll-nav-label" aria-hidden="true">Intro</span>
+    <button type="button" class="scroll-nav-dot active" data-target="#hero" aria-current="true" aria-label="Intro section"></button>
+  </div>
+  <div class="scroll-nav-item">
+    <span class="scroll-nav-label" aria-hidden="true">Career Pathways</span>
+    <button type="button" class="scroll-nav-dot" data-target="#sankey-section" aria-label="Career Pathways section"></button>
+  </div>
+  <div class="scroll-nav-item">
+    <span class="scroll-nav-label" aria-hidden="true">Starting Points</span>
+    <button type="button" class="scroll-nav-dot" data-target="#route-origins" aria-label="Starting Points section"></button>
+  </div>
+  <div class="scroll-nav-item">
+    <span class="scroll-nav-label" aria-hidden="true">Tool Stack</span>
+    <button type="button" class="scroll-nav-dot" data-target="#finding-03" aria-label="Tool Stack section"></button>
+  </div>
+  <div class="scroll-nav-item">
+    <span class="scroll-nav-label" aria-hidden="true">Explore All</span>
+    <button type="button" class="scroll-nav-dot" data-target=".explore-cta" aria-label="Explore All section"></button>
+  </div>
+  <div class="scroll-nav-item">
+    <span class="scroll-nav-label" aria-hidden="true">About</span>
+    <button type="button" class="scroll-nav-dot" data-target="#about-project" aria-label="About section"></button>
+  </div>
+  <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+    <svg class="theme-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="8" cy="8" r="3"/>
+      <line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/>
+      <line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/>
+      <line x1="3.05" y1="3.05" x2="4.11" y2="4.11"/><line x1="11.89" y1="11.89" x2="12.95" y2="12.95"/>
+      <line x1="12.95" y1="3.05" x2="11.89" y2="4.11"/><line x1="4.11" y1="11.89" x2="3.05" y2="12.95"/>
+    </svg>
+    <svg class="theme-icon-moon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M13.5 10.5A5.5 5.5 0 0 1 5.5 2.5a.5.5 0 0 0-.6-.6A6.5 6.5 0 1 0 14.1 11.1a.5.5 0 0 0-.6-.6z"/>
+    </svg>
+  </button>
 </nav>
 
 
@@ -927,21 +1201,22 @@
      HERO
 ════════════════════════════════════ -->
 <section id="hero">
-  <div class="hero-meta">Design Leadership Survey &middot; n=119 &middot; 2026</div>
-  <h1 class="hero-title">Design leadership is at<br>an <em>inflection point</em></h1>
-  <p class="hero-desc">119 design leaders surveyed on how they got here, what's disrupting their careers, and where they think the profession is headed. The picture that emerges is one of structural change, fractured paths, and a field asking hard questions about its own future.</p>
-  <div class="hero-stats">
-    <div>
-      <div class="hero-stat-val">119</div>
-      <div class="hero-stat-lbl">Design leaders</div>
-    </div>
-    <div>
-      <div class="hero-stat-val">37</div>
-      <div class="hero-stat-lbl">Survey dimensions</div>
-    </div>
-    <div>
-      <div class="hero-stat-val">3</div>
-      <div class="hero-stat-lbl">Key findings</div>
+  <div class="hero-inner reveal is-visible">
+    <h1 class="hero-title">Change as a Constant<br><em>Design Leadership in 2026</em></h1>
+    <p class="hero-desc">Across 119 respondents, no two career paths were exactly alike. Freelance starters are 9× more likely to found a company than agency starters. And 92% expect their tool stack to change significantly in the next five years.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-val">119</div>
+        <div class="hero-stat-lbl">Design leaders</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">37</div>
+        <div class="hero-stat-lbl">Survey dimensions</div>
+      </div>
+      <div>
+        <div class="hero-stat-val">3</div>
+        <div class="hero-stat-lbl">Key findings</div>
+      </div>
     </div>
   </div>
 </section>
@@ -951,18 +1226,18 @@
      FINDING 01 — SANKEY
 ════════════════════════════════════ -->
 <div id="sankey-section">
-  <div class="section-wrap">
-    <span class="panel-eyebrow">Finding 01 &middot; Career Pathways</span>
-    <h2 class="panel-title">No single ladder.<br><em>Many different routes.</em></h2>
-    <p class="panel-desc">From humanities to engineering, agency to non-profit, solo IC to CDO — the paths here are as varied as the leaders themselves. What was once imagined as a ladder has become a lattice. The diversity of routes isn't an exception — it's the norm. Hover any node or flow to trace connections.</p>
+  <div class="section-wrap reveal">
+    <span class="panel-eyebrow"><span class="panel-eyebrow-finding">Finding 1</span><span class="panel-eyebrow-sep" aria-hidden="true"> : </span><span class="panel-eyebrow-name">Career Pathways</span></span>
+    <h2 class="panel-title">No single path. <em>Many different routes.</em></h2>
+    <p class="panel-desc">Design leaders come from different backgrounds. Our research represents 93 distinct pathways, across different discipline backgrounds, education levels, organization types, and career levels.</p>
   </div>
-  <div id="sankey-wrap">
+  <div id="sankey-wrap" class="chart-fade">
     <svg id="sankey-chart" viewBox="0 0 1400 780" preserveAspectRatio="xMidYMid meet"></svg>
     <div id="s-tooltip" class="s-tooltip"></div>
-  </div>
-  <div class="s-stats">
-    <div id="s-total" class="s-stats-total"></div>
-    <div id="s-active" class="s-stats-active"></div>
+    <div class="s-stats">
+      <div id="s-total" class="s-stats-total"></div>
+      <div id="s-active" class="s-stats-active"></div>
+    </div>
   </div>
 </div>
 
@@ -971,10 +1246,12 @@
      FINDING 02 — STARTING POINTS
 ════════════════════════════════════ -->
 <div id="route-origins" class="route-panel">
-  <span class="panel-eyebrow">Finding 02 &middot; Origins &amp; Outcomes</span>
-  <h2 class="panel-title">The fork happens<br><em>earlier than you think</em></h2>
-  <p class="panel-desc">Your first professional context does more than start a career — it shapes the arc of it. Leaders who began freelance or independent are 9&times; more likely to eventually found a company. Those who started inside large design organizations show higher rates of reaching the executive track. The divergence happens before education, before title, before almost anything else.</p>
-  <div class="route-cols">
+  <div class="reveal">
+    <span class="panel-eyebrow"><span class="panel-eyebrow-finding">Finding 2</span><span class="panel-eyebrow-sep" aria-hidden="true"> : </span><span class="panel-eyebrow-name">Starting Points</span></span>
+    <h2 class="panel-title">Starting points define <em>the shape of the design career</em></h2>
+    <p class="panel-desc">Where you start shapes where you go. Leaders who began as freelancers or independents are 9× more likely to found a company. Those who started inside large design organizations are significantly more likely to end up on the executive track.</p>
+  </div>
+  <div class="route-cols chart-fade">
     <div>
       <div class="route-col-label">The executive track</div>
       <div id="exec-chart"></div>
@@ -986,6 +1263,10 @@
     <div>
       <div class="route-col-label">The founder track</div>
       <div id="founder-chart"></div>
+      <div class="baseline-note">
+        <span class="dash-line"></span>
+        ~12% overall consulting / founding rate across all 119 leaders
+      </div>
       <div class="big-callout">
         <div class="big-callout-val">9&times;</div>
         <div class="big-callout-lbl">higher founder rate for freelance starters vs. agency starters<br>(37.5% vs. 4.3%, Fisher's exact p=0.025)</div>
@@ -1000,11 +1281,18 @@
      FINDING 03 — TOOL STACK
 ════════════════════════════════════ -->
 <div id="finding-03" class="full-panel alt-bg">
-  <span class="panel-eyebrow">Finding 03 &middot; The Road Ahead</span>
-  <h2 class="panel-title">The tools are changing.<br><em>Everything else will too.</em></h2>
-  <p class="panel-desc">92% of design leaders expect significant changes to their tool stack over the next five years. But this isn't a software story — it's a structural one. When the tools that shape how we research, ideate, prototype, and deliver are evolving this quickly, the nature of design work itself begins to change. Leaders who once enforced process will need to guide principles. Teams that once scaled by headcount will need to deliver more with less.</p>
+  <div class="reveal">
+    <span class="panel-eyebrow"><span class="panel-eyebrow-finding">Finding 3</span><span class="panel-eyebrow-sep" aria-hidden="true"> : </span><span class="panel-eyebrow-name">Tool Stack</span></span>
+    <h2 class="panel-title">The industry is changing. <em>So are its tools.</em></h2>
+    <p class="panel-desc">When asked how much their tool stack would change over the next five years, only 7% of respondents expected moderate or little change — a signal of deeper shifts in process and practice.</p>
+  </div>
 
-  <div class="stacked-bar-wrap">
+  <div class="big-callout reveal" style="margin-bottom: var(--s5); max-width: 600px;">
+    <div class="big-callout-val">92%</div>
+    <div class="big-callout-lbl">expect significant change to their tool stack — 66% saying "a lot." Only 7% expect things to stay roughly the same.</div>
+  </div>
+
+  <div class="stacked-bar-wrap chart-fade">
     <div id="stacked-bar-chart"></div>
     <div id="stacked-bar-tooltip" class="stacked-tooltip"></div>
   </div>
@@ -1015,10 +1303,10 @@
      EXPLORE CTA
 ════════════════════════════════════ -->
 <section class="explore-cta">
-  <div class="explore-cta-inner">
+  <div class="explore-cta-inner reveal">
     <span class="eyebrow">Dive deeper</span>
     <h2 class="explore-cta-title">There's more beneath<br>the <em>surface</em></h2>
-    <p class="explore-cta-desc">Mentorship gaps. Burnout patterns. How leaders are rethinking what comes next — and why nearly half are pessimistic about the future of the field. The complete survey, all 30 questions, fully visualized.</p>
+    <p class="explore-cta-desc">Dive deeper to see how leaders are thinking about the future of the field. Explore the full 30 questions to see patterns, insights, and gaps visualized.</p>
     <a href="explore.html" class="explore-cta-btn">Explore all 30 questions →</a>
   </div>
 </section>
@@ -1028,12 +1316,11 @@
      ABOUT THIS PROJECT
 ════════════════════════════════════ -->
 <section id="about-project" class="about-project" aria-labelledby="about-project-heading">
-  <div class="about-project-inner">
+  <div class="about-project-inner reveal">
     <h2 id="about-project-heading" class="about-project-title">About this project</h2>
     <div class="about-project-body">
-      <p>This site summarizes quantitative findings from a 2026 survey of 119 design leaders: how they entered the field, their first organizations, current level, tool expectations, and outlook on the profession. The story sections highlight three main findings; the <a href="explore.html">explore</a> view shows every survey question with optional filters for age, gender, and region.</p>
-      <p>Analysis combines descriptive summaries with standard inferential tests where appropriate (for example comparisons of rates and scale responses). The footer notes sample composition and methods at a glance; treat any downloadable raw data as sensitive if it contains identifiable fields.</p>
-      <p>Visualizations and this narrative build are part of ongoing design leadership research on career pathways and the changing context of senior design roles.</p>
+      <p>This site summarizes quantitative findings from a 2026 survey conducted by Design Leadership, a seminar led by Doug Powell for Washington University in St. Louis. This seminar brings together undergraduate and graduate students from across disciplines to examine how design shapes and is shaped by the organizations it lives inside.</p>
+      <p>The survey results represent 119 design leaders: how they entered the field, their first organizations, current level, tool expectations, and outlook on the profession. Three main findings are presented as chapters; the <a href="explore.html">explore</a> view shows all 30 questions with optional filters for age, gender, and region.</p>
     </div>
   </div>
 </section>
@@ -1061,9 +1348,10 @@ const RAW_DATA = [["Engineering / Computer Science","I hold an undergraduate deg
 
 const stageTitles = ["Background", "Design Education", "First Org Type", "Current Career Level"];
 const bgOrder  = ["Design-specific track","Arts / humanities","Engineering / CS","Social sciences","Business / economics","Architecture","Other non-design background"];
-const eduOrder = ["Master's+ in design","Undergrad design degree","No formal design education","Community college design","Bootcamp certificate","Other design education"];
-const orgOrder = ["Agency / consultancy","Corporate / in-house","Startup","Freelance / independent","NGO / non-profit","Academic","Other org type"];
-const lvlOrder = ["IC","Manager","Director","VP","CDO / chief","Consulting / founder","Other / hybrid"];
+/* Sankey vertical order (top → bottom): education high→low; org corporate→…→other; level CDO→…→other */
+const eduOrder = ["Master's+ in design","Undergrad design degree","Community college design","Bootcamp certificate","No formal design education","Other design education"];
+const orgOrder = ["Corporate / in-house","Agency / consultancy","Startup","NGO / non-profit","Freelance / independent","Academic","Other org type"];
+const lvlOrder = ["CDO / chief","VP","Director","Manager","IC","Consulting / founder","Other / hybrid"];
 
 function mapBg(v) {
   return ({
@@ -1123,23 +1411,13 @@ function wrapLabel(text, maxW=20) {
 function buildRanks(rows, colNames) {
   const maps = new Map();
   maps.set(0, new Map(bgOrder.map((c,i)=>[c,i])));
-  for (let si=1; si<colNames.length; si++) {
-    const prev = maps.get(si-1);
-    const stats = new Map();
-    rows.forEach(r => {
-      const cat=r[colNames[si]], pc=r[colNames[si-1]], pr=prev.get(pc);
-      if (pr==null) return;
-      if (!stats.has(cat)) stats.set(cat,{w:0,n:0});
-      const e=stats.get(cat); e.w+=pr; e.n++;
-    });
-    const ord = stageOrderFor(si).filter(c=>stats.has(c)).sort((a,b)=>{
-      const as=stats.get(a), bs=stats.get(b);
-      const av=as.w/as.n, bv=bs.w/bs.n;
-      if (av!==bv) return av-bv;
-      if (as.n!==bs.n) return bs.n-as.n;
-      return stageOrderFor(si).indexOf(a)-stageOrderFor(si).indexOf(b);
-    });
-    maps.set(si, new Map(ord.map((c,i)=>[c,i])));
+  for (let si = 1; si < colNames.length; si++) {
+    const present = new Set(rows.map(r => r[colNames[si]]));
+    const canon = stageOrderFor(si);
+    const ord = [];
+    canon.forEach(c => { if (present.has(c)) ord.push(c); });
+    present.forEach(c => { if (!ord.includes(c)) ord.push(c); });
+    maps.set(si, new Map(ord.map((c, i) => [c, i])));
   }
   return maps;
 }
@@ -1151,17 +1429,30 @@ function renderSankey() {
   const actEl   = d3.select("#s-active");
 
   const C = {
-    text:      "rgba(36,36,36,0.88)",
-    muted:     "rgba(36,36,36,0.52)",
-    line:      "#242424",
-    lineSoft:  "rgba(36,36,36,0.18)",
-    accent:    "rgba(235,101,63,0.95)",
-    accentSft: "rgba(235,101,63,0.28)",
-    node:      "rgba(36,36,36,0.60)",
-    nodeStr:   "rgba(36,36,36,0.70)",
-    stroke:    "rgba(36,36,36,0)",
-    band:      "rgba(36,36,36,0.03)"
+    text:      "rgba(42,38,34,0.88)",
+    muted:     "rgba(42,38,34,0.52)",
+    line:      "#3A3532",
+    lineSoft:  "rgba(42,38,34,0.18)",
+    accent:    "rgba(226,93,69,0.95)",
+    accentSft: "rgba(226,93,69,0.28)",
+    node:      "rgba(42,38,34,0.60)",
+    nodeStr:   "rgba(42,38,34,0.70)",
+    stroke:    "rgba(42,38,34,0)",
+    band:      "rgba(42,38,34,0.03)"
   };
+  const CD = {
+    text:      "rgba(245,240,232,0.88)",
+    muted:     "rgba(245,240,232,0.52)",
+    line:      "rgba(245,240,232,0.80)",
+    lineSoft:  "rgba(245,240,232,0.18)",
+    accent:    "rgba(226,93,69,0.95)",
+    accentSft: "rgba(226,93,69,0.32)",
+    node:      "rgba(245,240,232,0.55)",
+    nodeStr:   "rgba(245,240,232,0.70)",
+    stroke:    "rgba(245,240,232,0)",
+    band:      "rgba(245,240,232,0.04)"
+  };
+  function getC() { return document.documentElement.dataset.theme === 'dark' ? CD : C; }
 
   {
     const rows = RAW_DATA.map(d => ({
@@ -1205,8 +1496,8 @@ function renderSankey() {
     });
 
     const sankey = d3.sankey()
-      .nodeWidth(18).nodePadding(18)
-      .extent([[170,60],[1220,720]])
+      .nodeWidth(24).nodePadding(22)
+      .extent([[52, 46], [1348, 734]])
       .nodeAlign(d3.sankeyJustify)
       .nodeSort((a,b)=>{
         const rm=ranks.get(a.depth)||new Map();
@@ -1230,8 +1521,8 @@ function renderSankey() {
     svg.selectAll("*").remove();
 
     function setActive(n) {
-      actEl.style("color", n ? C.text : C.muted)
-           .text(n ? `${n} unique paths highlighted` : "Hover a node or flow to inspect");
+      actEl.style("color", n ? "var(--ink-1)" : null)
+           .text(n ? `${n} unique paths highlighted` : "Hover a ribbon or block to inspect");
     }
 
     function overlap(a,b) {
@@ -1249,31 +1540,34 @@ function renderSankey() {
     }
 
     function reset() {
-      ulSel.attr("stroke-opacity",d=>ulSc(d.value)).attr("stroke",C.lineSoft);
-      lkSel.attr("stroke-opacity",d=>opSc(d.value)).attr("stroke",C.line);
+      ulSel.attr("stroke-opacity",d=>ulSc(d.value)).style("stroke",null);
+      lkSel.attr("stroke-opacity",d=>opSc(d.value)).style("stroke",null);
       ndSel.attr("opacity",1); lbSel.attr("opacity",1);
       setActive(0);
     }
 
     function hi(sel) {
       const {vn,vl}=collect(sel);
+      const cc=getC();
       ulSel.attr("stroke-opacity",d=>vl.has(d.index)?Math.min(0.32,ulSc(d.value)*2):0.01)
-           .attr("stroke",d=>vl.has(d.index)?C.accentSft:"rgba(36,36,36,0.03)");
+           .style("stroke",d=>vl.has(d.index)?cc.accentSft:"rgba(0,0,0,0)");
       lkSel.attr("stroke-opacity",d=>vl.has(d.index)?0.85:0.03)
-           .attr("stroke",d=>vl.has(d.index)?C.accent:"rgba(36,36,36,0.04)");
+           .style("stroke",d=>vl.has(d.index)?cc.accent:"rgba(0,0,0,0)");
       ndSel.attr("opacity",d=>vn.has(d.index)?1:0.12);
       lbSel.attr("opacity",d=>vn.has(d.index)?1:0.12);
     }
 
     // Stage bands + labels
     svg.append("g").selectAll("rect").data(stageTitles).join("rect")
+      .attr("class","sankey-band")
       .attr("x",(_,i)=>graph.nodes.find(n=>n.depth===i).x0-16)
-      .attr("y",42).attr("width",52).attr("height",690).attr("rx",20).attr("fill",C.band);
+      .attr("y",40).attr("width",56).attr("height",694).attr("rx",20).attr("fill",C.band);
 
     svg.append("g").selectAll("text").data(stageTitles).join("text")
-      .attr("x",(_,i)=>graph.nodes.find(n=>n.depth===i).x0+9)
+      .attr("class","sankey-stage-label")
+      .attr("x",(_,i)=>graph.nodes.find(n=>n.depth===i).x0+12)
       .attr("y",28).attr("text-anchor","middle")
-      .attr("fill","rgba(36,36,36,0.65)").attr("font-size",12).attr("font-weight",600)
+      .attr("fill","rgba(42,38,34,0.65)").attr("font-size",14).attr("font-weight",600)
       .attr("font-family","'Host Grotesk', ui-sans-serif, system-ui, sans-serif").attr("letter-spacing","0.06em")
       .text(d=>d);
 
@@ -1281,30 +1575,37 @@ function renderSankey() {
     setActive(0);
 
     const ulSel = svg.append("g").attr("fill","none").selectAll("path").data(graph.links).join("path")
+      .attr("class","sankey-link-soft")
       .attr("d",d3.sankeyLinkHorizontal())
       .attr("stroke",C.lineSoft)
       .attr("stroke-opacity",d=>ulSc(d.value))
       .attr("stroke-width",d=>Math.max(2,d.width+1.5));
 
     const lkSel = svg.append("g").attr("fill","none").selectAll("path").data(graph.links).join("path")
+      .attr("class","sankey-link")
       .attr("d",d3.sankeyLinkHorizontal())
       .attr("stroke",C.line)
       .attr("stroke-opacity",d=>opSc(d.value))
       .attr("stroke-width",d=>Math.max(1,d.width))
+      .style("cursor","pointer")
       .on("mousemove",(event,d)=>{
         const sp=linkPaths.get(d.key)||new Set();
         hi(sp); setActive(sp.size);
         const wr=document.getElementById("sankey-wrap").getBoundingClientRect();
-        tip.style("opacity",1)
-           .style("left",`${event.clientX-wr.left+16}px`)
-           .style("top",`${event.clientY-wr.top+14}px`)
-           .html(`<strong>${d.source.category}</strong> &rarr; <strong>${d.target.category}</strong><br>Respondents: <strong>${d.value}</strong><br><span style="color:rgba(36,36,36,0.52);font-size:12px">Origin: ${d.origin}</span>`);
+        tip.html(`<strong>${d.source.category}</strong> &rarr; <strong>${d.target.category}</strong><br>Respondents: <strong>${d.value}</strong><br><span style="color:rgba(42,38,34,0.52);font-size:13px">Origin: ${d.origin}</span>`)
+           .style("opacity",1);
+        const tipW=tip.node().offsetWidth, tipH=tip.node().offsetHeight;
+        let tx=event.clientX-wr.left+16, ty=event.clientY-wr.top+14;
+        if (tx+tipW>wr.width-8) tx=event.clientX-wr.left-tipW-16;
+        if (ty+tipH>wr.height-8) ty=event.clientY-wr.top-tipH-14;
+        tip.style("left",`${Math.max(8,tx)}px`).style("top",`${Math.max(8,ty)}px`);
       })
       .on("mouseleave",()=>{ reset(); tip.style("opacity",0); });
 
     const nd = svg.append("g").selectAll("g").data(graph.nodes).join("g");
 
     const ndSel = nd.append("rect")
+      .attr("class",d=>d.depth===0?"sankey-node-str":"sankey-node")
       .attr("x",d=>d.x0).attr("y",d=>d.y0)
       .attr("height",d=>Math.max(1,d.y1-d.y0)).attr("width",d=>d.x1-d.x0)
       .attr("fill",d=>d.depth===0?C.nodeStr:C.node)
@@ -1314,10 +1615,13 @@ function renderSankey() {
         const sp=nodePaths.get(d.id)||new Set();
         hi(sp); setActive(sp.size);
         const wr=document.getElementById("sankey-wrap").getBoundingClientRect();
-        tip.style("opacity",1)
-           .style("left",`${event.clientX-wr.left+16}px`)
-           .style("top",`${event.clientY-wr.top+14}px`)
-           .html(`<strong>${d.category}</strong><br>Stage: <strong>${stageTitles[d.depth]}</strong><br>Respondents: <strong>${d.value}</strong>`);
+        tip.html(`<strong>${d.category}</strong><br>Stage: <strong>${stageTitles[d.depth]}</strong><br>Respondents: <strong>${d.value}</strong>`)
+           .style("opacity",1);
+        const tipW=tip.node().offsetWidth, tipH=tip.node().offsetHeight;
+        let tx=event.clientX-wr.left+16, ty=event.clientY-wr.top+14;
+        if (tx+tipW>wr.width-8) tx=event.clientX-wr.left-tipW-16;
+        if (ty+tipH>wr.height-8) ty=event.clientY-wr.top-tipH-14;
+        tip.style("left",`${Math.max(8,tx)}px`).style("top",`${Math.max(8,ty)}px`);
       })
       .on("mouseleave",()=>{ reset(); tip.style("opacity",0); });
 
@@ -1325,17 +1629,18 @@ function renderSankey() {
     function la(d){ return d.depth===0 ? "end" : "start"; }
 
     const lbSel = nd.append("text")
-      .attr("font-size",11).attr("fill",C.text).attr("pointer-events","none")
+      .attr("class","sankey-node-label")
+      .attr("font-size",13).attr("fill",C.text).attr("pointer-events","none")
       .attr("font-family","'Space Mono', ui-monospace, monospace")
       .attr("x",d=>lx(d)).attr("y",d=>(d.y0+d.y1)/2)
       .attr("text-anchor",d=>la(d)).attr("dy","0.35em")
       .each(function(d){
         const t=d3.select(this);
-        wrapLabel(d.category,20).forEach((line,i)=>{
-          t.append("tspan").attr("x",lx(d)).attr("dy",i===0?0:12).text(line);
+        wrapLabel(d.category,22).forEach((line,i)=>{
+          t.append("tspan").attr("x",lx(d)).attr("dy",i===0?0:13).text(line);
         });
-        t.append("tspan").attr("x",lx(d)).attr("dy",12)
-          .attr("fill",C.muted).attr("font-size",10).text(`n=${d.value}`);
+        t.append("tspan").attr("class","sankey-count").attr("x",lx(d)).attr("dy",13)
+          .attr("fill",C.muted).attr("font-size",11.5).text(`n=${d.value}`);
       });
 
   }
@@ -1365,8 +1670,8 @@ renderSankey();
   data.forEach(d => {
     const pctW = (d.pct / maxPct * 100).toFixed(2);
     const baseW = (baseline / maxPct * 100).toFixed(2);
-    const fillColor = d.above ? "#EB653F" : "rgba(235,101,63,0.5)";
-    const valColor  = d.above ? "#EB653F" : "rgba(36,36,36,0.55)";
+    const fillColor = d.above ? "#E25D45" : "rgba(226,93,69,0.5)";
+    const valColor  = d.above ? "#E25D45" : "rgba(42,38,34,0.55)";
 
     const row = document.createElement("div");
     row.className = "bar-row";
@@ -1398,13 +1703,15 @@ renderSankey();
     { label: "Agency / consultancy",    pct: 4.3,  hi: false },
     { label: "Startup",                 pct: 0.0,  hi: false },
   ];
+  const baseline = 12.0;
   const maxPct = 42;
+  const baseW = (baseline / maxPct * 100).toFixed(2);
   const container = document.getElementById("founder-chart");
 
   data.forEach(d => {
     const pctW = (d.pct / maxPct * 100).toFixed(2);
-    const fillColor = d.hi ? "#EB653F" : "rgba(235,101,63,0.5)";
-    const valColor  = d.hi ? "#EB653F" : "rgba(36,36,36,0.55)";
+    const fillColor = d.hi ? "#E25D45" : "rgba(226,93,69,0.5)";
+    const valColor  = d.hi ? "#E25D45" : "rgba(42,38,34,0.55)";
     const valText   = d.pct > 0 ? d.pct.toFixed(1) + "%" : "—";
 
     const row = document.createElement("div");
@@ -1418,6 +1725,7 @@ renderSankey();
           <div class="bar-fill" style="width:${pctW}%;background:${fillColor};"></div>
           <div class="bar-remainder" aria-hidden="true"></div>
         </div>
+        <div class="bar-baseline" style="left:${baseW}%;"></div>
       </div>
       <div class="bar-val" style="color:${valColor}">${valText}</div>
     `;
@@ -1476,10 +1784,10 @@ renderSankey();
 (function() {
   // Pill bar: accent orange for strong agreement, ink for the dissenting tail (matches Finding 02)
   const segments = [
-    { label: "A lot",       rating: 5, n: 78, color: "#EB653F", hoverColor: "rgba(235,101,63,0.88)" },
-    { label: "Quite a bit", rating: 4, n: 33, color: "rgba(235,101,63,0.52)", hoverColor: "rgba(235,101,63,0.72)" },
-    { label: "Moderate",    rating: 3, n: 6,  color: "#242424",               hoverColor: "rgba(36,36,36,0.88)" },
-    { label: "A little",    rating: 2, n: 2,  color: "rgba(36,36,36,0.62)",   hoverColor: "rgba(36,36,36,0.78)" },
+    { label: "A lot",       rating: 5, n: 78, color: "#E25D45", hoverColor: "rgba(226,93,69,0.88)" },
+    { label: "Quite a bit", rating: 4, n: 33, color: "rgba(226,93,69,0.52)", hoverColor: "rgba(226,93,69,0.72)" },
+    { label: "Moderate",    rating: 3, n: 6,  color: "#3A3532",               hoverColor: "rgba(42,38,34,0.88)" },
+    { label: "A little",    rating: 2, n: 2,  color: "rgba(42,38,34,0.62)",   hoverColor: "rgba(42,38,34,0.78)" },
   ];
   const total = 119;
   const BAR_H = 72;
@@ -1532,7 +1840,7 @@ renderSankey();
     .attr("y", barY)
     .attr("width", W)
     .attr("height", BAR_H)
-    .attr("fill", "#242424");
+    .attr("fill", "#3A3532");
 
   const segs = barLayer.selectAll("g.seg").data(computed).join("g").attr("class", "seg");
 
@@ -1542,20 +1850,22 @@ renderSankey();
     .attr("width", d => Math.max(0, d.w))
     .attr("height", BAR_H)
     .attr("fill", d => d.color)
-    .style("cursor", "default")
+    .style("cursor", "pointer")
     .on("mousemove", function(event, d) {
       d3.select(this).attr("fill", d.hoverColor);
       const wrap = document.querySelector(".stacked-bar-wrap");
       const wr = wrap.getBoundingClientRect();
       const pctStr = (d.pct * 100).toFixed(1);
       const agreement = d.label.toLowerCase();
-      tip.style("opacity", 1)
-         .style("left", `${event.clientX - wr.left + 14}px`)
-         .style("top",  `${event.clientY - wr.top - 60}px`)
-         .html(
-           `<strong>${pctStr}%</strong> of design leaders surveyed expect <strong>${agreement}</strong> change to their design tool stack over the next five years.<br>` +
-           `<span style="color:rgba(36,36,36,0.52);font-size:12px">Scale: ${d.rating}/5 · ${d.n} of ${total} responses</span>`
-         );
+      tip.html(
+        `<strong>${pctStr}%</strong> of design leaders surveyed expect <strong>${agreement}</strong> change to their design tool stack over the next five years.<br>` +
+        `<span style="color:rgba(42,38,34,0.52);font-size:13px">Scale: ${d.rating}/5 · ${d.n} of ${total} responses</span>`
+      ).style("opacity", 1);
+      const tipW = tip.node().offsetWidth;
+      let tx = event.clientX - wr.left + 14;
+      if (tx + tipW > wr.width - 8) tx = event.clientX - wr.left - tipW - 14;
+      tip.style("left", `${Math.max(8, tx)}px`)
+         .style("top",  `${event.clientY - wr.top - 60}px`);
     })
     .on("mouseleave", function(event, d) {
       d3.select(this).attr("fill", d.color);
@@ -1572,44 +1882,97 @@ renderSankey();
     const pctStr = `${(d.pct * 100).toFixed(0)}%`;
     const line = d.w >= 48 ? `${pctStr} · ${d.label}` : pctStr;
     labelsBelow.append("text")
+      .attr("class", "stacked-bar-label")
       .attr("x", cx)
       .attr("y", belowY)
       .attr("text-anchor", "middle")
       .attr("font-family", "'Space Mono', ui-monospace, monospace")
-      .attr("font-size", d.w >= 48 ? 11 : 10)
+      .attr("font-size", d.w >= 48 ? 12 : 11)
       .attr("letter-spacing", "0.02em")
-      .attr("fill", "rgba(36,36,36,0.48)")
+      .attr("fill", "rgba(42,38,34,0.48)")
       .text(line);
   });
 })();
 
 /* ══════════════════════════════════════════
-   SCROLL DOT NAV
+   SCROLL DOT NAV + REVEAL / CHART FADES
 ══════════════════════════════════════════ */
 (function() {
-  const dots     = Array.from(document.querySelectorAll('.scroll-nav-dot'));
-  const targets  = dots.map(d => document.querySelector(d.dataset.target)).filter(Boolean);
+  const dots = Array.from(document.querySelectorAll('.scroll-nav-dot'));
+  const targets = dots.map(d => document.querySelector(d.dataset.target)).filter(Boolean);
 
-  // Click → smooth scroll to section
+  function setActiveDot(i) {
+    dots.forEach((d, j) => {
+      const on = j === i;
+      d.classList.toggle('active', on);
+      d.closest('.scroll-nav-item')?.classList.toggle('is-active', on);
+      if (on) d.setAttribute('aria-current', 'true');
+      else d.removeAttribute('aria-current');
+    });
+  }
+
   dots.forEach((dot, i) => {
     dot.addEventListener('click', () => {
       targets[i]?.scrollIntoView({ behavior: 'smooth' });
     });
   });
 
-  // IntersectionObserver → highlight active dot
-  const obs = new IntersectionObserver(entries => {
+  const obsNav = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       const i = targets.indexOf(entry.target);
       if (i === -1) return;
-      dots.forEach((d, j) => d.classList.toggle('active', j === i));
+      setActiveDot(i);
     });
   }, { threshold: 0.4 });
 
-  targets.forEach(t => obs.observe(t));
+  targets.forEach(t => obsNav.observe(t));
+
+  /* Fade / lift sections and charts when they enter view */
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const animated = document.querySelectorAll('.reveal, .chart-fade');
+  if (reduceMotion) {
+    animated.forEach(el => el.classList.add('is-visible'));
+  } else {
+    const obsReveal = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('is-visible');
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+    animated.forEach(el => obsReveal.observe(el));
+  }
+})();
+</script>
+<script>
+(function () {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var dot = document.getElementById('cursor-dot');
+  if (!dot) return;
+  document.documentElement.classList.add('use-circle-cursor');
+  document.addEventListener('mousemove', function (e) {
+    dot.style.left = e.clientX + 'px';
+    dot.style.top = e.clientY + 'px';
+  }, { passive: true });
+  document.documentElement.addEventListener('mouseleave', function () {
+    dot.style.opacity = '0';
+  });
+  document.documentElement.addEventListener('mouseenter', function () {
+    dot.style.opacity = '1';
+  });
 })();
 </script>
 
+<script>
+(function() {
+  var btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  btn.addEventListener('click', function() {
+    var isDark = document.documentElement.dataset.theme === 'dark';
+    document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
+    localStorage.setItem('theme', document.documentElement.dataset.theme);
+  });
+})();
+</script>
 </body>
 </html>

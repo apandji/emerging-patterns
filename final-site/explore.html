@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Explore All Data · Design Leadership Survey 2026</title>
+  <title>Explore the Data · Design Leadership in 2026</title>
+  <meta name="description" content="Explore all 30 questions from the 2026 Design Leadership survey, with filters by age, gender, and region." />
+  <meta property="og:title" content="Explore the Data · Design Leadership in 2026" />
+  <meta property="og:description" content="Explore all 30 questions from the 2026 Design Leadership survey, with filters by age, gender, and region." />
+  <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Host+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
@@ -16,34 +20,34 @@
       --font-sans: "Space Mono", ui-monospace, "Courier New", monospace;
       --font-display: "Host Grotesk", ui-sans-serif, system-ui, sans-serif;
       --font-numbers: "Bitcount Prop Single", "Space Mono", monospace;
-      --ink-1: rgba(36,36,36,0.92);
-      --ink-2: rgba(36,36,36,0.68);
-      --ink-3: rgba(36,36,36,0.52);
-      --ink-4: rgba(36,36,36,0.12);
-      --ink-5: rgba(36,36,36,0.05);
+      --ink-1: rgba(42, 38, 34, 0.94);
+      --ink-2: rgba(42, 38, 34, 0.70);
+      --ink-3: rgba(42, 38, 34, 0.48);
+      --ink-4: rgba(42, 38, 34, 0.14);
+      --ink-5: rgba(42, 38, 34, 0.045);
       --grid-line-width: 0.5px;
-      --grid-line-color: rgba(0, 0, 0, 0.088);
-      --grid-cell-size: 24px;
-      --grid-cell-size-tight: 8px;
-      --section-divider-weight: 1.5px;
-      --section-divider-color: rgba(36, 36, 36, 0.42);
-      --bg-0:  #F5F5F5;
-      --bg-1:  #FCFCFC;
-      --bg-2:  #F4F0EC;
-      --accent:     #EB653F;
-      --accent-mid: rgba(235,101,63,0.38);
-      --accent-dim: rgba(235,101,63,0.12);
-      --orange:     #EB653F;
+      --grid-line-color: rgba(42, 38, 34, 0.038);
+      --grid-cell-size: 40px;
+      --grid-cell-size-tight: 10px;
+      --section-divider-weight: 1px;
+      --section-divider-color: rgba(42, 38, 34, 0.14);
+      --bg-0:  #EDE8E0;
+      --bg-1:  #F7F5F0;
+      --bg-2:  #EDE6DC;
+      --accent:     #E25D45;
+      --accent-mid: rgba(226, 93, 69, 0.36);
+      --accent-dim: rgba(226, 93, 69, 0.12);
+      --orange:     #E25D45;
       --s1:  8px; --s2: 16px; --s3: 24px; --s4: 32px;
       --s5: 48px; --s6: 64px; --s7: 80px; --s8: 96px;
       --gutter:    64px;
       --section-y: 64px;
       --col-gap:   48px;
-      --text-xs:      0.6875rem;
-      --text-sm:      0.8125rem;
-      --text-md:      0.9375rem;
-      --text-base:    1rem;
-      --text-lead:    1.125rem;
+      --text-xs:      0.75rem;
+      --text-sm:      0.875rem;
+      --text-md:      1rem;
+      --text-base:    1.0625rem;
+      --text-lead:    1.1875rem;
       --text-h4:      1.3125rem;
       --text-h3:      1.625rem;
       --text-h2:      2rem;
@@ -60,12 +64,15 @@
       --lh-snug:  1.32;
       --lh-base:  var(--leading-body);
       --lh-loose: 1.62;
-      --ls-caps: 0.08em;
-      --orange-dim: rgba(235,101,63,0.09);
+      --ls-caps: 0.05em;
+      --orange-dim: rgba(226, 93, 69, 0.09);
       --r-sm: 4px; --r-md: 6px; --r-lg: 8px;
     }
 
-    html { font-size: 100%; scroll-behavior: smooth; }
+    html { font-size: 118.75%; scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
     body {
       background-color: var(--bg-1);
       background-image:
@@ -73,10 +80,16 @@
         linear-gradient(90deg, var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width));
       background-size: var(--grid-cell-size) var(--grid-cell-size);
       color: var(--ink-1);
-      font-family: var(--font-sans);
+      font-family: var(--font-display);
       font-size: var(--t-base);
       line-height: var(--lh-base);
       -webkit-font-smoothing: antialiased;
+    }
+
+    :focus:not(:focus-visible) { outline: none; }
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
     }
 
     /* ── Page header ── */
@@ -108,6 +121,7 @@
     }
     .page-title em { font-style: normal; color: var(--accent); }
     .page-subtitle {
+      font-family: var(--font-display);
       font-size: var(--t-lg);
       line-height: var(--lh-loose);
       color: var(--ink-2);
@@ -122,12 +136,12 @@
     }
 
     /* ── Section ── */
-    .data-section { margin-top: var(--s6); }
+    .data-section { margin-top: var(--s7); }
     .section-header {
       display: flex;
       align-items: center;
       gap: var(--s3);
-      margin-bottom: var(--s4);
+      margin-bottom: var(--s5);
       padding-bottom: var(--s3);
       border-bottom: 1px solid var(--ink-4);
     }
@@ -193,7 +207,12 @@
       line-height: var(--lh-base);
       margin-bottom: var(--s2);
     }
-    .q-chart { width: 100%; }
+    .q-chart {
+      width: 100%;
+      overflow-x: auto;
+      overflow-y: visible;
+    }
+    .q-chart svg { overflow: visible; }
 
     /* ── Scale chart (pill bar + labels below — matches index Finding 03) ── */
     .scale-wrap { width: 100%; }
@@ -219,9 +238,9 @@
       align-items: flex-start;
       margin-bottom: var(--s2);
       font-family: var(--font-sans);
-      font-size: 10px;
+      font-size: var(--text-xs);
       letter-spacing: 0.02em;
-      color: rgba(36,36,36,0.48);
+      color: rgba(42,38,34,0.48);
       line-height: 1.35;
     }
     .scale-seg-label {
@@ -267,7 +286,7 @@
       font-family: var(--font-numbers);
       font-size: var(--t-base);
       font-weight: 600;
-      color: rgba(36,36,36,0.80);
+      color: rgba(42,38,34,0.80);
     }
     .stat-key {
       font-size: var(--t-cap);
@@ -312,11 +331,11 @@
     .filter-pills { display: flex; gap: 4px; flex-wrap: wrap; }
     .pill {
       font-family: var(--font-sans);
-      font-size: 12px;
+      font-size: var(--text-sm);
       font-weight: 500;
       padding: 3px 10px;
       border-radius: 6px;
-      border: 1px solid var(--ink-4);
+      border: 1px solid rgba(42, 38, 34, 0.22);
       background: transparent;
       color: var(--ink-2);
       cursor: pointer;
@@ -326,8 +345,8 @@
     }
     .pill:hover { border-color: var(--accent-mid); color: var(--ink-1); }
     .pill.active {
-      background: rgba(235,101,63,0.10);
-      border-color: rgba(235,101,63,0.45);
+      background: rgba(226,93,69,0.10);
+      border-color: rgba(226,93,69,0.45);
       color: var(--ink-1);
       font-weight: 700;
     }
@@ -361,9 +380,9 @@
       top: 32px;
       left: 50%;
       transform: translateX(-50%) translateY(-12px);
-      background: rgba(235,101,63,0.92);
-      border: 1px solid rgba(235,101,63,0.55);
-      color: #FCFCFC;
+      background: rgba(226,93,69,0.92);
+      border: 1px solid rgba(226,93,69,0.55);
+      color: #F7F5F0;
       padding: 11px 20px;
       border-radius: var(--r-lg);
       font-size: var(--t-sm);
@@ -374,7 +393,10 @@
       z-index: 200;
       white-space: nowrap;
       box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      cursor: pointer;
+      user-select: none;
     }
+    .toast.visible { pointer-events: auto; }
     .toast.visible {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
@@ -402,7 +424,7 @@
       font-size: var(--t-xs);
       color: var(--ink-3);
       font-family: monospace;
-      background: rgba(36,36,36,0.04);
+      background: rgba(42,38,34,0.04);
       padding: 8px 12px;
       border-radius: var(--r-md);
       border: 1px solid var(--ink-4);
@@ -438,7 +460,7 @@
     .map-tooltip {
       position: absolute;
       pointer-events: none;
-      background: #FCFCFC;
+      background: #F7F5F0;
       border: 1px solid var(--ink-4);
       border-radius: var(--r-md);
       padding: 6px var(--s2);
@@ -451,17 +473,47 @@
       box-shadow: 0 4px 16px rgba(0,0,0,0.35);
     }
     path.country { transition: fill 0.12s; }
+
+    @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+      html.use-circle-cursor * {
+        cursor: none !important;
+      }
+      html.use-circle-cursor input,
+      html.use-circle-cursor textarea {
+        cursor: text !important;
+      }
+      .cursor-dot {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 2px solid var(--accent);
+        background: rgba(226, 93, 69, 0.2);
+        background: color-mix(in srgb, var(--accent) 22%, transparent);
+        pointer-events: none;
+        z-index: 2147483646;
+        transform: translate(-50%, -50%);
+        transition: opacity 0.15s ease;
+      }
+      html.use-circle-cursor .cursor-dot {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
+<div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
 
 <header class="page-header">
   <a href="index.html" class="back-link">← Back to findings</a>
-  <h1 class="page-title">Explore <em>all</em> the data</h1>
-  <p class="page-subtitle">Every survey question, visualized &nbsp;·&nbsp; 119 design leaders &nbsp;·&nbsp; 2026</p>
+  <h1 class="page-title">Dive into the data</h1>
+  <p class="page-subtitle">The three findings tell one story. Here's the full picture — all 30 questions across 119 design leaders, filterable by age, gender, and region.</p>
 </header>
 
-<div class="filter-bar" id="filter-bar" style="display:none">
+<div class="filter-bar" id="filter-bar" style="visibility:hidden; min-height:46px;">
   <span class="filter-label">Filter</span>
   <div class="filter-group">
     <span class="filter-group-name">Age</span>
@@ -486,8 +538,8 @@
 
 <div id="error" style="display:none">
   <h3>Couldn't load the CSV file.</h3>
-  <p>Open this page through a local server (e.g. VS Code Live Server) rather than directly from the file system.</p>
-  <code>round-2-protos/explore.html → ../data/quant-survey-responses-raw.csv</code>
+  <p>Use a local HTTP server (not opening the HTML file directly). From the project folder run e.g. <code>cd final-site && python3 -m http.server 8080</code>, then open <code>http://localhost:8080/explore.html</code>.</p>
+  <p class="error-path">Expected file: <code>data/quant-survey-responses-raw.csv</code> next to this page (via <code>final-site/data</code> → repo <code>data/</code>).</p>
 </div>
 
 <main id="main-content" style="display:none"></main>
@@ -631,13 +683,13 @@ const SECTIONS = [
 // COLORS
 // ══════════════════════════════════════
 
-/* Likert stacked bars only: ramp from light to full accent (horizontal bars + histogram stay solid #EB653F) */
+/* Likert stacked bars only: ramp from light to full accent (horizontal bars + histogram stay solid #E25D45) */
 const SCALE_COLORS = [
-  'rgba(235,101,63,0.30)',  // 1
-  'rgba(235,101,63,0.42)',  // 2
-  'rgba(235,101,63,0.56)',  // 3
-  'rgba(235,101,63,0.78)',  // 4
-  '#EB653F', // 5
+  'rgba(226,93,69,0.30)',  // 1
+  'rgba(226,93,69,0.42)',  // 2
+  'rgba(226,93,69,0.56)',  // 3
+  'rgba(226,93,69,0.78)',  // 4
+  '#E25D45', // 5
 ];
 
 // ══════════════════════════════════════
@@ -674,7 +726,8 @@ function drawMap(container, rows, col) {
     .attr('width', '100%').attr('height', H)
     .attr('viewBox', `0 0 ${W} ${H}`)
     .attr('preserveAspectRatio', 'xMidYMid meet')
-    .style('font-family', FONT);
+    .style('font-family', FONT)
+    .style('overflow', 'visible');
   const tooltip = wrap.append('div').attr('class', 'map-tooltip');
 
   const projection = d3.geoNaturalEarth1()
@@ -683,9 +736,9 @@ function drawMap(container, rows, col) {
 
   function regionColor(region) {
     const count = region ? (counts.get(region) || 0) : 0;
-    if (!count) return 'rgba(36,36,36,0.05)';
+    if (!count) return 'rgba(42,38,34,0.05)';
     const t = Math.sqrt(count / regionMax);
-    return `rgba(235,101,63,${(0.15 + t * 0.65).toFixed(2)})`;
+    return `rgba(226,93,69,${(0.15 + t * 0.65).toFixed(2)})`;
   }
 
   function renderWorld(world) {
@@ -695,7 +748,7 @@ function drawMap(container, rows, col) {
       .datum(d3.geoGraticule()())
       .attr('d', path)
       .attr('fill', 'none')
-      .attr('stroke', 'rgba(36,36,36,0.06)')
+      .attr('stroke', 'rgba(42,38,34,0.06)')
       .attr('stroke-width', 0.4);
 
     svg.selectAll('path.country')
@@ -704,7 +757,7 @@ function drawMap(container, rows, col) {
       .attr('class', 'country')
       .attr('d', path)
       .attr('fill', d => regionColor(COUNTRY_REGIONS[+d.id]))
-      .attr('stroke', 'rgba(36,36,36,0.25)')
+      .attr('stroke', 'rgba(42,38,34,0.25)')
       .attr('stroke-width', 0.4)
       .on('mousemove', function(event, d) {
         const region = COUNTRY_REGIONS[+d.id];
@@ -727,11 +780,11 @@ function drawMap(container, rows, col) {
       const t = Math.sqrt(count / regionMax);
       lg.append('rect')
         .attr('x', 0).attr('y', i * 18).attr('width', 10).attr('height', 10).attr('rx', 2)
-        .attr('fill', `rgba(235,101,63,${(0.15 + t * 0.65).toFixed(2)})`);
+        .attr('fill', `rgba(226,93,69,${(0.15 + t * 0.65).toFixed(2)})`);
       lg.append('text')
         .attr('x', 16).attr('y', i * 18 + 9)
         .attr('dominant-baseline', 'middle')
-        .attr('font-size', 11).attr('fill', 'rgba(36,36,36,0.55)')
+        .attr('font-size', 12).attr('fill', 'rgba(42,38,34,0.55)')
         .text(`${region}  ·  ${count} (${pct}%)`);
     });
   }
@@ -834,27 +887,34 @@ function sortedItems(countMap, order) {
 // CHART RENDERERS
 // ══════════════════════════════════════
 
-const ML = 200; // label margin
-const MR = 76;
-const MT = 6;
-const MB = 6;
-const ROW_H = 44;
-const BAR_H = 22;
-const ML_WIDE = 280;
-const MR_WIDE = 90;
+const BAR_MR = 76;
+const BAR_MR_WIDE = 90;
+const BAR_MT = 6;
+const BAR_MB = 6;
+const BAR_ROW_H = 46;
+const BAR_H = 24;
+/** Space Mono: approximate em-width for label reserve (prevents SVG left-edge clip). */
+function approxBarLabelWidthPx(str, fontSize) {
+  return str.length * fontSize * 0.58 + 28;
+}
 
 let _exploreBarClipId = 0;
 
 function drawBar(container, items, wide) {
   if (!items.length) return;
-  const ml = wide ? ML_WIDE : ML;
-  const mr = wide ? MR_WIDE : MR;
-  const VW = wide ? 1100 : 700;
-  const chartW = VW - ml - mr;
+  const truncLen = wide ? 52 : 42;
+  const labelFs = 14;
+  const pctFs = 13;
+  const labels = items.map(d => trunc(d.label, truncLen));
+  const maxStr = labels.reduce((a, b) => (a.length >= b.length ? a : b), '');
+  const mr = wide ? BAR_MR_WIDE : BAR_MR;
+  const maxLabW = approxBarLabelWidthPx(maxStr, labelFs);
+  const ml = Math.min(wide ? 480 : 430, Math.max(wide ? 240 : 200, Math.ceil(maxLabW)));
+  const chartW = wide ? 540 : 420;
+  const VW = ml + chartW + mr;
   const maxVal = Math.max(...items.map(d => d.count));
   const n = items.length;
-  const H = n * ROW_H + MT + MB;
-  const truncLen = wide ? 42 : 30;
+  const H = n * BAR_ROW_H + BAR_MT + BAR_MB;
 
   const FONT = "'Space Mono', ui-monospace, monospace";
 
@@ -863,16 +923,17 @@ function drawBar(container, items, wide) {
     .attr('height', H)
     .attr('viewBox', `0 0 ${VW} ${H}`)
     .attr('preserveAspectRatio', 'xMinYMid meet')
-    .style('font-family', FONT);
+    .style('font-family', FONT)
+    .style('overflow', 'visible');
 
   const defs = svg.append('defs');
-  const g = svg.append('g').attr('transform', `translate(${ml},${MT})`);
+  const g = svg.append('g').attr('transform', `translate(${ml},${BAR_MT})`);
 
   items.forEach((d, i) => {
-    const y = i * ROW_H;
-    const midY = y + ROW_H / 2;
+    const y = i * BAR_ROW_H;
+    const midY = y + BAR_ROW_H / 2;
     const barW = Math.max(0, (d.count / maxVal) * chartW);
-    const barY = y + (ROW_H - BAR_H) / 2;
+    const barY = y + (BAR_ROW_H - BAR_H) / 2;
     const pillR = BAR_H / 2;
     const clipId = `explore-bar-clip-${_exploreBarClipId++}`;
 
@@ -886,15 +947,26 @@ function drawBar(container, items, wide) {
       .attr('rx', pillR)
       .attr('ry', pillR);
 
-    g.append('text')
-      .attr('x', -10)
+    const fullLabel = String(d.label || '').replace(/\s+/g, ' ').trim() || labels[i];
+    const labelG = g.append('g').attr('class', 'bar-label-hit');
+    const hitRect = labelG.append('rect')
+      .attr('x', -ml + 4)
+      .attr('y', y)
+      .attr('width', Math.max(32, ml - 20))
+      .attr('height', BAR_ROW_H)
+      .attr('fill', 'transparent')
+      .attr('pointer-events', 'all');
+    hitRect.append('title').text(fullLabel);
+    labelG.append('text')
+      .attr('x', -12)
       .attr('y', midY)
       .attr('text-anchor', 'end')
       .attr('dominant-baseline', 'middle')
-      .attr('font-size', 12)
+      .attr('font-size', labelFs)
       .attr('font-weight', 500)
-      .attr('fill', 'rgba(36,36,36,0.62)')
-      .text(trunc(d.label, truncLen));
+      .attr('fill', 'rgba(42,38,34,0.62)')
+      .attr('pointer-events', 'none')
+      .text(labels[i]);
 
     const barG = g.append('g').attr('clip-path', `url(#${clipId})`);
     barG.append('rect')
@@ -904,15 +976,15 @@ function drawBar(container, items, wide) {
     barG.append('rect')
       .attr('x', 0).attr('y', barY)
       .attr('width', barW).attr('height', BAR_H)
-      .attr('fill', '#EB653F');
+      .attr('fill', '#E25D45');
 
     g.append('text')
-      .attr('x', chartW + 10)
+      .attr('x', chartW + 12)
       .attr('y', midY)
       .attr('dominant-baseline', 'middle')
-      .attr('font-size', 11)
+      .attr('font-size', pctFs)
       .attr('font-weight', 600)
-      .attr('fill', '#EB653F')
+      .attr('fill', '#E25D45')
       .text(`${d.pct}%`);
   });
 }
@@ -993,7 +1065,8 @@ function drawHistogram(container, rows, col, unit) {
     .attr('height', H)
     .attr('viewBox', `0 0 ${VW} ${H}`)
     .attr('preserveAspectRatio', 'xMinYMid meet')
-    .style('font-family', FONT);
+    .style('font-family', FONT)
+    .style('overflow', 'visible');
 
   const g = svg.append('g').attr('transform', `translate(${mL},${mT})`);
 
@@ -1002,12 +1075,12 @@ function drawHistogram(container, rows, col, unit) {
     g.append('line')
       .attr('x1', 0).attr('y1', y(t))
       .attr('x2', cW).attr('y2', y(t))
-      .attr('stroke', 'rgba(36,36,36,0.10)')
+      .attr('stroke', 'rgba(42,38,34,0.10)')
       .attr('stroke-dasharray', '3,3');
     g.append('text')
       .attr('x', -5).attr('y', y(t))
       .attr('text-anchor', 'end').attr('dominant-baseline', 'middle')
-      .attr('font-size', 10).attr('fill', 'rgba(36,36,36,0.45)')
+      .attr('font-size', 12).attr('fill', 'rgba(42,38,34,0.45)')
       .text(t);
   });
 
@@ -1022,7 +1095,7 @@ function drawHistogram(container, rows, col, unit) {
     .attr('height', b => cH - y(b.length))
     .attr('rx', barRx)
     .attr('ry', barRx)
-    .attr('fill', '#EB653F');
+    .attr('fill', '#E25D45');
 
   // Count labels on bars
   g.selectAll('text.blabel').data(bins.filter(b => b.length > 0)).enter().append('text')
@@ -1030,7 +1103,7 @@ function drawHistogram(container, rows, col, unit) {
     .attr('x', b => x(b.x0) + x.bandwidth() / 2)
     .attr('y', b => y(b.length) - 3)
     .attr('text-anchor', 'middle')
-    .attr('font-size', 10).attr('fill', 'rgba(36,36,36,0.60)')
+    .attr('font-size', 12).attr('fill', 'rgba(42,38,34,0.60)')
     .text(b => b.length || '');
 
   // X axis labels — show every N ticks to avoid crowding
@@ -1040,13 +1113,13 @@ function drawHistogram(container, rows, col, unit) {
     .attr('x', b => x(b.x0) + x.bandwidth() / 2)
     .attr('y', cH + 14)
     .attr('text-anchor', 'middle')
-    .attr('font-size', 11).attr('fill', 'rgba(36,36,36,0.55)')
+    .attr('font-size', 12).attr('fill', 'rgba(42,38,34,0.55)')
     .text(b => b.x0);
 
   // Unit label
   svg.append('text')
     .attr('x', mL).attr('y', H - 2)
-    .attr('font-size', 10).attr('fill', 'rgba(36,36,36,0.45)')
+    .attr('font-size', 11).attr('fill', 'rgba(42,38,34,0.45)')
     .attr('font-style', 'italic')
     .text(unit);
 
@@ -1194,6 +1267,10 @@ function showToast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove('visible'), 3500);
 }
+document.getElementById('toast').addEventListener('click', () => {
+  clearTimeout(toastTimer);
+  document.getElementById('toast').classList.remove('visible');
+});
 
 function setFilter(key, val, pillContainer) {
   const prev = filters[key];
@@ -1215,7 +1292,7 @@ function setFilter(key, val, pillContainer) {
 // LOAD DATA
 // ══════════════════════════════════════
 
-d3.csv('../data/quant-survey-responses-raw.csv').then(rows => {
+d3.csv('data/quant-survey-responses-raw.csv').then(rows => {
   allRows = rows;
 
   const ages    = new Set(rows.map(r => (r[COL_AGE]    || '').trim()).filter(Boolean));
@@ -1234,14 +1311,33 @@ d3.csv('../data/quant-survey-responses-raw.csv').then(rows => {
     refresh();
   });
 
-  document.getElementById('loading').style.display    = 'none';
-  document.getElementById('filter-bar').style.display = '';
-  document.getElementById('main-content').style.display = 'block';
+  document.getElementById('loading').style.display      = 'none';
+  document.getElementById('filter-bar').style.visibility = 'visible';
+  document.getElementById('main-content').style.display  = 'block';
   refresh();
 }).catch(() => {
   document.getElementById('loading').style.display = 'none';
   document.getElementById('error').style.display   = 'block';
 });
+</script>
+<script>
+(function () {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var dot = document.getElementById('cursor-dot');
+  if (!dot) return;
+  document.documentElement.classList.add('use-circle-cursor');
+  document.addEventListener('mousemove', function (e) {
+    dot.style.left = e.clientX + 'px';
+    dot.style.top = e.clientY + 'px';
+  }, { passive: true });
+  document.documentElement.addEventListener('mouseleave', function () {
+    dot.style.opacity = '0';
+  });
+  document.documentElement.addEventListener('mouseenter', function () {
+    dot.style.opacity = '1';
+  });
+})();
 </script>
 </body>
 </html>
