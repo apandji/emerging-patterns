@@ -1,0 +1,56 @@
+/* ══════════════════════════════════════════
+   SHARED DESIGN TOKENS
+   Source of truth for index.html + explore.html.
+   Page-specific layout and type scale vars live inline.
+══════════════════════════════════════════ */
+:root {
+  --font-sans:    "Space Mono", ui-monospace, "Courier New", monospace;
+  --font-display: "Host Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-numbers: "Bitcount Prop Single", "Space Mono", monospace;
+
+  --ink-1: rgba(42, 38, 34, 0.94);
+  --ink-2: rgba(42, 38, 34, 0.70);
+  --ink-3: rgba(42, 38, 34, 0.48);
+  --ink-4: rgba(42, 38, 34, 0.14);
+  --ink-5: rgba(42, 38, 34, 0.045);
+
+  --bg-0: #EDE8E0;
+  --bg-1: #F7F5F0;
+  --bg-2: #EDE6DC;
+
+  --accent:     #E25D45;
+  --accent-mid: rgba(226, 93, 69, 0.36);
+  --accent-dim: rgba(226, 93, 69, 0.12);
+  --orange:     #E25D45;
+  --orange-dim: rgba(226, 93, 69, 0.09);
+
+  --s1: 8px;  --s2: 16px; --s3: 24px; --s4: 32px;
+  --s5: 48px; --s6: 64px; --s7: 80px; --s8: 96px;
+
+  --r-sm: 4px; --r-md: 6px; --r-lg: 8px;
+
+  --ls-caps: 0.05em;
+
+  --grid-line-width:        0.5px;
+  --grid-line-color:        rgba(42, 38, 34, 0.038);
+  --grid-cell-size:         40px;
+  --grid-cell-size-tight:   10px;
+  --section-divider-weight: 1px;
+  --section-divider-color:  rgba(42, 38, 34, 0.14);
+}
+
+[data-theme="dark"] {
+  --bg-0: #1C1915;
+  --bg-1: #221F1B;
+  --bg-2: #2A2620;
+  --ink-1: rgba(245, 240, 232, 0.94);
+  --ink-2: rgba(245, 240, 232, 0.70);
+  --ink-3: rgba(245, 240, 232, 0.48);
+  --ink-4: rgba(245, 240, 232, 0.14);
+  --ink-5: rgba(245, 240, 232, 0.045);
+  --grid-line-color:       rgba(245, 240, 232, 0.055);
+  --section-divider-color: rgba(245, 240, 232, 0.14);
+  --accent-mid: rgba(226, 93, 69, 0.45);
+  --accent-dim: rgba(226, 93, 69, 0.15);
+  --orange-dim: rgba(226, 93, 69, 0.12);
+}

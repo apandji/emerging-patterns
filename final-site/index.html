@@ -14,66 +14,25 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100..900&family=Host+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@400&family=Host+Grotesk:wght@400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="tokens.css" />
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     /* ══════════════════════════════════════════
-       DESIGN TOKENS
+       PAGE TOKENS (shared tokens live in tokens.css)
     ══════════════════════════════════════════ */
     :root {
-      /* UI sans: native stack — avoids generic “template” pairing with display serif */
-      --font-sans: "Space Mono", ui-monospace, "Courier New", monospace;
-      --font-display: "Host Grotesk", ui-sans-serif, system-ui, sans-serif;
-      --font-numbers: "Bitcount Prop Single", "Space Mono", monospace;
-
-      /* Ink — warm charcoal (less cold gray / “template UI”) */
-      --ink-1:      rgba(42, 38, 34, 0.94);
-      --ink-2:      rgba(42, 38, 34, 0.70);
-      --ink-3:      rgba(42, 38, 34, 0.48);
-      --ink-4:      rgba(42, 38, 34, 0.14);
-      --ink-5:      rgba(42, 38, 34, 0.045);
-
-      /* Background grid — low contrast, large cells (editorial, not “dev tool”) */
-      --grid-line-width: 0.5px;
-      --grid-line-color: rgba(42, 38, 34, 0.038);
-      --grid-cell-size: 40px;
-      --grid-cell-size-tight: 10px;
-      --section-divider-weight: 1px;
-      --section-divider-color: rgba(42, 38, 34, 0.14);
-
-      /* Surfaces — warm paper */
-      --bg-0:       #EDE8E0;
-      --bg-1:       #F7F5F0;
-      --bg-2:       #EDE6DC;
-
-      /* Accent — vivid coral-terracotta (editorial, not neon) */
-      --accent:     #E25D45;
-      --accent-mid: rgba(226, 93, 69, 0.36);
-      --accent-dim: rgba(226, 93, 69, 0.12);
-      --orange:     #E25D45;
-      --orange-dim: rgba(226, 93, 69, 0.09);
-
-      /* Spacing — strict 8px grid */
-      --s1:  8px;
-      --s2:  16px;
-      --s3:  24px;
-      --s4:  32px;
-      --s5:  48px;
-      --s6:  64px;
-      --s7:  80px;
-      --s8:  96px;
-
       /* Layout */
-      --gutter:    240px;   /* page left/right margin — used everywhere */
-      --margin-rule-inset: 54px; /* vertical frame lines: inset from viewport (smaller than gutter) */
-      --section-y: 96px;    /* section vertical padding — used everywhere */
-      --col-gap:   48px;    /* gap between side-by-side columns */
-      --max-w:    1280px;   /* max content width */
+      --gutter:            240px;
+      --margin-rule-inset:  54px;
+      --section-y:          96px;
+      --col-gap:            48px;
+      --max-w:            1280px;
 
-      /* Modular type scale (≈1.25 ratio, rem — scales with html font-size) */
+      /* Modular type scale (≈1.25 ratio, rem) */
       --text-xs:      0.6875rem;
       --text-sm:      0.8125rem;
       --text-md:      0.9375rem;
@@ -88,44 +47,20 @@
       --leading-tight: 1.1;
       --leading-body:  1.57;
 
-      /* Semantic aliases (used throughout this file) */
-      --t-cap:   var(--text-sm);
-      --t-xs:    var(--text-sm);
-      --t-sm:    var(--text-md);
-      --t-base:  var(--text-base);
-      --t-lg:    var(--text-lead);
+      /* Semantic aliases */
+      --t-cap:  var(--text-sm);
+      --t-xs:   var(--text-sm);
+      --t-sm:   var(--text-md);
+      --t-base: var(--text-base);
+      --t-lg:   var(--text-lead);
 
       /* Line heights */
-      --lh-tight:   var(--leading-tight);
-      --lh-snug:    1.32;
-      --lh-base:    var(--leading-body);
-      --lh-loose:   1.62;
-
-      /* Letter spacing — tighter than “poster caps” */
-      --ls-caps:  0.05em;
-
-      /* Radius — slightly flatter surfaces (less “app card”) */
-      --r-sm:  4px;
-      --r-md:  6px;
-      --r-lg:  8px;
+      --lh-tight: var(--leading-tight);
+      --lh-snug:  1.32;
+      --lh-base:  var(--leading-body);
+      --lh-loose: 1.62;
     }
 
-    /* ── Dark mode token overrides ── */
-    [data-theme="dark"] {
-      --bg-0: #1C1915;
-      --bg-1: #221F1B;
-      --bg-2: #2A2620;
-      --ink-1: rgba(245, 240, 232, 0.94);
-      --ink-2: rgba(245, 240, 232, 0.70);
-      --ink-3: rgba(245, 240, 232, 0.48);
-      --ink-4: rgba(245, 240, 232, 0.14);
-      --ink-5: rgba(245, 240, 232, 0.045);
-      --grid-line-color: rgba(245, 240, 232, 0.055);
-      --section-divider-color: rgba(245, 240, 232, 0.14);
-      --accent-mid: rgba(226, 93, 69, 0.45);
-      --accent-dim: rgba(226, 93, 69, 0.15);
-      --orange-dim: rgba(226, 93, 69, 0.12);
-    }
     /* ── Dark mode: Sankey SVG elements (CSS overrides presentation attributes) ── */
     [data-theme="dark"] .sankey-band        { fill: rgba(245,240,232,0.04); }
     [data-theme="dark"] .sankey-node        { fill: rgba(245,240,232,0.55); }
@@ -147,23 +82,24 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: 16px;
-      width: 20px;
-      height: 20px;
-      border: none;
-      background: none;
+      margin-top: 20px;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--ink-4);
+      background: var(--bg-1);
+      border-radius: 50%;
       cursor: pointer;
       padding: 0;
-      color: var(--ink-3);
+      color: var(--ink-2);
       align-self: flex-end;
-      transition: color 0.2s;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
-    .theme-toggle:hover { color: var(--ink-2); }
-    .theme-toggle svg { width: 14px; height: 14px; display: block; }
-    .theme-icon-sun  { display: none; }
-    .theme-icon-moon { display: block; }
-    [data-theme="dark"] .theme-icon-sun  { display: block; }
-    [data-theme="dark"] .theme-icon-moon { display: none; }
+    .theme-toggle:hover { color: var(--ink-1); border-color: var(--ink-3); }
+    .theme-toggle svg { width: 18px; height: 18px; }
+    .theme-icon-sun  { display: block; }
+    .theme-icon-moon { display: none; }
+    [data-theme="dark"] .theme-icon-sun  { display: none; }
+    [data-theme="dark"] .theme-icon-moon { display: block; }
 
     /* ── Base ── */
     html {
@@ -754,6 +690,12 @@
       border: 1px solid rgba(226, 93, 69, 0.2);
       border-radius: var(--r-lg);
     }
+    .route-callout {
+      margin-top: var(--s4);
+      margin-bottom: var(--s1);
+      width: 100%;
+      max-width: none;
+    }
     .big-callout-val {
       font-family: var(--font-numbers);
       font-size: clamp(2.5rem, 5vw, 3.25rem);
@@ -834,6 +776,79 @@
       z-index: 25;
       box-shadow: 0 8px 24px rgba(42, 38, 34, 0.11);
     }
+
+    /* ══════════════════════════════════════════
+       SPONSORSHIP GAP — Finding 02 addition
+    ══════════════════════════════════════════ */
+    .sponsorship-gap {
+      margin-top: var(--s5);
+      padding-top: var(--s5);
+      border-top: 1px solid var(--ink-4);
+    }
+    .sponsorship-pair {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: var(--s4);
+      margin-bottom: var(--s4);
+    }
+    .sponsorship-stat {
+      padding: var(--s3) var(--s4);
+      border: 1px solid rgba(226, 93, 69, 0.2);
+      border-radius: var(--r-lg);
+      background: var(--orange-dim);
+      min-height: 168px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .sponsorship-stat-val {
+      font-family: var(--font-numbers);
+      font-size: clamp(2.25rem, 4vw, 3rem);
+      line-height: 1;
+      color: var(--orange);
+      margin-bottom: var(--s1);
+    }
+    .sponsorship-stat-lbl {
+      font-size: var(--t-sm);
+      color: var(--ink-2);
+      line-height: var(--lh-loose);
+      text-wrap: pretty;
+    }
+    .sponsorship-connector {
+      color: var(--ink-4);
+      font-size: 1.75rem;
+      text-align: center;
+      user-select: none;
+      line-height: 1;
+    }
+    .sponsorship-note {
+      font-size: var(--t-base);
+      color: var(--ink-2);
+      line-height: var(--lh-loose);
+      margin-bottom: 0;
+    }
+    @media (max-width: 700px) {
+      .sponsorship-pair { grid-template-columns: 1fr; }
+      .sponsorship-connector { display: none; }
+    }
+
+    /* ══════════════════════════════════════════
+       INDUSTRY CONTRAST — Finding 03 addition
+    ══════════════════════════════════════════ */
+    .industry-contrast {
+      margin-top: var(--s7);
+      padding-top: var(--s5);
+      border-top: 1px solid var(--ink-4);
+    }
+    .contrast-paragraph {
+      font-size: var(--t-base);
+      color: var(--ink-2);
+      line-height: var(--lh-loose);
+      margin-bottom: var(--s5);
+    }
+    #industry-bar-chart svg { display: block; width: 100%; overflow: visible; margin-top: var(--s1); }
+    [data-theme="dark"] .industry-bar-bg { fill: rgba(245,240,232,0.08); }
 
     /* ══════════════════════════════════════════
        FOOTER
@@ -986,7 +1001,7 @@
       text-align: right;
       white-space: nowrap;
       line-height: 1.25;
-      pointer-events: none;
+      cursor: pointer;
       transition: color 0.15s, font-weight 0.15s;
     }
     .scroll-nav-item.is-active .scroll-nav-label {
@@ -1182,16 +1197,20 @@
     <span class="scroll-nav-label" aria-hidden="true">About</span>
     <button type="button" class="scroll-nav-dot" data-target="#about-project" aria-label="About section"></button>
   </div>
-  <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-    <svg class="theme-icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="8" cy="8" r="3"/>
-      <line x1="8" y1="1" x2="8" y2="2.5"/><line x1="8" y1="13.5" x2="8" y2="15"/>
-      <line x1="1" y1="8" x2="2.5" y2="8"/><line x1="13.5" y1="8" x2="15" y2="8"/>
-      <line x1="3.05" y1="3.05" x2="4.11" y2="4.11"/><line x1="11.89" y1="11.89" x2="12.95" y2="12.95"/>
-      <line x1="12.95" y1="3.05" x2="11.89" y2="4.11"/><line x1="4.11" y1="11.89" x2="3.05" y2="12.95"/>
+  <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode">
+    <svg class="theme-icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="10" cy="10" r="4"/>
+      <line x1="10" y1="1.5" x2="10" y2="3.5"/>
+      <line x1="10" y1="16.5" x2="10" y2="18.5"/>
+      <line x1="1.5" y1="10" x2="3.5" y2="10"/>
+      <line x1="16.5" y1="10" x2="18.5" y2="10"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+      <line x1="14.36" y1="14.36" x2="15.78" y2="15.78"/>
+      <line x1="15.78" y1="4.22" x2="14.36" y2="5.64"/>
+      <line x1="5.64" y1="14.36" x2="4.22" y2="15.78"/>
     </svg>
-    <svg class="theme-icon-moon" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path d="M13.5 10.5A5.5 5.5 0 0 1 5.5 2.5a.5.5 0 0 0-.6-.6A6.5 6.5 0 1 0 14.1 11.1a.5.5 0 0 0-.6-.6z"/>
+    <svg class="theme-icon-moon" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17 12.5A7 7 0 0 1 7.5 3a.6.6 0 0 0-.75-.72A8 8 0 1 0 17.72 13.25.6.6 0 0 0 17 12.5z"/>
     </svg>
   </button>
 </nav>
@@ -1267,13 +1286,28 @@
         <span class="dash-line"></span>
         ~12% overall consulting / founding rate across all 119 leaders
       </div>
-      <div class="big-callout">
-        <div class="big-callout-val">9&times;</div>
-        <div class="big-callout-lbl">higher founder rate for freelance starters vs. agency starters<br>(37.5% vs. 4.3%, Fisher's exact p=0.025)</div>
+    </div>
+  </div>
+  <div class="big-callout reveal route-callout">
+    <div class="big-callout-val">9&times;</div>
+    <div class="big-callout-lbl">higher founder rate for freelance starters vs. agency starters (37.5% vs. 4.3%, Fisher's exact p=0.025)</div>
+  </div>
+  <div id="route-bar-tooltip" class="route-bar-tooltip" aria-hidden="true"></div>
+
+  <div class="sponsorship-gap reveal">
+    <p class="sponsorship-note">Many design leaders found their own way into the field. Career advancement, however, depends on different forces: sponsorship is the second most-cited driver of progression, behind proven business outcomes. The path in rewards independence; the path up rewards advocacy.</p>
+    <div class="sponsorship-pair">
+      <div class="sponsorship-stat">
+        <div class="sponsorship-stat-val">41%</div>
+        <div class="sponsorship-stat-lbl">say no one actively guided them into design, instead they found their own way in.</div>
+      </div>
+      <div class="sponsorship-connector" aria-hidden="true">→</div>
+      <div class="sponsorship-stat">
+        <div class="sponsorship-stat-val">34%</div>
+        <div class="sponsorship-stat-lbl">cite sponsorship and advocacy from senior leaders as key to their career advancement.</div>
       </div>
     </div>
   </div>
-  <div id="route-bar-tooltip" class="route-bar-tooltip" aria-hidden="true"></div>
 </div>
 
 
@@ -1295,6 +1329,14 @@
   <div class="stacked-bar-wrap chart-fade">
     <div id="stacked-bar-chart"></div>
     <div id="stacked-bar-tooltip" class="stacked-tooltip"></div>
+  </div>
+
+  <div class="industry-contrast reveal">
+    <p class="contrast-paragraph">When asked about the industry itself, there is no consensus on how much it will change.</p>
+    <div class="stacked-bar-wrap chart-fade">
+      <div id="industry-bar-chart"></div>
+      <div id="industry-bar-tooltip" class="stacked-tooltip"></div>
+    </div>
   </div>
 </div>
 
@@ -1880,16 +1922,108 @@ renderSankey();
     if (d.w < 22) return;
     const cx = d.x + d.w / 2;
     const pctStr = `${(d.pct * 100).toFixed(0)}%`;
-    const line = d.w >= 48 ? `${pctStr} · ${d.label}` : pctStr;
+    const line = d.w >= 180 ? `${pctStr} · ${d.label}` : pctStr;
     labelsBelow.append("text")
       .attr("class", "stacked-bar-label")
       .attr("x", cx)
       .attr("y", belowY)
       .attr("text-anchor", "middle")
       .attr("font-family", "'Space Mono', ui-monospace, monospace")
-      .attr("font-size", d.w >= 48 ? 12 : 11)
+      .attr("font-size", d.w >= 180 ? 12 : 11)
       .attr("letter-spacing", "0.02em")
       .attr("fill", "rgba(42,38,34,0.48)")
+      .text(line);
+  });
+})();
+
+/* ══════════════════════════════════════════
+   5. STACKED BAR — INDUSTRY EVOLUTION
+══════════════════════════════════════════ */
+(function() {
+  const segments = [
+    { label: "Fundamental transformation", rating: 5, n: 12, color: "#E25D45",             hoverColor: "rgba(226,93,69,0.88)" },
+    { label: "Significant evolution",       rating: 4, n: 28, color: "rgba(226,93,69,0.52)", hoverColor: "rgba(226,93,69,0.72)" },
+    { label: "Moderate evolution",          rating: 3, n: 26, color: "rgba(42,38,34,0.55)", hoverColor: "rgba(42,38,34,0.75)" },
+    { label: "Gradual shifts",              rating: 2, n: 35, color: "rgba(42,38,34,0.38)", hoverColor: "rgba(42,38,34,0.55)" },
+    { label: "Mostly stable",              rating: 1, n: 18, color: "rgba(42,38,34,0.22)", hoverColor: "rgba(42,38,34,0.40)" },
+  ];
+  const total = 119;
+  const BAR_H = 72;
+  const barPadTop = 12, belowGap = 14, belowLabelH = 34, barPadBottom = 14;
+  const H = barPadTop + BAR_H + belowGap + belowLabelH + barPadBottom;
+  const clipId = "industry-bar-pill-clip";
+
+  const container = document.getElementById("industry-bar-chart");
+  if (!container) return;
+  const W = container.getBoundingClientRect().width || 900;
+
+  const svg = d3.select(container).append("svg")
+    .attr("viewBox", `0 0 ${W} ${H}`)
+    .attr("preserveAspectRatio", "none")
+    .style("width", "100%")
+    .style("height", `${H}px`);
+
+  const tip = d3.select("#industry-bar-tooltip");
+
+  let cumulative = 0;
+  const computed = segments.map(s => {
+    const pct = s.n / total;
+    const x = cumulative * W;
+    const w = pct * W;
+    cumulative += pct;
+    return { ...s, pct, x, w };
+  });
+
+  const barY = barPadTop;
+  const pillR = BAR_H / 2;
+  const belowY = barY + BAR_H + belowGap + 12;
+
+  svg.append("defs").append("clipPath").attr("id", clipId)
+    .append("rect").attr("x",0).attr("y",barY).attr("width",W).attr("height",BAR_H).attr("rx",pillR).attr("ry",pillR);
+
+  const barLayer = svg.append("g").attr("clip-path", `url(#${clipId})`);
+
+  barLayer.append("rect").attr("class","industry-bar-bg")
+    .attr("x",0).attr("y",barY).attr("width",W).attr("height",BAR_H).attr("fill","#3A3532");
+
+  const segs = barLayer.selectAll("g.seg").data(computed).join("g").attr("class","seg");
+
+  segs.append("rect")
+    .attr("x", d => d.x).attr("y", barY)
+    .attr("width", d => Math.max(0, d.w)).attr("height", BAR_H)
+    .attr("fill", d => d.color)
+    .style("cursor","pointer")
+    .on("mousemove", function(event, d) {
+      d3.select(this).attr("fill", d.hoverColor);
+      const wrap = document.querySelector(".industry-contrast .stacked-bar-wrap");
+      const wr = wrap.getBoundingClientRect();
+      const pctStr = (d.pct * 100).toFixed(1);
+      tip.html(`<strong>${pctStr}%</strong> of design leaders expect <strong>${d.label.toLowerCase()}</strong> in the global design industry over the next five years.<br><span style="color:rgba(42,38,34,0.52);font-size:13px">Scale: ${d.rating}/5 · ${d.n} of ${total} responses</span>`)
+        .style("opacity",1);
+      const tipW = tip.node().offsetWidth;
+      let tx = event.clientX - wr.left + 14;
+      if (tx + tipW > wr.width - 8) tx = event.clientX - wr.left - tipW - 14;
+      tip.style("left", `${Math.max(8,tx)}px`).style("top", `${event.clientY - wr.top - 60}px`);
+    })
+    .on("mouseleave", function(event, d) {
+      d3.select(this).attr("fill", d.color);
+      tip.style("opacity",0);
+    });
+
+  const labelsBelow = svg.append("g").attr("class","stacked-bar-labels-below").attr("pointer-events","none");
+  computed.forEach(d => {
+    if (d.w < 22) return;
+    const cx = d.x + d.w / 2;
+    const pctStr = `${(d.pct * 100).toFixed(0)}%`;
+    const line = d.w >= 180 ? `${pctStr} · ${d.label}` : pctStr;
+    labelsBelow.append("text")
+      .attr("class","stacked-bar-label")
+      .attr("x", cx).attr("y", belowY)
+      .attr("text-anchor","middle")
+      .attr("font-family","'Space Mono', ui-monospace, monospace")
+      .attr("font-size", d.w >= 180 ? 12 : 11)
+      .attr("letter-spacing","0.02em")
+      .attr("fill","rgba(42,38,34,0.48)")
       .text(line);
   });
 })();
@@ -1911,8 +2045,16 @@ renderSankey();
     });
   }
 
+  const labels = Array.from(document.querySelectorAll('.scroll-nav-label'));
+
   dots.forEach((dot, i) => {
     dot.addEventListener('click', () => {
+      targets[i]?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  labels.forEach((label, i) => {
+    label.addEventListener('click', () => {
       targets[i]?.scrollIntoView({ behavior: 'smooth' });
     });
   });
@@ -1971,6 +2113,7 @@ renderSankey();
     var isDark = document.documentElement.dataset.theme === 'dark';
     document.documentElement.dataset.theme = isDark ? 'light' : 'dark';
     localStorage.setItem('theme', document.documentElement.dataset.theme);
+    btn.setAttribute('aria-label', isDark ? 'Switch to dark mode' : 'Switch to light mode');
   });
 })();
 </script>
