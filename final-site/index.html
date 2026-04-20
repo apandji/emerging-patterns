@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Change As a Constant · Design Leadership in 2026</title>
+  <title>Emerging Patterns· Design Leadership in 2026</title>
   <meta name="description" content="Survey findings from 119 design leaders: career pathways, starting points, and how the field expects to change over the next five years." />
-  <meta property="og:title" content="Change As a Constant · Design Leadership in 2026" />
+  <meta property="og:title" content="Emerging Patterns · Design Leadership in 2026" />
   <meta property="og:description" content="Survey findings from 119 design leaders: career pathways, starting points, and how the field expects to change over the next five years." />
   <meta property="og:type" content="website" />
   <meta name="color-scheme" content="light dark" />
@@ -646,7 +646,12 @@
       min-width: 0;
       height: 100%;
       border-radius: 0;
+      transform-origin: left center;
+      transform: scaleX(0);
+      transition: transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
     }
+    #route-origins.bars-animated .bar-fill { transform: scaleX(1); }
     #route-origins .bar-remainder {
       flex: 1 1 auto;
       min-width: 0;
@@ -689,6 +694,7 @@
       background: var(--orange-dim);
       border: 1px solid rgba(226, 93, 69, 0.2);
       border-radius: var(--r-lg);
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
     }
     .route-callout {
       margin-top: var(--s4);
@@ -801,6 +807,7 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
     }
     .sponsorship-stat-val {
       font-family: var(--font-numbers);
@@ -836,9 +843,21 @@
     /* ══════════════════════════════════════════
        INDUSTRY CONTRAST — Finding 03 addition
     ══════════════════════════════════════════ */
+    .finding-03-primary {
+      display: grid;
+      gap: var(--s3);
+      margin-bottom: var(--s6);
+    }
+    .finding-03-subhead {
+      font-size: var(--t-sm);
+      color: var(--ink-3);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: var(--s1);
+    }
     .industry-contrast {
-      margin-top: var(--s7);
-      padding-top: var(--s5);
+      margin-top: 0;
+      padding-top: var(--s6);
       border-top: 1px solid var(--ink-4);
     }
     .contrast-paragraph {
@@ -849,6 +868,20 @@
     }
     #industry-bar-chart svg { display: block; width: 100%; overflow: visible; margin-top: var(--s1); }
     [data-theme="dark"] .industry-bar-bg { fill: rgba(245,240,232,0.08); }
+
+    @media (hover: hover) and (pointer: fine) {
+      .big-callout:hover,
+      .sponsorship-stat:hover {
+        transform: translateY(-2px);
+        border-color: rgba(226, 93, 69, 0.34);
+        box-shadow: 0 10px 24px rgba(42, 38, 34, 0.08);
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #route-origins .bar-fill { transform: none; transition: none; }
+      .big-callout,
+      .sponsorship-stat { transition: none; }
+    }
 
     /* ══════════════════════════════════════════
        FOOTER
@@ -1221,7 +1254,7 @@
 ════════════════════════════════════ -->
 <section id="hero">
   <div class="hero-inner reveal is-visible">
-    <h1 class="hero-title">Change as a Constant<br><em>Design Leadership in 2026</em></h1>
+    <h1 class="hero-title">Emerging Patterns<br>Design Leadership in <em>2026</em></h1>
     <p class="hero-desc">Across 119 respondents, no two career paths were exactly alike. Freelance starters are 9× more likely to found a company than agency starters. And 92% expect their tool stack to change significantly in the next five years.</p>
     <div class="hero-stats">
       <div>
@@ -1267,7 +1300,7 @@
 <div id="route-origins" class="route-panel">
   <div class="reveal">
     <span class="panel-eyebrow"><span class="panel-eyebrow-finding">Finding 2</span><span class="panel-eyebrow-sep" aria-hidden="true"> : </span><span class="panel-eyebrow-name">Starting Points</span></span>
-    <h2 class="panel-title">Starting points define <em>the shape of the design career</em></h2>
+    <h2 class="panel-title">Starting points define <em>the shape of the design career.</em></h2>
     <p class="panel-desc">Where you start shapes where you go. Leaders who began as freelancers or independents are 9× more likely to found a company. Those who started inside large design organizations are significantly more likely to end up on the executive track.</p>
   </div>
   <div class="route-cols chart-fade">
@@ -1296,6 +1329,7 @@
 
   <div class="sponsorship-gap reveal">
     <p class="sponsorship-note">Many design leaders found their own way into the field. Career advancement, however, depends on different forces: sponsorship is the second most-cited driver of progression, behind proven business outcomes. The path in rewards independence; the path up rewards advocacy.</p>
+    <br>
     <div class="sponsorship-pair">
       <div class="sponsorship-stat">
         <div class="sponsorship-stat-val">41%</div>
@@ -1317,22 +1351,22 @@
 <div id="finding-03" class="full-panel alt-bg">
   <div class="reveal">
     <span class="panel-eyebrow"><span class="panel-eyebrow-finding">Finding 3</span><span class="panel-eyebrow-sep" aria-hidden="true"> : </span><span class="panel-eyebrow-name">Tool Stack</span></span>
-    <h2 class="panel-title">The industry is changing. <em>So are its tools.</em></h2>
-    <p class="panel-desc">When asked how much their tool stack would change over the next five years, only 7% of respondents expected moderate or little change — a signal of deeper shifts in process and practice.</p>
+    <h2 class="panel-title">The tools are changing. <em>Divergence on industry direction.</em></h2>
+    <p class="panel-desc">When asked how much their tool stack would change over the next five years, 92% of respondents expected their tool stack to change significantly in the next five years. When asked about the industry itself, the response were more mixed.</p>
   </div>
 
-  <div class="big-callout reveal" style="margin-bottom: var(--s5); max-width: 600px;">
-    <div class="big-callout-val">92%</div>
-    <div class="big-callout-lbl">expect significant change to their tool stack — 66% saying "a lot." Only 7% expect things to stay roughly the same.</div>
-  </div>
-
-  <div class="stacked-bar-wrap chart-fade">
-    <div id="stacked-bar-chart"></div>
-    <div id="stacked-bar-tooltip" class="stacked-tooltip"></div>
+  <div class="finding-03-primary">
+    <div>
+      <p class="finding-03-subhead">Tool stack expectations</p>
+      <div class="stacked-bar-wrap chart-fade">
+        <div id="stacked-bar-chart"></div>
+        <div id="stacked-bar-tooltip" class="stacked-tooltip"></div>
+      </div>
+    </div>
   </div>
 
   <div class="industry-contrast reveal">
-    <p class="contrast-paragraph">When asked about the industry itself, there is no consensus on how much it will change.</p>
+    <p class="finding-03-subhead">Industry expectations</p>
     <div class="stacked-bar-wrap chart-fade">
       <div id="industry-bar-chart"></div>
       <div id="industry-bar-tooltip" class="stacked-tooltip"></div>
@@ -1690,6 +1724,79 @@ function renderSankey() {
 
 renderSankey();
 
+/* ══════════════════════════════════════════
+   MOTION HELPERS — one-time entry animations
+══════════════════════════════════════════ */
+(function() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Animate Finding 02 bar fills only when panel enters view.
+  const routePanel = document.getElementById("route-origins");
+  if (routePanel) {
+    if (reduceMotion) {
+      routePanel.classList.add("bars-animated");
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          routePanel.classList.add("bars-animated");
+          io.disconnect();
+        });
+      }, { threshold: 0.22 });
+      io.observe(routePanel);
+    }
+  }
+
+  // Count-up key metrics once, when they appear.
+  if (reduceMotion) return;
+  const metricEls = document.querySelectorAll(".hero-stat-val, .big-callout-val, .sponsorship-stat-val");
+  if (!metricEls.length) return;
+
+  function parseMetric(raw) {
+    const text = raw.trim();
+    const isPercent = text.includes("%");
+    const isTimes = text.includes("×");
+    const clean = text.replace(/[^0-9.]/g, "");
+    const target = Number.parseFloat(clean);
+    if (!Number.isFinite(target)) return null;
+    const decimals = clean.includes(".") ? clean.split(".")[1].length : 0;
+    const suffix = isPercent ? "%" : (isTimes ? "×" : "");
+    return { target, decimals, suffix };
+  }
+
+  function animateMetric(el) {
+    const parsed = parseMetric(el.textContent || "");
+    if (!parsed) return;
+    const { target, decimals, suffix } = parsed;
+    const duration = 820;
+    const start = performance.now();
+
+    function tick(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      const value = target * eased;
+      el.textContent = `${value.toFixed(decimals)}${suffix}`;
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = `${target.toFixed(decimals)}${suffix}`;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      if (!el.dataset.counted) {
+        el.dataset.counted = "1";
+        animateMetric(el);
+      }
+      io.unobserve(el);
+    });
+  }, { threshold: 0.55 });
+
+  metricEls.forEach((el) => io.observe(el));
+})();
+
 
 /* ══════════════════════════════════════════
    2. EXEC RATES CHART
@@ -1824,6 +1931,7 @@ renderSankey();
    4. STACKED BAR — TOOL CHANGE CONSENSUS
 ══════════════════════════════════════════ */
 (function() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Pill bar: accent orange for strong agreement, ink for the dissenting tail (matches Finding 02)
   const segments = [
     { label: "A lot",       rating: 5, n: 78, color: "#E25D45", hoverColor: "rgba(226,93,69,0.88)" },
@@ -1884,12 +1992,13 @@ renderSankey();
     .attr("height", BAR_H)
     .attr("fill", "#3A3532");
 
+
   const segs = barLayer.selectAll("g.seg").data(computed).join("g").attr("class", "seg");
 
-  segs.append("rect")
+  const segRects = segs.append("rect")
     .attr("x", d => d.x)
     .attr("y", barY)
-    .attr("width", d => Math.max(0, d.w))
+    .attr("width", 0)
     .attr("height", BAR_H)
     .attr("fill", d => d.color)
     .style("cursor", "pointer")
@@ -1916,7 +2025,8 @@ renderSankey();
 
   const labelsBelow = svg.append("g")
     .attr("class", "stacked-bar-labels-below")
-    .attr("pointer-events", "none");
+    .attr("pointer-events", "none")
+    .attr("opacity", reduceMotion ? 1 : 0);
 
   computed.forEach(d => {
     if (d.w < 22) return;
@@ -1934,18 +2044,45 @@ renderSankey();
       .attr("fill", "rgba(42,38,34,0.48)")
       .text(line);
   });
+
+  function animateIn() {
+    if (reduceMotion) {
+      segRects.attr("width", d => Math.max(0, d.w));
+      return;
+    }
+    segRects.transition()
+      .duration(820)
+      .delay((d, i) => 80 + i * 110)
+      .ease(d3.easeCubicOut)
+      .attr("width", d => Math.max(0, d.w));
+    labelsBelow.transition().delay(420).duration(320).style("opacity", 1);
+  }
+
+  if (reduceMotion) {
+    animateIn();
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animateIn();
+        io.disconnect();
+      });
+    }, { threshold: 0.3 });
+    io.observe(container);
+  }
 })();
 
 /* ══════════════════════════════════════════
    5. STACKED BAR — INDUSTRY EVOLUTION
 ══════════════════════════════════════════ */
 (function() {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const segments = [
-    { label: "Fundamental transformation", rating: 5, n: 12, color: "#E25D45",             hoverColor: "rgba(226,93,69,0.88)" },
-    { label: "Significant evolution",       rating: 4, n: 28, color: "rgba(226,93,69,0.52)", hoverColor: "rgba(226,93,69,0.72)" },
-    { label: "Moderate evolution",          rating: 3, n: 26, color: "rgba(42,38,34,0.55)", hoverColor: "rgba(42,38,34,0.75)" },
-    { label: "Gradual shifts",              rating: 2, n: 35, color: "rgba(42,38,34,0.38)", hoverColor: "rgba(42,38,34,0.55)" },
-    { label: "Mostly stable",              rating: 1, n: 18, color: "rgba(42,38,34,0.22)", hoverColor: "rgba(42,38,34,0.40)" },
+    { label: "Fundamental transformation", rating: 5, n: 12, color: "#8C5A4E", hoverColor: "#9D6759" },
+    { label: "Significant evolution",      rating: 4, n: 28, color: "#A3776B", hoverColor: "#B4887A" },
+    { label: "Moderate evolution",         rating: 3, n: 26, color: "#68625D", hoverColor: "#77706A" },
+    { label: "Gradual shifts",             rating: 2, n: 35, color: "#59606A", hoverColor: "#666E78" },
+    { label: "Mostly stable",              rating: 1, n: 18, color: "#4A515D", hoverColor: "#565E6B" },
   ];
   const total = 119;
   const BAR_H = 72;
@@ -1986,11 +2123,12 @@ renderSankey();
   barLayer.append("rect").attr("class","industry-bar-bg")
     .attr("x",0).attr("y",barY).attr("width",W).attr("height",BAR_H).attr("fill","#3A3532");
 
+
   const segs = barLayer.selectAll("g.seg").data(computed).join("g").attr("class","seg");
 
-  segs.append("rect")
+  const segRects = segs.append("rect")
     .attr("x", d => d.x).attr("y", barY)
-    .attr("width", d => Math.max(0, d.w)).attr("height", BAR_H)
+    .attr("width", 0).attr("height", BAR_H)
     .attr("fill", d => d.color)
     .style("cursor","pointer")
     .on("mousemove", function(event, d) {
@@ -2010,7 +2148,10 @@ renderSankey();
       tip.style("opacity",0);
     });
 
-  const labelsBelow = svg.append("g").attr("class","stacked-bar-labels-below").attr("pointer-events","none");
+  const labelsBelow = svg.append("g")
+    .attr("class","stacked-bar-labels-below")
+    .attr("pointer-events","none")
+    .attr("opacity", reduceMotion ? 1 : 0);
   computed.forEach(d => {
     if (d.w < 22) return;
     const cx = d.x + d.w / 2;
@@ -2026,6 +2167,32 @@ renderSankey();
       .attr("fill","rgba(42,38,34,0.48)")
       .text(line);
   });
+
+  function animateIn() {
+    if (reduceMotion) {
+      segRects.attr("width", d => Math.max(0, d.w));
+      return;
+    }
+    segRects.transition()
+      .duration(820)
+      .delay((d, i) => 80 + i * 110)
+      .ease(d3.easeCubicOut)
+      .attr("width", d => Math.max(0, d.w));
+    labelsBelow.transition().delay(420).duration(320).style("opacity", 1);
+  }
+
+  if (reduceMotion) {
+    animateIn();
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animateIn();
+        io.disconnect();
+      });
+    }, { threshold: 0.3 });
+    io.observe(container);
+  }
 })();
 
 /* ══════════════════════════════════════════
