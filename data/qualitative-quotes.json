@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "description": "Qualitative quotes for the site. finding: 1 = Many Paths (Career Pathways), 2 = Starting Points, 3 = Change / Tools. Load with fetch('data/qualitative-quotes.json').",
+  "quotes": [
+    {
+      "id": "paths-001",
+      "text": "I guess the lesson learned was: do things unconventionally in order to get unconventional results.",
+      "finding": 1,
+      "suggestedPlacement": "finding-1"
+    },
+    {
+      "id": "paths-002",
+      "text": "I believe heavily in not staying tied to design to do design work. I think some of the best design work happens when you're not under a design title.",
+      "finding": 1,
+      "suggestedPlacement": "finding-1"
+    },
+    {
+      "id": "paths-003",
+      "text": "I see myself starting as a front-end developer, then a graphic designer — and then shifting toward the role of product designer as the market and tools evolved.",
+      "finding": 1,
+      "suggestedPlacement": "finding-1"
+    },
+    {
+      "id": "paths-004",
+      "text": "Not intentionally, though. I went to school to study architecture, and I couldn't do calculus, so they said sorry, you can't be an architect.",
+      "finding": 1,
+      "suggestedPlacement": "finding-1"
+    },
+    {
+      "id": "paths-005",
+      "text": "I grew up as a civil engineer. I never thought in my life I could be in that design world... When I realized that I was focusing during my working day more and more on presenting the project... I said, oh, maybe all the physics and math I've studied wasn't really what I really wanted to do.",
+      "finding": 1,
+      "suggestedPlacement": "finding-1"
+    },
+    {
+      "id": "paths-006",
+      "text": "I'm probably going to be pretty different from a lot of the people you speak to... I was in marketing and I'm an immigrant. And so the idea of design, it was lucrative... it was really about the financial potential.",
+      "finding": 1,
+      "suggestedPlacement": "finding-1"
+    },
+    {
+      "id": "paths-007",
+      "text": "I was a designer for five years, I was a senior designer for five years, and now I'm back in school because of all this.",
+      "finding": 1,
+      "suggestedPlacement": "finding-1"
+    },
+    {
+      "id": "paths-008",
+      "text": "I have three majors. I was professional writing, English and cultural anthropology... my dad convinced me on a whim to throw a portfolio in for the design program.",
+      "finding": 1,
+      "suggestedPlacement": "finding-1"
+    },
+    {
+      "id": "starting-001",
+      "text": "Nobody teaches you how to be a design leader in school. They teach you how to be a designer. And nobody teaches you how to manage a team, and how to grow and develop people, and how to navigate really complicated client situations, and how to deal with things when they don't go well.",
+      "finding": 2,
+      "suggestedPlacement": "finding-2",
+      "notes": "Transcript lightly edited: merged line break; 'an, how' → 'and how'; opening capitalized."
+    },
+    {
+      "id": "starting-002",
+      "text": "I did not go to an art school — there was no formal design program at the school I was at.",
+      "finding": 2,
+      "suggestedPlacement": "finding-2"
+    },
+    {
+      "id": "starting-003",
+      "text": "Now I'm in a strategy role, which I think is still a creative act. But it's worlds apart from what I did right out of school.",
+      "finding": 2,
+      "suggestedPlacement": "finding-2"
+    },
+    {
+      "id": "tools-001",
+      "text": "It's a tool. Don't forget it's a tool. We will always need someone to address it, to check it, to double check the output.",
+      "finding": 3,
+      "suggestedPlacement": "finding-3"
+    },
+    {
+      "id": "tools-002",
+      "text": "That wasn't even a thing six months ago. Right? Crazy.",
+      "finding": 3,
+      "suggestedPlacement": "finding-3"
+    },
+    {
+      "id": "tools-003",
+      "text": "When the internet started, it caused a lot of people to stop doing things the internet could now do for them, but it opened up a whole new world of possibility. I see AI as another cycle, but this one's moving fast.",
+      "finding": 3,
+      "suggestedPlacement": "finding-3"
+    }
+  ]
+}

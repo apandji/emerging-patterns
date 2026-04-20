@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Emerging Patterns· Design Leadership in 2026</title>
   <meta name="description" content="Survey findings from 119 design leaders: career pathways, starting points, and how the field expects to change over the next five years." />
   <meta property="og:title" content="Emerging Patterns · Design Leadership in 2026" />
@@ -31,6 +31,7 @@
       --section-y:          96px;
       --col-gap:            48px;
       --max-w:            1280px;
+      --finding-desc-max: 600px;
 
       /* Modular type scale (≈1.25 ratio, rem) */
       --text-xs:      0.6875rem;
@@ -59,6 +60,31 @@
       --lh-snug:  1.32;
       --lh-base:  var(--leading-body);
       --lh-loose: 1.62;
+    }
+
+    /* Type scale — compose: layout class + type-* (e.g. finding-03-subhead type-m) */
+    .type-xs  { font-size: var(--text-xs);  line-height: var(--lh-base); }
+    .type-s   { font-size: var(--text-sm);  line-height: var(--lh-base); }
+    .type-md  { font-size: var(--text-md);  line-height: var(--lh-snug); }
+    .type-m   { font-size: var(--text-base); line-height: var(--lh-loose); }
+    .type-l   { font-size: var(--text-lead); line-height: var(--lh-loose); }
+    .type-xl  { font-size: var(--text-h4);  line-height: var(--lh-snug); }
+    .type-2xl { font-size: var(--text-h3);  line-height: var(--lh-snug); }
+
+    @media (max-width: 480px) {
+      .hero-desc.type-l {
+        font-size: var(--text-base);
+        line-height: var(--lh-loose);
+      }
+    }
+
+    /* Sankey stage labels — shared with Finding 2 stacked-chart row labels */
+    .sankey-stage-label {
+      font-family: var(--font-display);
+      font-size: var(--text-md);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      fill: rgba(42, 38, 34, 0.65);
     }
 
     /* ── Dark mode: Sankey SVG elements (CSS overrides presentation attributes) ── */
@@ -109,6 +135,9 @@
       /* Softer than mandatory — less “fighting” the scroll wheel */
       scroll-snap-type: y proximity;
       overflow-y: scroll;
+      /* Respect notched devices when viewport-fit=cover is set */
+      padding-left: env(safe-area-inset-left, 0px);
+      padding-right: env(safe-area-inset-right, 0px);
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -144,7 +173,7 @@
         height: 22px;
         border-radius: 50%;
         border: 2px solid var(--accent);
-        background: rgba(226, 93, 69, 0.2);
+        background: rgba(213, 154, 72, 0.2);
         background: color-mix(in srgb, var(--accent) 22%, transparent);
         pointer-events: none;
         z-index: 2147483646;
@@ -390,6 +419,71 @@
       z-index: 1;
       width: 100%;
     }
+    .hero-main {
+      min-width: 0;
+      width: 100%;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    /* Stats + rotating quotes on one horizontal band (quotes = fourth “column”) */
+    .hero-stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: var(--s7);
+      width: 100%;
+    }
+    .hero-stats {
+      flex: 0 0 auto;
+    }
+    .hero-voices {
+      position: relative;
+      flex: 1 1 260px;
+      min-width: min(100%, 220px);
+      max-width: 36rem;
+      margin-left: auto;
+      padding-left: var(--s3);
+      border-left: 1px solid var(--accent-mid);
+      align-self: stretch;
+    }
+    .hero-voices__viewport {
+      min-height: 4.5rem;
+    }
+    .hero-voices__quote {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      font-weight: 400;
+      font-style: normal;
+      line-height: var(--lh-loose);
+      letter-spacing: -0.01em;
+      color: var(--ink-2);
+      transition: opacity 0.35s ease;
+    }
+    .hero-voices__quote.is-dim {
+      opacity: 0;
+    }
+    .hero-voices__mark {
+      color: var(--accent);
+      font-weight: 500;
+      user-select: none;
+    }
+    @media (max-width: 960px) {
+      .hero-stats-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--s5);
+      }
+      .hero-voices {
+        margin-left: 0;
+        max-width: none;
+        padding-left: 0;
+        border-left: none;
+        padding-top: var(--s4);
+        margin-top: var(--s1);
+        border-top: 1px solid var(--section-divider-color);
+      }
+    }
     #hero::after {
       content: '';
       position: absolute;
@@ -408,16 +502,24 @@
       max-width: 820px;
       margin-bottom: var(--s4);
     }
-    .hero-title em { font-style: normal; color: var(--accent); }
+    /* Year reads as a label: lining figures + tight tracking; color from tokens */
+    .hero-title em {
+      font-style: normal;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+    }
     .hero-desc {
-      font-size: var(--t-lg);
       font-weight: 400;
       color: var(--ink-2);
       max-width: 34rem;
-      line-height: var(--lh-loose);
-      margin-bottom: var(--s7);
+      margin-bottom: var(--s5);
     }
-    .hero-stats { display: flex; gap: var(--s7); }
+    .hero-stats {
+      display: flex;
+      gap: var(--s7);
+    }
     .hero-stat-val {
       font-family: var(--font-numbers);
       font-size: clamp(2rem, 4vw, 2.75rem);
@@ -472,6 +574,34 @@
       max-height: min(42vh, 420px);
       overflow-y: auto;
       overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    /* Shown only on small viewports (matches scroll-nav breakpoint) */
+    .sankey-mobile-hint {
+      display: none;
+    }
+    @media (max-width: 820px) {
+      .sankey-mobile-hint {
+        display: block;
+        flex: 0 0 auto;
+        margin: 0 var(--gutter) var(--s2);
+        padding: var(--s2) var(--s3);
+        border: 1px solid var(--accent-mid);
+        border-radius: var(--r-md);
+        background: var(--orange-dim);
+        color: var(--ink-2);
+        line-height: var(--lh-snug);
+      }
+      .sankey-mobile-hint strong {
+        display: block;
+        font-family: var(--font-display);
+        font-size: var(--text-xs);
+        letter-spacing: var(--ls-caps);
+        text-transform: uppercase;
+        color: var(--ink-3);
+        font-weight: 600;
+        margin-bottom: 0.35em;
+      }
     }
     #sankey-wrap {
       position: relative;
@@ -504,6 +634,13 @@
       z-index: 20;
       transition: opacity 0.1s;
     }
+    [data-theme="dark"] .s-tooltip {
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+    }
+    .s-tooltip .s-tip-muted {
+      color: var(--ink-3);
+      font-size: 13px;
+    }
     .s-stats {
       position: absolute;
       left: 50%;
@@ -514,7 +651,7 @@
       margin: 0;
       border: 1px solid var(--ink-4);
       border-radius: var(--r-md);
-      background: rgba(247, 245, 240, 0.94);
+      background: color-mix(in srgb, var(--bg-1) 94%, transparent);
       backdrop-filter: blur(8px);
       min-width: 260px;
       max-width: min(520px, calc(100vw - var(--gutter) * 2));
@@ -523,7 +660,7 @@
     }
     .s-stats-total {
       font-size: var(--t-xs);
-      color: rgba(42,38,34,0.80);
+      color: var(--ink-2);
       letter-spacing: 0.02em;
     }
     .s-stats-active {
@@ -573,13 +710,18 @@
       color: var(--ink-1);
       margin-bottom: var(--s2);
     }
-    .panel-title em { font-style: normal; color: var(--accent); }
+    /* Rhetorical beat: one step heavier than the H2 so accent isn’t only a color shift */
+    .panel-title em { font-style: normal; font-weight: 700; color: var(--accent); }
     .panel-title .oj { color: var(--orange); }
     .panel-desc {
-      font-size: var(--t-base);
       color: var(--ink-2);
-      line-height: var(--lh-loose);
       margin-bottom: var(--s5);
+    }
+    /* Finding intros — match Finding 3 body measure */
+    #sankey-section .panel-desc,
+    #route-origins .panel-desc,
+    .full-panel .panel-desc {
+      max-width: var(--finding-desc-max);
     }
     #sankey-section .panel-desc { margin-bottom: var(--s2); }
 
@@ -627,44 +769,285 @@
       flex-shrink: 0;
     }
 
-    /* Finding 02 — pill bars (accent fill + ink remainder) */
-    #route-origins .bar-track {
-      height: 16px;
-      background: transparent;
-      border-radius: 9999px;
-      overflow: hidden;
+    /* Finding 02 — stacked role chart + spotlight + stat grid */
+    .route-chart-hint {
+      font-family: var(--font-display);
+      letter-spacing: 0.02em;
+      color: var(--ink-3);
+      margin-bottom: var(--s2);
+      margin-top: calc(var(--s1) * -0.5);
     }
-    #route-origins .bar-stack {
-      display: flex;
+    /* Match Finding 1 / 3 chart width — full panel content area */
+    .finding2-chart-wrap {
+      position: relative;
       width: 100%;
-      height: 100%;
-      border-radius: 9999px;
+      max-width: 100%;
+    }
+    #finding2-main-chart { width: 100%; }
+    #finding2-main-chart svg { display: block; width: 100%; overflow: visible; margin-top: var(--s1); }
+    .finding2-tooltip {
+      position: fixed;
+      pointer-events: none;
+      left: 0;
+      top: 0;
+      background: var(--bg-1);
+      border: 1px solid var(--ink-4);
+      border-radius: var(--r-md);
+      padding: var(--s2) var(--s3);
+      font-family: var(--font-display);
+      line-height: var(--lh-loose);
+      color: var(--ink-1);
+      opacity: 0;
+      transition: opacity 0.1s;
+      max-width: min(26rem, calc(100vw - 2rem));
+      z-index: 60;
+      box-shadow: 0 8px 24px rgba(42, 38, 34, 0.11);
+    }
+    [data-theme="dark"] .finding2-tooltip {
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    }
+    /* Tooltip inner HTML — use tokens (inline styles used rgba(42,38,34) and failed in dark mode) */
+    .finding2-tip-key {
+      font-family: "Space Mono", ui-monospace, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      margin-bottom: 6px;
+    }
+    .finding2-tip-leg-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 6px;
+      padding: 0;
+      margin-left: 0;
+      border-radius: 4px;
+      border-left: 3px solid transparent;
+    }
+    .finding2-tip-leg-row--on {
+      margin-top: 8px;
+      padding: 8px 10px;
+      margin-left: -2px;
+      border-left-color: var(--accent);
+      background: var(--orange-dim);
+    }
+    [data-theme="dark"] .finding2-tip-leg-row--on {
+      background: rgba(213, 154, 72, 0.16);
+    }
+    .finding2-tip-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .finding2-tip-leg-text { flex: 1; min-width: 0; }
+    .finding2-tip-leg-title {
+      font-family: var(--font-display);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--ink-1);
+      display: block;
+    }
+    .finding2-tip-leg-row--on .finding2-tip-leg-title { font-weight: 700; }
+    .finding2-tip-leg-desc {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 0.8125rem;
+      color: var(--ink-3);
+      line-height: 1.45;
+      margin-top: 4px;
+    }
+    .finding2-tip-body {
+      border-top: 1px solid var(--ink-4);
+      margin: 14px 0 0;
+      padding-top: 12px;
+    }
+    .finding2-tip-org {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink-1);
+      display: block;
+    }
+    .finding2-tip-line {
+      margin-top: 8px;
+      font-size: 0.9375rem;
+      line-height: 1.5;
+      color: var(--ink-1);
+    }
+    .finding2-tip-line strong { color: var(--ink-1); }
+    .finding2-tip-meta {
+      margin-top: 6px;
+      font-size: 0.875rem;
+      color: var(--ink-3);
+    }
+    .finding2-spotlight {
+      margin-top: var(--s5);
+      padding: var(--s4) var(--s4);
+      background: var(--bg-2);
+      border-radius: var(--r-lg);
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    .finding2-spotlight-kicker {
+      font-family: var(--font-display);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--ink-1);
+      margin-bottom: var(--s2);
+    }
+    .finding2-spotlight-lead {
+      margin-bottom: var(--s4);
+      max-width: var(--finding-desc-max);
+    }
+    .finding2-spotlight-row {
+      display: grid;
+      grid-template-columns: minmax(7.5rem, 11rem) minmax(0, 1fr) minmax(5.75rem, 9rem);
+      align-items: center;
+      column-gap: var(--s3);
+      row-gap: var(--s1);
+      margin-bottom: var(--s4);
+      padding-bottom: var(--s4);
+      border-bottom: 1px solid rgba(42, 38, 34, 0.08);
+    }
+    .finding2-spotlight-row:last-of-type {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+    .finding2-spotlight-label {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--ink-2);
+      line-height: var(--lh-snug);
+    }
+    .finding2-spotlight-label small {
+      display: block;
+      font-family: var(--font-sans);
+      font-weight: 400;
+      color: var(--ink-3);
+      margin-top: 4px;
+    }
+    .finding2-spotlight-track {
+      height: 32px;
+      border-radius: var(--r-sm);
       overflow: hidden;
+      display: flex;
+      background: var(--ink-5);
     }
-    #route-origins .bar-fill {
-      flex: 0 0 auto;
-      min-width: 0;
-      height: 100%;
-      border-radius: 0;
-      transform-origin: left center;
-      transform: scaleX(0);
-      transition: transform 760ms cubic-bezier(0.22, 1, 0.36, 1);
-      will-change: transform;
+    .finding2-st-vp  { background: var(--accent); height: 100%; display: flex; align-items: center; }
+    .finding2-st-dir { background: rgba(213, 154, 72, 0.45); height: 100%; }
+    .finding2-st-mgr { background: rgba(42, 38, 34, 0.16); height: 100%; }
+    .finding2-st-lbl {
+      font-family: var(--font-sans);
+      color: rgba(255, 255, 255, 0.92);
+      letter-spacing: 0.03em;
+      padding: 0 8px;
+      white-space: nowrap;
     }
-    #route-origins.bars-animated .bar-fill { transform: scaleX(1); }
-    #route-origins .bar-remainder {
-      flex: 1 1 auto;
-      min-width: 0;
-      height: 100%;
-      background: var(--ink-1);
+    .finding2-spotlight-stat {
+      font-family: var(--font-display);
+      color: var(--ink-2);
+      text-align: right;
+      white-space: nowrap;
     }
-    #route-origins .bar-baseline {
-      z-index: 2;
-      width: 2px;
-      margin-left: -1px;
-      border-radius: 1px;
-      background: rgba(247, 245, 240, 0.88);
-      box-shadow: 0 0 0 1px rgba(36, 36, 36, 0.15);
+    .finding2-spotlight-reach-line {
+      display: block;
+      font-family: var(--font-display);
+      color: var(--ink-2);
+      line-height: var(--lh-snug);
+    }
+    .finding2-spotlight-reach-line strong {
+      font-family: var(--font-numbers);
+      font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+      letter-spacing: -0.02em;
+      font-weight: 600;
+      margin-right: 0.25em;
+    }
+    .finding2-spotlight-stat .stat-muted {
+      display: block;
+      font-family: var(--font-sans);
+      color: var(--ink-3);
+      margin-top: 6px;
+    }
+    .finding2-spotlight-stat .stat-lo { color: var(--ink-3); }
+    .finding2-spotlight-stat .stat-hi { color: var(--accent); }
+    .finding2-spotlight-leg {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+      gap: var(--s2) var(--s3);
+      margin-top: var(--s3);
+      padding-top: var(--s3);
+      border-top: 1px solid var(--ink-4);
+    }
+    .finding2-spotlight-leg span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      color: var(--ink-2);
+    }
+    .finding2-leg-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .finding2-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--s2);
+      margin-top: var(--s5);
+      width: 100%;
+      max-width: 100%;
+      align-items: stretch;
+    }
+    .finding2-stat.sponsorship-stat {
+      min-height: 0;
+      margin-bottom: 0;
+    }
+    #route-origins .finding2-stat .sponsorship-stat-lbl {
+      font-weight: 600;
+    }
+    .finding2-stat .sponsorship-stat-lbl strong {
+      display: block;
+      font-weight: 700;
+      color: var(--ink-1);
+      margin-bottom: var(--s1);
+    }
+    .finding2-stat-sig {
+      display: inline-block;
+      margin-top: var(--s2);
+      font-family: var(--font-sans);
+      letter-spacing: 0.03em;
+      color: var(--ink-3);
+      background: rgba(42, 38, 34, 0.05);
+      border-radius: var(--r-sm);
+      padding: 6px 10px;
+    }
+    @media (max-width: 900px) {
+      .finding2-stat-grid {
+        grid-template-columns: 1fr;
+        gap: var(--s3);
+      }
+    }
+    @media (max-width: 820px) {
+      .finding2-spotlight-row {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+        row-gap: var(--s2);
+        column-gap: 0;
+      }
+      .finding2-spotlight-track {
+        min-height: 32px;
+      }
+      .finding2-spotlight-stat {
+        text-align: left;
+        padding-top: var(--s2);
+        border-top: 1px dashed rgba(42, 38, 34, 0.1);
+      }
     }
 
     .baseline-note {
@@ -692,7 +1075,7 @@
       margin-top: var(--s5);
       padding: var(--s3) var(--s4);
       background: var(--orange-dim);
-      border: 1px solid rgba(226, 93, 69, 0.2);
+      border: 1px solid rgba(213, 154, 72, 0.2);
       border-radius: var(--r-lg);
       transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
     }
@@ -724,8 +1107,6 @@
       scroll-snap-stop: normal;
     }
     .full-panel.alt-bg { background: var(--bg-1); }
-    /* Constrain content width so the bar doesn't span absurdly wide */
-    .full-panel .panel-desc { max-width: 600px; }
     .full-panel .stacked-bar-wrap { max-width: 100%; }
 
     /* ══════════════════════════════════════════
@@ -761,26 +1142,28 @@
       line-height: var(--lh-loose);
     }
     .stacked-tooltip strong { color: var(--accent); }
-
-    /* Finding 02 — horizontal bar rows (exec + founder) */
-    .route-bar-tooltip {
-      position: absolute;
-      pointer-events: none;
-      left: 0;
-      top: 0;
-      max-width: min(22rem, calc(100% - 1.5rem));
-      padding: var(--s2) var(--s3);
-      background: var(--bg-1);
-      border: 1px solid var(--ink-4);
-      border-radius: var(--r-md);
-      font-size: var(--t-sm);
+    .stacked-tooltip-note {
+      color: var(--ink-3);
+      font-weight: 400;
+    }
+    .stacked-tooltip-meta {
+      display: block;
+      margin-top: 0.4em;
+      font-size: var(--text-xs);
       line-height: var(--lh-loose);
-      color: var(--ink-1);
-      opacity: 0;
-      transition: opacity 0.12s;
-      white-space: normal;
-      z-index: 25;
-      box-shadow: 0 8px 24px rgba(42, 38, 34, 0.11);
+      color: var(--ink-3);
+    }
+    [data-theme="dark"] .stacked-tooltip {
+      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+    }
+    .tool-stack-band-line {
+      stroke: rgba(255, 255, 255, 0.26);
+      stroke-width: 1px;
+      vector-effect: non-scaling-stroke;
+      pointer-events: none;
+    }
+    [data-theme="dark"] .tool-stack-band-line {
+      stroke: rgba(245, 240, 232, 0.18);
     }
 
     /* ══════════════════════════════════════════
@@ -800,7 +1183,7 @@
     }
     .sponsorship-stat {
       padding: var(--s3) var(--s4);
-      border: 1px solid rgba(226, 93, 69, 0.2);
+      border: 1px solid rgba(213, 154, 72, 0.2);
       border-radius: var(--r-lg);
       background: var(--orange-dim);
       min-height: 168px;
@@ -817,7 +1200,6 @@
       margin-bottom: var(--s1);
     }
     .sponsorship-stat-lbl {
-      font-size: var(--t-sm);
       color: var(--ink-2);
       line-height: var(--lh-loose);
       text-wrap: pretty;
@@ -830,7 +1212,6 @@
       line-height: 1;
     }
     .sponsorship-note {
-      font-size: var(--t-base);
       color: var(--ink-2);
       line-height: var(--lh-loose);
       margin-bottom: 0;
@@ -849,11 +1230,20 @@
       margin-bottom: var(--s6);
     }
     .finding-03-subhead {
-      font-size: var(--t-sm);
       color: var(--ink-3);
       letter-spacing: 0.03em;
       text-transform: uppercase;
       margin-bottom: var(--s1);
+    }
+    /* Survey question above each chart (sentence case, not all-caps) */
+    .finding-chart-question {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--ink-2);
+      letter-spacing: -0.015em;
+      line-height: var(--lh-snug);
+      max-width: min(52rem, 100%);
+      margin-bottom: var(--s3);
     }
     .industry-contrast {
       margin-top: 0;
@@ -861,9 +1251,7 @@
       border-top: 1px solid var(--ink-4);
     }
     .contrast-paragraph {
-      font-size: var(--t-base);
       color: var(--ink-2);
-      line-height: var(--lh-loose);
       margin-bottom: var(--s5);
     }
     #industry-bar-chart svg { display: block; width: 100%; overflow: visible; margin-top: var(--s1); }
@@ -873,12 +1261,11 @@
       .big-callout:hover,
       .sponsorship-stat:hover {
         transform: translateY(-2px);
-        border-color: rgba(226, 93, 69, 0.34);
+        border-color: rgba(213, 154, 72, 0.34);
         box-shadow: 0 10px 24px rgba(42, 38, 34, 0.08);
       }
     }
     @media (prefers-reduced-motion: reduce) {
-      #route-origins .bar-fill { transform: none; transition: none; }
       .big-callout,
       .sponsorship-stat { transition: none; }
     }
@@ -979,7 +1366,6 @@
 
       /* Hero */
       .hero-title     { font-size: clamp(2rem, 8.5vw, 2.625rem); }
-      .hero-desc      { font-size: var(--t-base); }
       .hero-stat-val  { font-size: clamp(1.75rem, 6vw, 2rem); }
 
       /* Sankey header even more compact */
@@ -1064,7 +1450,7 @@
     }
     .scroll-nav-dot.active {
       background: var(--accent);
-      box-shadow: 0 0 0 3px rgba(226, 93, 69, 0.22);
+      box-shadow: 0 0 0 3px rgba(213, 154, 72, 0.22);
     }
 
     /* ══════════════════════════════════════════
@@ -1111,6 +1497,32 @@
         transparent 82%
       );
     }
+    /* Faint chart silhouettes — tease Explore content on hover */
+    .explore-cta-graph-hint {
+      position: absolute;
+      inset: -4% -6%;
+      z-index: 0;
+      pointer-events: none;
+      color: var(--ink-2);
+      opacity: 0;
+      transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .explore-cta-graph-hint svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      min-height: 280px;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .explore-cta:hover .explore-cta-graph-hint {
+        opacity: 0.11;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .explore-cta-graph-hint {
+        transition: opacity 0.2s ease;
+      }
+    }
     .explore-cta-inner {
       position: relative;
       z-index: 1;
@@ -1128,9 +1540,7 @@
     }
     .explore-cta-title em { font-style: normal; color: var(--accent); }
     .explore-cta-desc {
-      font-size: var(--t-lg);
       color: var(--ink-2);
-      line-height: var(--lh-loose);
       margin-bottom: var(--s5);
     }
     .explore-cta-btn {
@@ -1143,14 +1553,14 @@
       font-size: var(--t-base);
       font-weight: 600;
       text-decoration: none;
-      border: 1px solid rgba(226,93,69,0.45);
+      border: 1px solid rgba(213,154,72,0.45);
       border-radius: var(--r-sm);
       letter-spacing: 0.02em;
       transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
     .explore-cta-btn:hover {
-      background: rgba(226,93,69,0.08);
-      border-color: rgba(226,93,69,0.65);
+      background: rgba(213,154,72,0.08);
+      border-color: rgba(213,154,72,0.65);
       color: rgba(42,38,34,0.92);
     }
     @media (prefers-reduced-motion: no-preference) {
@@ -1253,26 +1663,33 @@
      HERO
 ════════════════════════════════════ -->
 <section id="hero">
-  <div class="hero-inner reveal is-visible">
-    <h1 class="hero-title">Emerging Patterns<br>Design Leadership in <em>2026</em></h1>
-    <p class="hero-desc">Across 119 respondents, no two career paths were exactly alike. Freelance starters are 9× more likely to found a company than agency starters. And 92% expect their tool stack to change significantly in the next five years.</p>
-    <div class="hero-stats">
-      <div>
-        <div class="hero-stat-val">119</div>
-        <div class="hero-stat-lbl">Design leaders</div>
+  <div class="hero-inner hero-main reveal is-visible">
+    <h1 class="hero-title">Emerging Patterns:<br>Design Leadership in <em>2026</em></h1>
+    <p class="hero-desc type-l">Surveying 119 design leaders gave us a picture of an industry in transition. We learned how they got here, what's changing in their industry, and where they think the profession is headed. The story that emerges is one of structural change, shifting pathways, and a field asking hard questions about its own future.</p>
+    <br>
+    <div class="hero-stats-row">
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-val">119</div>
+          <div class="hero-stat-lbl">Design leaders</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">31</div>
+          <div class="hero-stat-lbl">Survey dimensions</div>
+        </div>
+        <div>
+          <div class="hero-stat-val">3</div>
+          <div class="hero-stat-lbl">Key findings</div>
+        </div>
       </div>
-      <div>
-        <div class="hero-stat-val">37</div>
-        <div class="hero-stat-lbl">Survey dimensions</div>
-      </div>
-      <div>
-        <div class="hero-stat-val">3</div>
-        <div class="hero-stat-lbl">Key findings</div>
-      </div>
+      <aside class="hero-voices" id="hero-voices" aria-label="Rotating interview excerpts" hidden>
+        <div class="hero-voices__viewport">
+          <blockquote class="hero-voices__quote" id="hero-voice-quote"></blockquote>
+        </div>
+      </aside>
     </div>
   </div>
 </section>
-
 
 <!-- ════════════════════════════════════
      FINDING 01 — SANKEY
@@ -1281,8 +1698,12 @@
   <div class="section-wrap reveal">
     <span class="panel-eyebrow"><span class="panel-eyebrow-finding">Finding 1</span><span class="panel-eyebrow-sep" aria-hidden="true"> : </span><span class="panel-eyebrow-name">Career Pathways</span></span>
     <h2 class="panel-title">No single path. <em>Many different routes.</em></h2>
-    <p class="panel-desc">Design leaders come from different backgrounds. Our research represents 93 distinct pathways, across different discipline backgrounds, education levels, organization types, and career levels.</p>
+    <p class="panel-desc type-m">Design leaders come from a variety of non-linear backgrounds. Our research revealed 93 diverse and distinct pathways across education level, organization type, and career stage.</p>
   </div>
+  <p class="sankey-mobile-hint type-s" role="note">
+    <strong>Best viewed on desktop</strong>
+    This pathway diagram is dense; a wider screen makes labels and flows easier to read. You can still explore here—pinch to zoom if your browser allows.
+  </p>
   <div id="sankey-wrap" class="chart-fade">
     <svg id="sankey-chart" viewBox="0 0 1400 780" preserveAspectRatio="xMidYMid meet"></svg>
     <div id="s-tooltip" class="s-tooltip"></div>
@@ -1300,48 +1721,83 @@
 <div id="route-origins" class="route-panel">
   <div class="reveal">
     <span class="panel-eyebrow"><span class="panel-eyebrow-finding">Finding 2</span><span class="panel-eyebrow-sep" aria-hidden="true"> : </span><span class="panel-eyebrow-name">Starting Points</span></span>
-    <h2 class="panel-title">Starting points define <em>the shape of the design career.</em></h2>
-    <p class="panel-desc">Where you start shapes where you go. Leaders who began as freelancers or independents are 9× more likely to found a company. Those who started inside large design organizations are significantly more likely to end up on the executive track.</p>
+    <h2 class="panel-title">Starting roles can <em>shape the career.</em></h2>
+    <p class="panel-desc type-m">Where designers start often shapes where they go. While no singular pathway exists, our interviews revealed patterns between where design leaders started and where they landed. </p>
   </div>
-  <div class="route-cols chart-fade">
-    <div>
-      <div class="route-col-label">The executive track</div>
-      <div id="exec-chart"></div>
-      <div class="baseline-note">
-        <span class="dash-line"></span>
-        14.3% baseline executive rate across all 119 leaders
-      </div>
-    </div>
-    <div>
-      <div class="route-col-label">The founder track</div>
-      <div id="founder-chart"></div>
-      <div class="baseline-note">
-        <span class="dash-line"></span>
-        ~12% overall consulting / founding rate across all 119 leaders
-      </div>
-    </div>
-  </div>
-  <div class="big-callout reveal route-callout">
-    <div class="big-callout-val">9&times;</div>
-    <div class="big-callout-lbl">higher founder rate for freelance starters vs. agency starters (37.5% vs. 4.3%, Fisher's exact p=0.025)</div>
-  </div>
-  <div id="route-bar-tooltip" class="route-bar-tooltip" aria-hidden="true"></div>
 
-  <div class="sponsorship-gap reveal">
-    <p class="sponsorship-note">Many design leaders found their own way into the field. Career advancement, however, depends on different forces: sponsorship is the second most-cited driver of progression, behind proven business outcomes. The path in rewards independence; the path up rewards advocacy.</p>
-    <br>
-    <div class="sponsorship-pair">
-      <div class="sponsorship-stat">
-        <div class="sponsorship-stat-val">41%</div>
-        <div class="sponsorship-stat-lbl">say no one actively guided them into design, instead they found their own way in.</div>
-      </div>
-      <div class="sponsorship-connector" aria-hidden="true">→</div>
-      <div class="sponsorship-stat">
-        <div class="sponsorship-stat-val">34%</div>
-        <div class="sponsorship-stat-lbl">cite sponsorship and advocacy from senior leaders as key to their career advancement.</div>
-      </div>
+  <div class="chart-fade">
+    <p class="finding-03-subhead type-m">Current role by first organization type</p>
+    <p class="route-chart-hint type-md">Hover any bar segment for the category key and counts.</p>
+    <div class="finding2-chart-wrap stacked-bar-wrap">
+      <div id="finding2-main-chart"></div>
     </div>
   </div>
+
+  <div class="finding2-spotlight reveal">
+    <p class="finding2-spotlight-kicker type-l">Same entry rate. Different ceiling.</p>
+    <p class="contrast-paragraph finding2-spotlight-lead type-m">Agency and corporate starters reach management at identical rates. Inside management, their paths diverge. Corporate starters reach VP at 4.8× the rate of agency starters — a significant difference (Fisher's exact p = 0.05).</p>
+
+    <div class="finding2-spotlight-row">
+      <div class="finding2-spotlight-label type-md">
+        Agency / Consultancy
+        <small class="type-s">31 of 46 in management</small>
+      </div>
+      <div class="finding2-spotlight-track">
+        <div class="finding2-st-vp" style="width:6.5%"></div>
+        <div class="finding2-st-dir" style="width:80.6%"></div>
+        <div class="finding2-st-mgr" style="width:12.9%"></div>
+      </div>
+      <div class="finding2-spotlight-stat type-md">
+        <span class="finding2-spotlight-reach-line"><strong class="stat-lo">4%</strong> reached VP</span>
+        <span class="stat-muted type-s">2 of 46</span>
+      </div>
+    </div>
+
+    <div class="finding2-spotlight-row">
+      <div class="finding2-spotlight-label type-md">
+        Corporate (In-house)
+        <small class="type-s">30 of 45 in management</small>
+      </div>
+      <div class="finding2-spotlight-track">
+        <div class="finding2-st-vp" style="width:26.7%"><span class="finding2-st-lbl type-s">VP</span></div>
+        <div class="finding2-st-dir" style="width:53.3%"></div>
+        <div class="finding2-st-mgr" style="width:20%"></div>
+      </div>
+      <div class="finding2-spotlight-stat type-md">
+        <span class="finding2-spotlight-reach-line"><strong class="stat-hi">18%</strong> reached VP</span>
+        <span class="stat-muted type-s">8 of 45</span>
+      </div>
+    </div>
+
+    <div class="finding2-spotlight-leg">
+      <span class="type-md"><span class="finding2-leg-swatch" style="background:var(--accent)"></span>VP level</span>
+      <span class="type-md"><span class="finding2-leg-swatch" style="background:rgba(213,154,72,0.45)"></span>Director / Sr. Manager</span>
+      <span class="type-md"><span class="finding2-leg-swatch" style="background:rgba(42,38,34,0.16)"></span>Design Manager</span>
+    </div>
+  </div>
+
+  <div class="finding2-stat-grid reveal">
+    <article class="sponsorship-stat finding2-stat">
+      <div class="sponsorship-stat-val">67%</div>
+      <div class="sponsorship-stat-lbl type-m"><strong>Management entry — both tracks</strong></div>
+      <p class="sponsorship-note type-m">Agency and corporate starters enter management at statistically identical rates: 31 of 46 vs. 30 of 45.</p>
+      <span class="finding2-stat-sig type-s">Fisher's exact p = 1.0</span>
+    </article>
+    <article class="sponsorship-stat finding2-stat">
+      <div class="sponsorship-stat-val">4.8&times;</div>
+      <div class="sponsorship-stat-lbl type-m"><strong>VP odds gap</strong></div>
+      <p class="sponsorship-note type-m">Corporate starters reach VP level at 18% vs. 4% for agency starters — a 4.8× difference in odds. The gap is not who gets in, but how far they go.</p>
+      <span class="finding2-stat-sig type-s">Fisher's exact p = 0.05</span>
+    </article>
+    <article class="sponsorship-stat finding2-stat">
+      <div class="sponsorship-stat-val">7.2&times;</div>
+      <div class="sponsorship-stat-lbl type-m"><strong>Freelance → independent</strong></div>
+      <p class="sponsorship-note type-m">Freelance starters are 7.2× more likely than agency starters to end up in an independent practice. 1 in 3 now hold Partner, Advisor, or Founder roles.</p>
+      <span class="finding2-stat-sig type-s">Fisher's exact p = 0.049 · n=9, treat cautiously</span>
+    </article>
+  </div>
+
+  <div id="finding2-tooltip" class="finding2-tooltip type-m" aria-hidden="true"></div>
 </div>
 
 
@@ -1351,13 +1807,13 @@
 <div id="finding-03" class="full-panel alt-bg">
   <div class="reveal">
     <span class="panel-eyebrow"><span class="panel-eyebrow-finding">Finding 3</span><span class="panel-eyebrow-sep" aria-hidden="true"> : </span><span class="panel-eyebrow-name">Tool Stack</span></span>
-    <h2 class="panel-title">The tools are changing. <em>Divergence on industry direction.</em></h2>
-    <p class="panel-desc">When asked how much their tool stack would change over the next five years, 92% of respondents expected their tool stack to change significantly in the next five years. When asked about the industry itself, the response were more mixed.</p>
+    <h2 class="panel-title">The tools are changing. <em>The industry is too.</em></h2>
+    <p class="panel-desc type-m">Design leaders expect their tools — and their field — to remain in flux. 94% of respondents said they expected their tool stack to change <em>significantly</em> over the next five years, with responses about industry expectations being more mixed. </p>
   </div>
 
   <div class="finding-03-primary">
     <div>
-      <p class="finding-03-subhead">Tool stack expectations</p>
+      <p class="finding-chart-question type-m">In the next 5 years, how much do you expect your tool stack to change?</p>
       <div class="stacked-bar-wrap chart-fade">
         <div id="stacked-bar-chart"></div>
         <div id="stacked-bar-tooltip" class="stacked-tooltip"></div>
@@ -1366,7 +1822,7 @@
   </div>
 
   <div class="industry-contrast reveal">
-    <p class="finding-03-subhead">Industry expectations</p>
+    <p class="finding-chart-question type-m">In the next 5 years, how do you expect the global design industry to evolve?</p>
     <div class="stacked-bar-wrap chart-fade">
       <div id="industry-bar-chart"></div>
       <div id="industry-bar-tooltip" class="stacked-tooltip"></div>
@@ -1379,11 +1835,76 @@
      EXPLORE CTA
 ════════════════════════════════════ -->
 <section class="explore-cta">
+  <div class="explore-cta-graph-hint" aria-hidden="true">
+    <svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <g fill="currentColor" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+        <!-- bar clusters -->
+        <g opacity="0.85">
+          <rect x="32" y="380" width="10" height="92" rx="1"/>
+          <rect x="46" y="340" width="10" height="132" rx="1"/>
+          <rect x="60" y="400" width="10" height="72" rx="1"/>
+          <rect x="74" y="360" width="10" height="112" rx="1"/>
+        </g>
+        <g opacity="0.75" transform="translate(720, 40)">
+          <rect y="120" width="9" height="55" rx="1"/>
+          <rect x="14" y="90" width="9" height="85" rx="1"/>
+          <rect x="28" y="100" width="9" height="75" rx="1"/>
+          <rect x="42" y="70" width="9" height="105" rx="1"/>
+          <rect x="56" y="110" width="9" height="65" rx="1"/>
+        </g>
+        <!-- line chart -->
+        <path fill="none" stroke-width="1.4" opacity="0.7" d="M120 280 L155 250 L188 268 L222 220 L258 235 L305 195 L340 210"/>
+        <circle cx="120" cy="280" r="2.2" fill="currentColor" stroke="none"/>
+        <circle cx="340" cy="210" r="2.2" fill="currentColor" stroke="none"/>
+        <!-- stacked / pill bar -->
+        <g transform="translate(480, 360)" opacity="0.85">
+          <rect width="140" height="22" rx="11" fill="currentColor" opacity="0.1"/>
+          <rect width="88" height="22" rx="11" fill="currentColor" opacity="0.22"/>
+        </g>
+        <!-- donut -->
+        <g transform="translate(200, 60)" opacity="0.65">
+          <circle r="36" fill="none" stroke-width="8"/>
+          <path d="M0 -36 A36 36 0 0 1 28 -22" fill="none" stroke-width="8" opacity="0.5"/>
+        </g>
+        <!-- horizontal bars -->
+        <g opacity="0.55" transform="translate(520, 90)">
+          <rect width="120" height="6" rx="1"/>
+          <rect y="16" width="90" height="6" rx="1"/>
+          <rect y="32" width="105" height="6" rx="1"/>
+        </g>
+        <!-- spark columns -->
+        <g transform="translate(40, 120)" opacity="0.5">
+          <rect y="40" width="6" height="35" rx="1"/>
+          <rect x="12" y="20" width="6" height="55" rx="1"/>
+          <rect x="24" y="55" width="6" height="20" rx="1"/>
+        </g>
+        <!-- area fill -->
+        <path opacity="0.12" stroke="none" d="M600 300 L640 240 L700 260 L760 200 L820 230 L820 320 L600 320 Z"/>
+        <!-- sankey-ish curves -->
+        <path fill="none" stroke-width="1" opacity="0.45" d="M650 420 C680 380 700 400 730 360"/>
+        <path fill="none" stroke-width="1" opacity="0.45" d="M650 440 C685 400 705 430 735 395"/>
+        <path fill="none" stroke-width="1" opacity="0.35" d="M650 460 C690 420 710 450 740 420"/>
+        <!-- scatter -->
+        <g opacity="0.4" fill="currentColor" stroke="none">
+          <circle cx="780" cy="180" r="2"/>
+          <circle cx="795" cy="165" r="2"/>
+          <circle cx="770" cy="195" r="2"/>
+          <circle cx="805" cy="188" r="2"/>
+          <circle cx="788" cy="200" r="2"/>
+        </g>
+        <!-- grid of tiny bars -->
+        <g transform="translate(320, 400)" opacity="0.35">
+          <rect width="4" height="18" rx="0.5"/><rect x="8" width="4" height="28" rx="0.5"/><rect x="16" width="4" height="12" rx="0.5"/><rect x="24" width="4" height="22" rx="0.5"/>
+          <rect y="36" width="4" height="14" rx="0.5"/><rect x="8" y="36" width="4" height="24" rx="0.5"/><rect x="16" y="36" width="4" height="20" rx="0.5"/><rect x="24" y="36" width="4" height="10" rx="0.5"/>
+        </g>
+      </g>
+    </svg>
+  </div>
   <div class="explore-cta-inner reveal">
     <span class="eyebrow">Dive deeper</span>
     <h2 class="explore-cta-title">There's more beneath<br>the <em>surface</em></h2>
-    <p class="explore-cta-desc">Dive deeper to see how leaders are thinking about the future of the field. Explore the full 30 questions to see patterns, insights, and gaps visualized.</p>
-    <a href="explore.html" class="explore-cta-btn">Explore all 30 questions →</a>
+    <p class="explore-cta-desc type-l">Dive deeper to see how leaders are thinking about the future of the field. Explore all 31 survey topics to see patterns, insights, and gaps visualized.</p>
+    <a href="explore.html" class="explore-cta-btn">Explore all 31 topics →</a>
   </div>
 </section>
 
@@ -1396,7 +1917,7 @@
     <h2 id="about-project-heading" class="about-project-title">About this project</h2>
     <div class="about-project-body">
       <p>This site summarizes quantitative findings from a 2026 survey conducted by Design Leadership, a seminar led by Doug Powell for Washington University in St. Louis. This seminar brings together undergraduate and graduate students from across disciplines to examine how design shapes and is shaped by the organizations it lives inside.</p>
-      <p>The survey results represent 119 design leaders: how they entered the field, their first organizations, current level, tool expectations, and outlook on the profession. Three main findings are presented as chapters; the <a href="explore.html">explore</a> view shows all 30 questions with optional filters for age, gender, and region.</p>
+      <p>The survey results represent 119 design leaders: how they entered the field, their first organizations, current level, tool expectations, and outlook on the profession. Each respondent completed a 34-item questionnaire (plus timestamp and an optional email for interviews). Three main findings are presented as chapters; the <a href="explore.html">explore</a> view charts 31 of those topics, with optional filters for age, gender, and region. Three free-text role-detail fields are not shown as charts.</p>
     </div>
   </div>
 </section>
@@ -1509,8 +2030,8 @@ function renderSankey() {
     muted:     "rgba(42,38,34,0.52)",
     line:      "#3A3532",
     lineSoft:  "rgba(42,38,34,0.18)",
-    accent:    "rgba(226,93,69,0.95)",
-    accentSft: "rgba(226,93,69,0.28)",
+    accent:    "rgba(213,154,72,0.95)",
+    accentSft: "rgba(213,154,72,0.28)",
     node:      "rgba(42,38,34,0.60)",
     nodeStr:   "rgba(42,38,34,0.70)",
     stroke:    "rgba(42,38,34,0)",
@@ -1521,8 +2042,8 @@ function renderSankey() {
     muted:     "rgba(245,240,232,0.52)",
     line:      "rgba(245,240,232,0.80)",
     lineSoft:  "rgba(245,240,232,0.18)",
-    accent:    "rgba(226,93,69,0.95)",
-    accentSft: "rgba(226,93,69,0.32)",
+    accent:    "rgba(213,154,72,0.95)",
+    accentSft: "rgba(213,154,72,0.32)",
     node:      "rgba(245,240,232,0.55)",
     nodeStr:   "rgba(245,240,232,0.70)",
     stroke:    "rgba(245,240,232,0)",
@@ -1643,8 +2164,6 @@ function renderSankey() {
       .attr("class","sankey-stage-label")
       .attr("x",(_,i)=>graph.nodes.find(n=>n.depth===i).x0+12)
       .attr("y",28).attr("text-anchor","middle")
-      .attr("fill","rgba(42,38,34,0.65)").attr("font-size",14).attr("font-weight",600)
-      .attr("font-family","'Host Grotesk', ui-sans-serif, system-ui, sans-serif").attr("letter-spacing","0.06em")
       .text(d=>d);
 
     totEl.text(`${totalPaths} distinct pathways represented`);
@@ -1668,7 +2187,7 @@ function renderSankey() {
         const sp=linkPaths.get(d.key)||new Set();
         hi(sp); setActive(sp.size);
         const wr=document.getElementById("sankey-wrap").getBoundingClientRect();
-        tip.html(`<strong>${d.source.category}</strong> &rarr; <strong>${d.target.category}</strong><br>Respondents: <strong>${d.value}</strong><br><span style="color:rgba(42,38,34,0.52);font-size:13px">Origin: ${d.origin}</span>`)
+        tip.html(`<strong>${d.source.category}</strong> &rarr; <strong>${d.target.category}</strong><br>Respondents: <strong>${d.value}</strong><br><span class="s-tip-muted">Origin: ${d.origin}</span>`)
            .style("opacity",1);
         const tipW=tip.node().offsetWidth, tipH=tip.node().offsetHeight;
         let tx=event.clientX-wr.left+16, ty=event.clientY-wr.top+14;
@@ -1730,23 +2249,6 @@ renderSankey();
 (function() {
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Animate Finding 02 bar fills only when panel enters view.
-  const routePanel = document.getElementById("route-origins");
-  if (routePanel) {
-    if (reduceMotion) {
-      routePanel.classList.add("bars-animated");
-    } else {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          routePanel.classList.add("bars-animated");
-          io.disconnect();
-        });
-      }, { threshold: 0.22 });
-      io.observe(routePanel);
-    }
-  }
-
   // Count-up key metrics once, when they appear.
   if (reduceMotion) return;
   const metricEls = document.querySelectorAll(".hero-stat-val, .big-callout-val, .sponsorship-stat-val");
@@ -1799,128 +2301,160 @@ renderSankey();
 
 
 /* ══════════════════════════════════════════
-   2. EXEC RATES CHART
+   FINDING 02 — stacked roles by first org (D3)
 ══════════════════════════════════════════ */
-(function() {
-  const data = [
-    { label: "Age 56–65",               pct: 36.4, above: true  },
-    { label: "Large design org (21+)",   pct: 23.8, above: true  },
-    { label: "Master's+ in design",      pct: 21.3, above: true  },
-    { label: "Corporate first org",      pct: 20.0, above: true  },
-    { label: "Arts / humanities bkgd",   pct: 17.5, above: true  },
-    { label: "Design-specific track",    pct: 17.1, above: true  },
-    { label: "Agency first org",         pct: 8.7,  above: false },
-    { label: "No formal education",      pct: 4.2,  above: false },
+(function finding02StackedChart() {
+  const ROLE_GROUPS = [
+    { key: "exec", label: "VP+", desc: "VP and C-suite design titles", color: "#D59A48", textColor: "rgba(255,255,255,0.92)" },
+    { key: "mid",  label: "Non-executive management", desc: "Director, head, and manager (below VP)", color: "rgba(213,154,72,0.38)", textColor: "rgba(42,38,34,0.70)" },
+    { key: "rest", label: "IC & independent", desc: "IC; partner, advisor, founder", color: "#3A3532", textColor: "rgba(255,255,255,0.75)" },
   ];
-  const baseline = 14.3;
-  const maxPct = 40;
-  const container = document.getElementById("exec-chart");
-
-  data.forEach(d => {
-    const pctW = (d.pct / maxPct * 100).toFixed(2);
-    const baseW = (baseline / maxPct * 100).toFixed(2);
-    const fillColor = d.above ? "#E25D45" : "rgba(226,93,69,0.5)";
-    const valColor  = d.above ? "#E25D45" : "rgba(42,38,34,0.55)";
-
-    const row = document.createElement("div");
-    row.className = "bar-row";
-    row.dataset.tooltip = `${d.pct.toFixed(1)}% of design leaders surveyed in the "${d.label}" category are executives.`;
-    row.innerHTML = `
-      <div class="bar-lbl"><strong>${d.label}</strong></div>
-      <div class="bar-track">
-        <div class="bar-stack">
-          <div class="bar-fill" style="width:${pctW}%;background:${fillColor};"></div>
-          <div class="bar-remainder" aria-hidden="true"></div>
-        </div>
-        <div class="bar-baseline" style="left:${baseW}%;"></div>
-      </div>
-      <div class="bar-val" style="color:${valColor}">${d.pct.toFixed(1)}%</div>
-    `;
-    container.appendChild(row);
-  });
-})();
-
-
-/* ══════════════════════════════════════════
-   3. FOUNDER RATES CHART
-══════════════════════════════════════════ */
-(function() {
-  const data = [
-    { label: "Freelance / independent", pct: 37.5, hi: true  },
-    { label: "NGO / non-profit",        pct: 16.7, hi: false },
-    { label: "Corporate / in-house",    pct: 6.7,  hi: false },
-    { label: "Agency / consultancy",    pct: 4.3,  hi: false },
-    { label: "Startup",                 pct: 0.0,  hi: false },
+  const ORG_DATA = [
+    { org: "Agency / Consultancy",    n: 46, exec: 4,  mid: 29, rest: 13 },
+    { org: "Corporate (In-house)",    n: 45, exec: 9,  mid: 22, rest: 14 },
+    { org: "Freelance / Independent", n:  9, exec: 2,  mid:  1, rest:  6 },
   ];
-  const baseline = 12.0;
-  const maxPct = 42;
-  const baseW = (baseline / maxPct * 100).toFixed(2);
-  const container = document.getElementById("founder-chart");
 
-  data.forEach(d => {
-    const pctW = (d.pct / maxPct * 100).toFixed(2);
-    const fillColor = d.hi ? "#E25D45" : "rgba(226,93,69,0.5)";
-    const valColor  = d.hi ? "#E25D45" : "rgba(42,38,34,0.55)";
-    const valText   = d.pct > 0 ? d.pct.toFixed(1) + "%" : "—";
-
-    const row = document.createElement("div");
-    row.className = "bar-row";
-    const founderPct = d.pct.toFixed(1);
-    row.dataset.tooltip = `${founderPct}% of design leaders surveyed whose first organization was "${d.label}" are founders.`;
-    row.innerHTML = `
-      <div class="bar-lbl"><strong>${d.label}</strong></div>
-      <div class="bar-track">
-        <div class="bar-stack">
-          <div class="bar-fill" style="width:${pctW}%;background:${fillColor};"></div>
-          <div class="bar-remainder" aria-hidden="true"></div>
-        </div>
-        <div class="bar-baseline" style="left:${baseW}%;"></div>
-      </div>
-      <div class="bar-val" style="color:${valColor}">${valText}</div>
-    `;
-    container.appendChild(row);
-  });
-})();
-
-(function wireFinding02BarTooltip() {
-  const panel = document.getElementById("route-origins");
-  const tip = document.getElementById("route-bar-tooltip");
-  if (!panel || !tip) return;
-
-  function hide() {
-    tip.style.opacity = "0";
-    tip.setAttribute("aria-hidden", "true");
+  function tooltipLegendBlock(highlightKey) {
+    const rows = ROLE_GROUPS.map((g) => {
+      const on = g.key === highlightKey;
+      return (
+        `<div class="finding2-tip-leg-row${on ? " finding2-tip-leg-row--on" : ""}">` +
+        `<span class="finding2-tip-swatch" style="background:${g.color}"></span>` +
+        `<span class="finding2-tip-leg-text">` +
+        `<span class="finding2-tip-leg-title">${g.label}</span>` +
+        `<span class="finding2-tip-leg-desc">${g.desc}</span>` +
+        `</span></div>`
+      );
+    }).join("");
+    return `<div class="finding2-tip-key">Category key</div>${rows}`;
   }
 
-  panel.addEventListener("mousemove", (e) => {
-    const row = e.target.closest(".bar-row");
-    if (!row || !panel.contains(row)) {
-      hide();
-      return;
-    }
-    const msg = row.dataset.tooltip;
-    if (!msg) {
-      hide();
-      return;
-    }
-    tip.textContent = msg;
-    tip.removeAttribute("aria-hidden");
-    const pr = panel.getBoundingClientRect();
-    let x = e.clientX - pr.left + 12;
-    let y = e.clientY - pr.top + 12;
-    tip.style.opacity = "1";
+  const container = document.getElementById("finding2-main-chart");
+  const tooltip = document.getElementById("finding2-tooltip");
+  if (!container || !tooltip || typeof d3 === "undefined") return;
 
-    const tw = tip.offsetWidth;
-    const th = tip.offsetHeight;
-    const pad = 8;
-    if (x + tw > pr.width - pad) x = Math.max(pad, pr.width - tw - pad);
-    if (y + th > pr.height - pad) y = Math.max(pad, pr.height - th - pad);
+  const BAR_H = 56, ROW_GAP = 20, LABEL_W = 200, N_PAD = 72, PILL_R = 26;
 
-    tip.style.left = `${x}px`;
-    tip.style.top = `${y}px`;
+  function draw() {
+    container.innerHTML = "";
+    const totalW = container.getBoundingClientRect().width || 780;
+    const innerW = Math.max(200, totalW - LABEL_W - N_PAD);
+    const totalH = ORG_DATA.length * (BAR_H + ROW_GAP) - ROW_GAP + 4;
+
+    const svg = d3.select(container).append("svg")
+      .attr("width", totalW).attr("height", totalH)
+      .attr("viewBox", `0 0 ${totalW} ${totalH}`);
+
+    ORG_DATA.forEach((row, i) => {
+      const rowY = i * (BAR_H + ROW_GAP);
+      const clipId = `finding2-clip-${i}`;
+
+      svg.append("defs").append("clipPath").attr("id", clipId)
+        .append("rect")
+        .attr("x", LABEL_W).attr("y", rowY)
+        .attr("width", innerW).attr("height", BAR_H)
+        .attr("rx", PILL_R).attr("ry", PILL_R);
+
+      svg.append("rect")
+        .attr("x", LABEL_W).attr("y", rowY)
+        .attr("width", innerW).attr("height", BAR_H)
+        .attr("rx", PILL_R).attr("ry", PILL_R)
+        .attr("fill", "rgba(42,38,34,0.07)");
+
+      const words = row.org.split(" ");
+      let line = "", lines = [];
+      words.forEach((w) => {
+        const t = line ? `${line} ${w}` : w;
+        if (t.length > 22 && line) { lines.push(line); line = w; } else line = t;
+      });
+      if (line) lines.push(line);
+      const lineH = 20;
+      const midY = rowY + BAR_H / 2;
+      const labelTop = midY - ((lines.length - 1) * lineH) / 2;
+      const labelEl = svg.append("text")
+        .attr("class", "sankey-stage-label")
+        .attr("text-anchor", "end");
+      lines.forEach((ln, li) => {
+        labelEl.append("tspan")
+          .attr("x", LABEL_W - 12)
+          .attr("y", labelTop + li * lineH)
+          .attr("dominant-baseline", "middle")
+          .text(ln);
+      });
+
+      let cumX = 0;
+      ROLE_GROUPS.forEach((grp) => {
+        const n = row[grp.key];
+        if (!n) return;
+        const pct = n / row.n, segW = pct * innerW;
+
+        const g = svg.append("g").attr("clip-path", `url(#${clipId})`).style("cursor", "pointer");
+        g.append("rect")
+          .attr("x", LABEL_W + cumX).attr("y", rowY)
+          .attr("width", segW).attr("height", BAR_H)
+          .attr("fill", grp.color);
+
+        if (segW >= 38) {
+          g.append("text")
+            .attr("x", LABEL_W + cumX + segW / 2).attr("y", rowY + BAR_H / 2)
+            .attr("text-anchor", "middle").attr("dominant-baseline", "middle")
+            .attr("font-family", "'Space Mono', ui-monospace, monospace")
+            .attr("font-size", 12).attr("letter-spacing", "0.02em")
+            .attr("fill", grp.textColor).attr("pointer-events", "none")
+            .text(`${Math.round(pct * 100)}%`);
+        }
+
+        g.on("mousemove", function(event) {
+          tooltip.innerHTML =
+            tooltipLegendBlock(grp.key) +
+            `<div class="finding2-tip-body">` +
+            `<span class="finding2-tip-org">${row.org}</span>` +
+            `<div class="finding2-tip-line">` +
+            `<strong>${Math.round(pct * 100)}%</strong> in <strong>${grp.label}</strong>` +
+            `</div>` +
+            `<div class="finding2-tip-meta">${n} of ${row.n} respondents</div>` +
+            `</div>`;
+          tooltip.style.opacity = "1";
+          tooltip.removeAttribute("aria-hidden");
+          const tipW = tooltip.offsetWidth;
+          let tx = event.clientX + 14;
+          if (tx + tipW > window.innerWidth - 12) tx = event.clientX - tipW - 14;
+          tooltip.style.left = `${tx}px`;
+          tooltip.style.top = `${event.clientY - 100}px`;
+        }).on("mouseleave", () => {
+          tooltip.style.opacity = "0";
+          tooltip.setAttribute("aria-hidden", "true");
+        });
+
+        cumX += segW;
+      });
+
+      const execPct = Math.round((row.exec / row.n) * 100);
+      const isSmall = row.n < 15;
+      svg.append("text")
+        .attr("x", LABEL_W + innerW + 12).attr("y", rowY + BAR_H / 2 - 6)
+        .attr("dominant-baseline", "middle")
+        .attr("font-family", "'Bitcount Prop Single', 'Space Mono', monospace")
+        .attr("font-size", 17)
+        .attr("fill", isSmall ? "rgba(213,154,72,0.55)" : "#D59A48")
+        .text(`${execPct}%`);
+      svg.append("text")
+        .attr("x", LABEL_W + innerW + 12).attr("y", rowY + BAR_H / 2 + 12)
+        .attr("dominant-baseline", "middle")
+        .attr("font-family", "'Space Mono', ui-monospace, monospace")
+        .attr("font-size", 10.5)
+        .attr("fill", "rgba(42,38,34,0.38)")
+        .text(`n=${row.n}${isSmall ? " ⚠" : ""}`);
+    });
+  }
+
+  draw();
+  let resizeT;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(draw, 80);
   });
-
-  panel.addEventListener("mouseleave", hide);
 })();
 
 
@@ -1928,271 +2462,314 @@ renderSankey();
 
 
 /* ══════════════════════════════════════════
-   4. STACKED BAR — TOOL CHANGE CONSENSUS
+   FINDING 03 — STACKED BARS (shared helpers, hover + tap tooltips)
 ══════════════════════════════════════════ */
 (function() {
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Pill bar: accent orange for strong agreement, ink for the dissenting tail (matches Finding 02)
-  const segments = [
-    { label: "A lot",       rating: 5, n: 78, color: "#E25D45", hoverColor: "rgba(226,93,69,0.88)" },
-    { label: "Quite a bit", rating: 4, n: 33, color: "rgba(226,93,69,0.52)", hoverColor: "rgba(226,93,69,0.72)" },
-    { label: "Moderate",    rating: 3, n: 6,  color: "#3A3532",               hoverColor: "rgba(42,38,34,0.88)" },
-    { label: "A little",    rating: 2, n: 2,  color: "rgba(42,38,34,0.62)",   hoverColor: "rgba(42,38,34,0.78)" },
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const ACCENT = (function () {
+    var v = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim();
+    return v || "#D59A48";
+  })();
+  const SEG_HOVER_FILTER = "brightness(1.14) saturate(1.12) contrast(1.02)";
+  const useTapTooltips = window.matchMedia("(hover: none)").matches
+    || window.matchMedia("(pointer: coarse)").matches;
+
+  function leaderIndex(rows) {
+    let bi = 0;
+    for (let i = 1; i < rows.length; i++) {
+      if (rows[i].n > rows[bi].n) bi = i;
+    }
+    return bi;
+  }
+
+  function paintWithLeader(raw, peerColors) {
+    const li = leaderIndex(raw);
+    let pi = 0;
+    return raw.map((s, i) => {
+      if (i === li) return { ...s, color: ACCENT, isLeader: true };
+      const c = peerColors[pi];
+      pi++;
+      return { ...s, color: c, isLeader: false };
+    });
+  }
+
+  function initStackedBar(opts) {
+    const {
+      containerId,
+      tipSelector,
+      clipId,
+      rawRows,
+      peerColors,
+      total,
+      industryBg,
+      bandAfterSegIndex,
+      renderTipHtml,
+    } = opts;
+
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const segments = paintWithLeader(rawRows, peerColors);
+    const BAR_H = 72;
+    const barPadTop = 12;
+    const belowGap = 14;
+    /* Two-line labels (pct + category) need more vertical room */
+    const belowLabelH = 52;
+    const barPadBottom = 14;
+    const H = barPadTop + BAR_H + belowGap + belowLabelH + barPadBottom;
+    const W = container.getBoundingClientRect().width || 900;
+
+    const svg = d3.select(container).append("svg")
+      .attr("viewBox", `0 0 ${W} ${H}`)
+      .attr("preserveAspectRatio", "none")
+      .style("width", "100%")
+      .style("height", `${H}px`);
+
+    const tip = d3.select(tipSelector);
+    const wrap = container.closest(".stacked-bar-wrap");
+    if (!wrap || !tip.node()) return;
+
+    let cumulative = 0;
+    const computed = segments.map(s => {
+      const pct = s.n / total;
+      const x = cumulative * W;
+      const w = pct * W;
+      cumulative += pct;
+      return { ...s, pct, x, w };
+    });
+
+    const barY = barPadTop;
+    const pillR = BAR_H / 2;
+    const belowY = barY + BAR_H + belowGap + 10;
+
+    svg.append("defs")
+      .append("clipPath")
+      .attr("id", clipId)
+      .append("rect")
+      .attr("x", 0)
+      .attr("y", barY)
+      .attr("width", W)
+      .attr("height", BAR_H)
+      .attr("rx", pillR)
+      .attr("ry", pillR);
+
+    const barLayer = svg.append("g").attr("clip-path", `url(#${clipId})`);
+
+    const bg = barLayer.append("rect")
+      .attr("x", 0)
+      .attr("y", barY)
+      .attr("width", W)
+      .attr("height", BAR_H)
+      .attr("fill", "#3A3532");
+    if (industryBg) bg.attr("class", "industry-bar-bg");
+
+    const segs = barLayer.selectAll("g.seg").data(computed).join("g").attr("class", "seg");
+
+    const segRects = segs.append("rect")
+      .attr("x", d => d.x)
+      .attr("y", barY)
+      .attr("width", 0)
+      .attr("height", BAR_H)
+      .attr("fill", d => d.color)
+      .style("cursor", "pointer")
+      .style("transition", "filter 0.12s ease");
+
+    if (typeof bandAfterSegIndex === "number" && computed[bandAfterSegIndex]) {
+      const d0 = computed[bandAfterSegIndex];
+      const xLine = d0.x + d0.w;
+      barLayer.append("line")
+        .attr("class", "tool-stack-band-line")
+        .attr("x1", xLine)
+        .attr("x2", xLine)
+        .attr("y1", barY)
+        .attr("y2", barY + BAR_H);
+    }
+
+    const tipOffsetY = 60;
+
+    if (useTapTooltips) {
+      let activeSeg = null;
+      segRects.on("click", function(event, d) {
+        event.stopPropagation();
+        if (activeSeg && activeSeg !== this) d3.select(activeSeg).style("filter", null);
+        activeSeg = this;
+        d3.select(this).style("filter", SEG_HOVER_FILTER);
+        tip.html(renderTipHtml(d)).style("opacity", 1);
+        const tipNode = tip.node();
+        const rect = this.getBoundingClientRect();
+        const wr = wrap.getBoundingClientRect();
+        const tw = tipNode.offsetWidth;
+        const cx = rect.left + rect.width / 2 - wr.left;
+        let left = cx - tw / 2;
+        left = Math.max(8, Math.min(left, wr.width - tw - 8));
+        tipNode.style.left = `${left}px`;
+        const top = rect.top - wr.top - tipNode.offsetHeight - 10;
+        tipNode.style.top = `${Math.max(8, top)}px`;
+      });
+      document.addEventListener("click", function finding03OutsideDismiss(e) {
+        if (wrap.contains(e.target)) return;
+        tip.style("opacity", 0);
+        if (activeSeg) {
+          d3.select(activeSeg).style("filter", null);
+          activeSeg = null;
+        }
+      });
+    } else {
+      segRects
+        .on("mouseenter", function() {
+          d3.select(this).style("filter", SEG_HOVER_FILTER);
+        })
+        .on("mousemove", function(event, d) {
+          tip.html(renderTipHtml(d)).style("opacity", 1);
+          const tipNode = tip.node();
+          const wr = wrap.getBoundingClientRect();
+          const tipW = tipNode.offsetWidth;
+          let tx = event.clientX - wr.left + 14;
+          if (tx + tipW > wr.width - 8) tx = event.clientX - wr.left - tipW - 14;
+          tipNode.style.left = `${Math.max(8, tx)}px`;
+          tipNode.style.top = `${event.clientY - wr.top - tipOffsetY}px`;
+        })
+        .on("mouseleave", function() {
+          d3.select(this).style("filter", null);
+          tip.style("opacity", 0);
+        });
+    }
+
+    const labelsBelow = svg.append("g")
+      .attr("class", "stacked-bar-labels-below")
+      .attr("pointer-events", "none")
+      .attr("opacity", reduceMotion ? 1 : 0);
+
+    function approxMonoW(str, fs) {
+      return String(str).length * fs * 0.58;
+    }
+
+    computed.forEach(d => {
+      if (d.w < 22) return;
+      const cx = d.x + d.w / 2;
+      const pctStr = `${(d.pct * 100).toFixed(0)}%`;
+      const fill = d.isLeader ? "rgba(42,38,34,0.62)" : "rgba(42,38,34,0.48)";
+      const fsPct = 11;
+      const fsLbl = d.w < 120 ? 9 : 10;
+
+      const text = labelsBelow.append("text")
+        .attr("class", "stacked-bar-label")
+        .attr("y", belowY)
+        .attr("font-family", "'Space Mono', ui-monospace, monospace")
+        .attr("letter-spacing", "0.02em")
+        .attr("fill", fill);
+
+      /* Stack pct + category on two lines (narrower than one "pct · label" line) */
+      if (d.w >= 72) {
+        const maxLineW = Math.max(approxMonoW(pctStr, fsPct), approxMonoW(d.label, fsLbl));
+        const inset = 3;
+        const useStart = maxLineW > d.w - inset * 2;
+        const tx = useStart ? d.x + inset : cx;
+        text.attr("text-anchor", useStart ? "start" : "middle").attr("x", tx);
+        text.append("tspan")
+          .attr("x", tx)
+          .attr("dy", 0)
+          .attr("font-size", fsPct)
+          .attr("font-weight", d.isLeader ? "600" : "500")
+          .text(pctStr);
+        text.append("tspan")
+          .attr("x", tx)
+          .attr("dy", 13)
+          .attr("font-size", fsLbl)
+          .attr("font-weight", "400")
+          .text(d.label);
+      } else {
+        text
+          .attr("x", cx)
+          .attr("text-anchor", "middle")
+          .attr("font-size", fsPct)
+          .attr("font-weight", d.isLeader ? "600" : "400")
+          .text(pctStr);
+      }
+    });
+
+    function animateIn() {
+      if (reduceMotion) {
+        segRects.attr("width", d => Math.max(0, d.w));
+        return;
+      }
+      segRects.transition()
+        .duration(820)
+        .delay((d, i) => 80 + i * 110)
+        .ease(d3.easeCubicOut)
+        .attr("width", d => Math.max(0, d.w));
+      labelsBelow.transition().delay(420).duration(320).style("opacity", 1);
+    }
+
+    if (reduceMotion) {
+      animateIn();
+    } else {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          animateIn();
+          io.disconnect();
+        });
+      }, { threshold: 0.3 });
+      io.observe(container);
+    }
+  }
+
+  const totalN = 119;
+
+  const toolRaw = [
+    { label: "A lot",       rating: 5, n: 78 },
+    { label: "Quite a bit", rating: 4, n: 33 },
+    { label: "Moderate",    rating: 3, n: 6 },
+    { label: "A little",    rating: 2, n: 2 },
   ];
-  const total = 119;
-  const BAR_H = 72;
-  const barPadTop = 12;
-  const belowGap = 14;
-  const belowLabelH = 34;
-  const barPadBottom = 14;
-  const H = barPadTop + BAR_H + belowGap + belowLabelH + barPadBottom;
-  const clipId = "stacked-bar-pill-clip";
 
-  const container = document.getElementById("stacked-bar-chart");
-  const W = container.getBoundingClientRect().width || 900;
-
-  const svg = d3.select(container).append("svg")
-    .attr("viewBox", `0 0 ${W} ${H}`)
-    .attr("preserveAspectRatio", "none")
-    .style("width", "100%")
-    .style("height", `${H}px`);
-
-  const tip = d3.select("#stacked-bar-tooltip");
-
-  let cumulative = 0;
-  const computed = segments.map(s => {
-    const pct = s.n / total;
-    const x = cumulative * W;
-    const w = pct * W;
-    cumulative += pct;
-    return { ...s, pct, x, w };
-  });
-
-  const barY = barPadTop;
-  const pillR = BAR_H / 2;
-  const belowY = barY + BAR_H + belowGap + 12;
-
-  svg.append("defs")
-    .append("clipPath")
-    .attr("id", clipId)
-    .append("rect")
-    .attr("x", 0)
-    .attr("y", barY)
-    .attr("width", W)
-    .attr("height", BAR_H)
-    .attr("rx", pillR)
-    .attr("ry", pillR);
-
-  const barLayer = svg.append("g").attr("clip-path", `url(#${clipId})`);
-
-  barLayer.append("rect")
-    .attr("x", 0)
-    .attr("y", barY)
-    .attr("width", W)
-    .attr("height", BAR_H)
-    .attr("fill", "#3A3532");
-
-
-  const segs = barLayer.selectAll("g.seg").data(computed).join("g").attr("class", "seg");
-
-  const segRects = segs.append("rect")
-    .attr("x", d => d.x)
-    .attr("y", barY)
-    .attr("width", 0)
-    .attr("height", BAR_H)
-    .attr("fill", d => d.color)
-    .style("cursor", "pointer")
-    .on("mousemove", function(event, d) {
-      d3.select(this).attr("fill", d.hoverColor);
-      const wrap = document.querySelector(".stacked-bar-wrap");
-      const wr = wrap.getBoundingClientRect();
+  initStackedBar({
+    containerId: "stacked-bar-chart",
+    tipSelector: "#stacked-bar-tooltip",
+    clipId: "stacked-bar-pill-clip",
+    rawRows: toolRaw,
+    peerColors: ["#C99555", "#AC857C", "#7F7673"],
+    total: totalN,
+    industryBg: false,
+    bandAfterSegIndex: 0,
+    renderTipHtml(d) {
       const pctStr = (d.pct * 100).toFixed(1);
       const agreement = d.label.toLowerCase();
-      tip.html(
-        `<strong>${pctStr}%</strong> of design leaders surveyed expect <strong>${agreement}</strong> change to their design tool stack over the next five years.<br>` +
-        `<span style="color:rgba(42,38,34,0.52);font-size:13px">Scale: ${d.rating}/5 · ${d.n} of ${total} responses</span>`
-      ).style("opacity", 1);
-      const tipW = tip.node().offsetWidth;
-      let tx = event.clientX - wr.left + 14;
-      if (tx + tipW > wr.width - 8) tx = event.clientX - wr.left - tipW - 14;
-      tip.style("left", `${Math.max(8, tx)}px`)
-         .style("top",  `${event.clientY - wr.top - 60}px`);
-    })
-    .on("mouseleave", function(event, d) {
-      d3.select(this).attr("fill", d.color);
-      tip.style("opacity", 0);
-    });
-
-  const labelsBelow = svg.append("g")
-    .attr("class", "stacked-bar-labels-below")
-    .attr("pointer-events", "none")
-    .attr("opacity", reduceMotion ? 1 : 0);
-
-  computed.forEach(d => {
-    if (d.w < 22) return;
-    const cx = d.x + d.w / 2;
-    const pctStr = `${(d.pct * 100).toFixed(0)}%`;
-    const line = d.w >= 180 ? `${pctStr} · ${d.label}` : pctStr;
-    labelsBelow.append("text")
-      .attr("class", "stacked-bar-label")
-      .attr("x", cx)
-      .attr("y", belowY)
-      .attr("text-anchor", "middle")
-      .attr("font-family", "'Space Mono', ui-monospace, monospace")
-      .attr("font-size", d.w >= 180 ? 12 : 11)
-      .attr("letter-spacing", "0.02em")
-      .attr("fill", "rgba(42,38,34,0.48)")
-      .text(line);
+      return (
+        `<strong>${pctStr}%</strong> of design leaders surveyed expect <strong>${agreement}</strong> change to their design tool stack over the next five years.` +
+        (d.isLeader ? ` <span class="stacked-tooltip-note">(largest share)</span>` : "") +
+        `<span class="stacked-tooltip-meta">Scale: ${d.rating}/5 · ${d.n} of ${totalN} responses</span>`
+      );
+    },
   });
 
-  function animateIn() {
-    if (reduceMotion) {
-      segRects.attr("width", d => Math.max(0, d.w));
-      return;
-    }
-    segRects.transition()
-      .duration(820)
-      .delay((d, i) => 80 + i * 110)
-      .ease(d3.easeCubicOut)
-      .attr("width", d => Math.max(0, d.w));
-    labelsBelow.transition().delay(420).duration(320).style("opacity", 1);
-  }
-
-  if (reduceMotion) {
-    animateIn();
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        animateIn();
-        io.disconnect();
-      });
-    }, { threshold: 0.3 });
-    io.observe(container);
-  }
-})();
-
-/* ══════════════════════════════════════════
-   5. STACKED BAR — INDUSTRY EVOLUTION
-══════════════════════════════════════════ */
-(function() {
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const segments = [
-    { label: "Fundamental transformation", rating: 5, n: 12, color: "#8C5A4E", hoverColor: "#9D6759" },
-    { label: "Significant evolution",      rating: 4, n: 28, color: "#A3776B", hoverColor: "#B4887A" },
-    { label: "Moderate evolution",         rating: 3, n: 26, color: "#68625D", hoverColor: "#77706A" },
-    { label: "Gradual shifts",             rating: 2, n: 35, color: "#59606A", hoverColor: "#666E78" },
-    { label: "Mostly stable",              rating: 1, n: 18, color: "#4A515D", hoverColor: "#565E6B" },
+  const industryRaw = [
+    { label: "Fundamental transformation", rating: 5, n: 12 },
+    { label: "Significant evolution",      rating: 4, n: 28 },
+    { label: "Moderate evolution",         rating: 3, n: 26 },
+    { label: "Gradual shifts",             rating: 2, n: 35 },
+    { label: "Mostly stable",              rating: 1, n: 18 },
   ];
-  const total = 119;
-  const BAR_H = 72;
-  const barPadTop = 12, belowGap = 14, belowLabelH = 34, barPadBottom = 14;
-  const H = barPadTop + BAR_H + belowGap + belowLabelH + barPadBottom;
-  const clipId = "industry-bar-pill-clip";
 
-  const container = document.getElementById("industry-bar-chart");
-  if (!container) return;
-  const W = container.getBoundingClientRect().width || 900;
-
-  const svg = d3.select(container).append("svg")
-    .attr("viewBox", `0 0 ${W} ${H}`)
-    .attr("preserveAspectRatio", "none")
-    .style("width", "100%")
-    .style("height", `${H}px`);
-
-  const tip = d3.select("#industry-bar-tooltip");
-
-  let cumulative = 0;
-  const computed = segments.map(s => {
-    const pct = s.n / total;
-    const x = cumulative * W;
-    const w = pct * W;
-    cumulative += pct;
-    return { ...s, pct, x, w };
-  });
-
-  const barY = barPadTop;
-  const pillR = BAR_H / 2;
-  const belowY = barY + BAR_H + belowGap + 12;
-
-  svg.append("defs").append("clipPath").attr("id", clipId)
-    .append("rect").attr("x",0).attr("y",barY).attr("width",W).attr("height",BAR_H).attr("rx",pillR).attr("ry",pillR);
-
-  const barLayer = svg.append("g").attr("clip-path", `url(#${clipId})`);
-
-  barLayer.append("rect").attr("class","industry-bar-bg")
-    .attr("x",0).attr("y",barY).attr("width",W).attr("height",BAR_H).attr("fill","#3A3532");
-
-
-  const segs = barLayer.selectAll("g.seg").data(computed).join("g").attr("class","seg");
-
-  const segRects = segs.append("rect")
-    .attr("x", d => d.x).attr("y", barY)
-    .attr("width", 0).attr("height", BAR_H)
-    .attr("fill", d => d.color)
-    .style("cursor","pointer")
-    .on("mousemove", function(event, d) {
-      d3.select(this).attr("fill", d.hoverColor);
-      const wrap = document.querySelector(".industry-contrast .stacked-bar-wrap");
-      const wr = wrap.getBoundingClientRect();
+  initStackedBar({
+    containerId: "industry-bar-chart",
+    tipSelector: "#industry-bar-tooltip",
+    clipId: "industry-bar-pill-clip",
+    rawRows: industryRaw,
+    peerColors: ["#1B4F72", "#2A6F4A", "#C9922E", "#6B5B95"],
+    total: totalN,
+    industryBg: true,
+    bandAfterSegIndex: null,
+    renderTipHtml(d) {
       const pctStr = (d.pct * 100).toFixed(1);
-      tip.html(`<strong>${pctStr}%</strong> of design leaders expect <strong>${d.label.toLowerCase()}</strong> in the global design industry over the next five years.<br><span style="color:rgba(42,38,34,0.52);font-size:13px">Scale: ${d.rating}/5 · ${d.n} of ${total} responses</span>`)
-        .style("opacity",1);
-      const tipW = tip.node().offsetWidth;
-      let tx = event.clientX - wr.left + 14;
-      if (tx + tipW > wr.width - 8) tx = event.clientX - wr.left - tipW - 14;
-      tip.style("left", `${Math.max(8,tx)}px`).style("top", `${event.clientY - wr.top - 60}px`);
-    })
-    .on("mouseleave", function(event, d) {
-      d3.select(this).attr("fill", d.color);
-      tip.style("opacity",0);
-    });
-
-  const labelsBelow = svg.append("g")
-    .attr("class","stacked-bar-labels-below")
-    .attr("pointer-events","none")
-    .attr("opacity", reduceMotion ? 1 : 0);
-  computed.forEach(d => {
-    if (d.w < 22) return;
-    const cx = d.x + d.w / 2;
-    const pctStr = `${(d.pct * 100).toFixed(0)}%`;
-    const line = d.w >= 180 ? `${pctStr} · ${d.label}` : pctStr;
-    labelsBelow.append("text")
-      .attr("class","stacked-bar-label")
-      .attr("x", cx).attr("y", belowY)
-      .attr("text-anchor","middle")
-      .attr("font-family","'Space Mono', ui-monospace, monospace")
-      .attr("font-size", d.w >= 180 ? 12 : 11)
-      .attr("letter-spacing","0.02em")
-      .attr("fill","rgba(42,38,34,0.48)")
-      .text(line);
+      return (
+        `<strong>${pctStr}%</strong> of design leaders expect <strong>${d.label.toLowerCase()}</strong> in the global design industry over the next five years.` +
+        (d.isLeader ? ` <span class="stacked-tooltip-note">(largest share)</span>` : "") +
+        `<span class="stacked-tooltip-meta">Scale: ${d.rating}/5 · ${d.n} of ${totalN} responses</span>`
+      );
+    },
   });
-
-  function animateIn() {
-    if (reduceMotion) {
-      segRects.attr("width", d => Math.max(0, d.w));
-      return;
-    }
-    segRects.transition()
-      .duration(820)
-      .delay((d, i) => 80 + i * 110)
-      .ease(d3.easeCubicOut)
-      .attr("width", d => Math.max(0, d.w));
-    labelsBelow.transition().delay(420).duration(320).style("opacity", 1);
-  }
-
-  if (reduceMotion) {
-    animateIn();
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        animateIn();
-        io.disconnect();
-      });
-    }, { threshold: 0.3 });
-    io.observe(container);
-  }
 })();
 
 /* ══════════════════════════════════════════
@@ -2240,16 +2817,123 @@ renderSankey();
   /* Fade / lift sections and charts when they enter view */
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const animated = document.querySelectorAll('.reveal, .chart-fade');
+  const obsReveal = reduceMotion
+    ? null
+    : new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) e.target.classList.add('is-visible');
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+
   if (reduceMotion) {
     animated.forEach(el => el.classList.add('is-visible'));
   } else {
-    const obsReveal = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('is-visible');
-      });
-    }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
     animated.forEach(el => obsReveal.observe(el));
   }
+})();
+</script>
+<!-- Mirror of data/qualitative-quotes.json — keeps voices visible without fetch (e.g. file://); update both when editing. -->
+<script type="application/json" id="qualitative-quotes-embed">
+{"version":1,"quotes":[{"id":"paths-001","text":"I guess the lesson learned was: do things unconventionally in order to get unconventional results.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-002","text":"I believe heavily in not staying tied to design to do design work. I think some of the best design work happens when you're not under a design title.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-003","text":"I see myself starting as a front-end developer, then a graphic designer — and then shifting toward the role of product designer as the market and tools evolved.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-004","text":"Not intentionally, though. I went to school to study architecture, and I couldn't do calculus, so they said sorry, you can't be an architect.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-005","text":"I grew up as a civil engineer. I never thought in my life I could be in that design world... When I realized that I was focusing during my working day more and more on presenting the project... I said, oh, maybe all the physics and math I've studied wasn't really what I really wanted to do.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-006","text":"I'm probably going to be pretty different from a lot of the people you speak to... I was in marketing and I'm an immigrant. And so the idea of design, it was lucrative... it was really about the financial potential.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-007","text":"I was a designer for five years, I was a senior designer for five years, and now I'm back in school because of all this.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-008","text":"I have three majors. I was professional writing, English and cultural anthropology... my dad convinced me on a whim to throw a portfolio in for the design program.","finding":1,"suggestedPlacement":"finding-1"},{"id":"starting-001","text":"Nobody teaches you how to be a design leader in school. They teach you how to be a designer. And nobody teaches you how to manage a team, and how to grow and develop people, and how to navigate really complicated client situations, and how to deal with things when they don't go well.","finding":2,"suggestedPlacement":"finding-2","notes":"Transcript lightly edited: merged line break; 'an, how' → 'and how'; opening capitalized."},{"id":"starting-002","text":"I did not go to an art school — there was no formal design program at the school I was at.","finding":2,"suggestedPlacement":"finding-2"},{"id":"starting-003","text":"Now I'm in a strategy role, which I think is still a creative act. But it's worlds apart from what I did right out of school.","finding":2,"suggestedPlacement":"finding-2"},{"id":"tools-001","text":"It's a tool. Don't forget it's a tool. We will always need someone to address it, to check it, to double check the output.","finding":3,"suggestedPlacement":"finding-3"},{"id":"tools-002","text":"That wasn't even a thing six months ago. Right? Crazy.","finding":3,"suggestedPlacement":"finding-3"},{"id":"tools-003","text":"When the internet started, it caused a lot of people to stop doing things the internet could now do for them, but it opened up a whole new world of possibility. I see AI as another cycle, but this one's moving fast.","finding":3,"suggestedPlacement":"finding-3"}]}
+</script>
+<script>
+(function () {
+  var ROTATE_MS = 3000;
+  var FADE_MS = 350;
+  var quotes = [];
+  var index = 0;
+  var timerId = null;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function loadQuotes() {
+    var embed = document.getElementById('qualitative-quotes-embed');
+    if (embed && embed.textContent.trim()) {
+      try {
+        return Promise.resolve(JSON.parse(embed.textContent));
+      } catch (e) {
+        /* fall through */
+      }
+    }
+    return fetch('data/qualitative-quotes.json').then(function (r) {
+      if (!r.ok) throw new Error('quotes');
+      return r.json();
+    });
+  }
+
+  function fillQuote(el, text) {
+    el.textContent = '';
+    var open = document.createElement('span');
+    open.className = 'hero-voices__mark';
+    open.setAttribute('aria-hidden', 'true');
+    open.textContent = '\u201c';
+    var body = document.createTextNode(String(text || ''));
+    var close = document.createElement('span');
+    close.className = 'hero-voices__mark';
+    close.setAttribute('aria-hidden', 'true');
+    close.textContent = '\u201d';
+    el.appendChild(open);
+    el.appendChild(body);
+    el.appendChild(close);
+  }
+
+  function clearTimer() {
+    if (timerId) {
+      clearInterval(timerId);
+      timerId = null;
+    }
+  }
+
+  function startTimer() {
+    clearTimer();
+    if (quotes.length < 2) return;
+    timerId = window.setInterval(advanceQuote, ROTATE_MS);
+  }
+
+  function advanceQuote() {
+    if (!quotes.length) return;
+    var bq = document.getElementById('hero-voice-quote');
+    if (!bq) return;
+    index = (index + 1) % quotes.length;
+    var q = quotes[index];
+
+    function apply() {
+      fillQuote(bq, q.text);
+    }
+
+    if (reduceMotion) {
+      apply();
+      return;
+    }
+    bq.classList.add('is-dim');
+    window.setTimeout(function () {
+      apply();
+      bq.classList.remove('is-dim');
+    }, FADE_MS);
+  }
+
+  function init(data) {
+    quotes = data.quotes || [];
+    var panel = document.getElementById('hero-voices');
+
+    if (!quotes.length || !panel) return;
+    panel.removeAttribute('hidden');
+
+    fillQuote(document.getElementById('hero-voice-quote'), quotes[0].text);
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) clearTimer();
+      else startTimer();
+    });
+
+    startTimer();
+  }
+
+  loadQuotes()
+    .then(init)
+    .catch(function () {
+      var panel = document.getElementById('hero-voices');
+      if (panel) panel.setAttribute('hidden', '');
+    });
 })();
 </script>
 <script>
