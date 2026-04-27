@@ -1,4 +1,4 @@
-# Publishes final-site/ to GitHub Pages (Project site: /repo-name/)
+# Publishes final-site/ to GitHub Pages (Project site: /design-leadership-data-visualization/)
 name: Deploy GitHub Pages
 
 on:
