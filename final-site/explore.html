@@ -508,9 +508,11 @@
     /* ── Side nav ── */
     .side-nav {
       position: sticky;
-      top: 44px;
+      top: calc(var(--filter-bar-height, 0px) + var(--s2));
       align-self: start;
-      padding-top: var(--s6);
+      max-height: calc(100vh - var(--filter-bar-height, 0px) - var(--s3));
+      overflow-y: auto;
+      padding-top: var(--s4);
     }
     .side-nav-list {
       list-style: none;
@@ -659,6 +661,41 @@
       }
       html.use-circle-cursor .cursor-dot {
         display: block;
+      }
+    }
+
+    @media (max-width: 980px) {
+      :root {
+        --gutter: 28px;
+      }
+      .page-body {
+        grid-template-columns: 1fr;
+        gap: var(--s2);
+      }
+      .side-nav {
+        position: static;
+        top: auto;
+        max-height: none;
+        overflow-y: visible;
+        padding-top: var(--s4);
+      }
+      .side-nav-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+      }
+      .side-nav-link {
+        align-items: flex-start;
+        padding: 10px 12px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --gutter: 20px;
+      }
+      .side-nav-list {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -1726,6 +1763,12 @@ const COL_GENDER = 'What gender do you identify with?';
 const COL_REGION = 'In what region do you currently live / work?';
 const AGE_ORDER  = ['24-35','36-45','46-55','56-65','65+'];
 
+function syncFilterBarHeightVar() {
+  const bar = document.getElementById('filter-bar');
+  const h = bar ? Math.ceil(bar.getBoundingClientRect().height) : 0;
+  document.documentElement.style.setProperty('--filter-bar-height', `${h}px`);
+}
+
 function applyFilters() {
   return allRows.filter(r => {
     if (filters.age    !== 'all' && (r[COL_AGE]    || '').trim() !== filters.age)    return false;
@@ -1951,6 +1994,8 @@ Promise.resolve(d3.csvParse(CSV_RAW)).then(rows => {
   });
 
   document.getElementById('filter-bar').style.visibility = 'visible';
+  syncFilterBarHeightVar();
+  window.addEventListener('resize', syncFilterBarHeightVar, { passive: true });
   refresh();
 });
 </script>
