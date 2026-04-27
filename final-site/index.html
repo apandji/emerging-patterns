@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Emerging Patterns· Design Leadership in 2026</title>
-  <meta name="description" content="Survey findings from 119 design leaders: career pathways, starting points, and how the field expects to change over the next five years." />
+  <meta name="description" content="Design leadership in 2026: findings from 119 leaders worldwide—pathways, starting points, tools, and outlook—with 31 survey topics to explore." />
   <meta property="og:title" content="Emerging Patterns · Design Leadership in 2026" />
-  <meta property="og:description" content="Survey findings from 119 design leaders: career pathways, starting points, and how the field expects to change over the next five years." />
+  <meta property="og:description" content="Design leadership in 2026: findings from 119 leaders worldwide—pathways, starting points, tools, and outlook—with 31 survey topics to explore." />
   <meta property="og:type" content="website" />
   <meta name="color-scheme" content="light dark" />
   <script>
@@ -425,7 +425,6 @@
       max-width: var(--max-w);
       margin: 0 auto;
     }
-    /* Stats + rotating quotes on one horizontal band (quotes = fourth “column”) */
     .hero-stats-row {
       display: flex;
       flex-wrap: wrap;
@@ -435,54 +434,6 @@
     }
     .hero-stats {
       flex: 0 0 auto;
-    }
-    .hero-voices {
-      position: relative;
-      flex: 1 1 260px;
-      min-width: min(100%, 220px);
-      max-width: 36rem;
-      margin-left: auto;
-      padding-left: var(--s3);
-      border-left: 1px solid var(--accent-mid);
-      align-self: stretch;
-    }
-    .hero-voices__viewport {
-      min-height: 4.5rem;
-    }
-    .hero-voices__quote {
-      margin: 0;
-      font-family: var(--font-sans);
-      font-size: var(--text-sm);
-      font-weight: 400;
-      font-style: normal;
-      line-height: var(--lh-loose);
-      letter-spacing: -0.01em;
-      color: var(--ink-2);
-      transition: opacity 0.35s ease;
-    }
-    .hero-voices__quote.is-dim {
-      opacity: 0;
-    }
-    .hero-voices__mark {
-      color: var(--accent);
-      font-weight: 500;
-      user-select: none;
-    }
-    @media (max-width: 960px) {
-      .hero-stats-row {
-        flex-direction: column;
-        align-items: stretch;
-        gap: var(--s5);
-      }
-      .hero-voices {
-        margin-left: 0;
-        max-width: none;
-        padding-left: 0;
-        border-left: none;
-        padding-top: var(--s4);
-        margin-top: var(--s1);
-        border-top: 1px solid var(--section-divider-color);
-      }
     }
     #hero::after {
       content: '';
@@ -1235,12 +1186,14 @@
       text-transform: uppercase;
       margin-bottom: var(--s1);
     }
-    /* Survey question above each chart (sentence case, not all-caps) */
+    /* Survey question above each chart — lighter than body, italic */
     .finding-chart-question {
       font-family: var(--font-display);
-      font-weight: 600;
-      color: var(--ink-2);
-      letter-spacing: -0.015em;
+      font-size: var(--text-sm);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ink-3);
+      letter-spacing: -0.01em;
       line-height: var(--lh-snug);
       max-width: min(52rem, 100%);
       margin-bottom: var(--s3);
@@ -1682,11 +1635,6 @@
           <div class="hero-stat-lbl">Key findings</div>
         </div>
       </div>
-      <aside class="hero-voices" id="hero-voices" aria-label="Rotating interview excerpts" hidden>
-        <div class="hero-voices__viewport">
-          <blockquote class="hero-voices__quote" id="hero-voice-quote"></blockquote>
-        </div>
-      </aside>
     </div>
   </div>
 </section>
@@ -1698,7 +1646,7 @@
   <div class="section-wrap reveal">
     <span class="panel-eyebrow"><span class="panel-eyebrow-finding">Finding 1</span><span class="panel-eyebrow-sep" aria-hidden="true"> : </span><span class="panel-eyebrow-name">Career Pathways</span></span>
     <h2 class="panel-title">No single path. <em>Many different routes.</em></h2>
-    <p class="panel-desc type-m">Design leaders come from a variety of non-linear backgrounds. Our research revealed 93 diverse and distinct pathways across education level, organization type, and career stage.</p>
+    <p class="panel-desc type-m">Design leaders come from a variety of backgrounds. Our research revealed diverse and distinct pathways across education levels, organization types, and career stages.</p>
   </div>
   <p class="sankey-mobile-hint type-s" role="note">
     <strong>Best viewed on desktop</strong>
@@ -1755,7 +1703,7 @@
 
     <div class="finding2-spotlight-row">
       <div class="finding2-spotlight-label type-md">
-        Corporate (In-house)
+        Corporate (In-House)
         <small class="type-s">30 of 45 in management</small>
       </div>
       <div class="finding2-spotlight-track">
@@ -1813,7 +1761,7 @@
 
   <div class="finding-03-primary">
     <div>
-      <p class="finding-chart-question type-m">In the next 5 years, how much do you expect your tool stack to change?</p>
+      <p class="finding-chart-question">In the next 5 years, how much do you expect your tool stack to change?</p>
       <div class="stacked-bar-wrap chart-fade">
         <div id="stacked-bar-chart"></div>
         <div id="stacked-bar-tooltip" class="stacked-tooltip"></div>
@@ -1822,7 +1770,7 @@
   </div>
 
   <div class="industry-contrast reveal">
-    <p class="finding-chart-question type-m">In the next 5 years, how do you expect the global design industry to evolve?</p>
+    <p class="finding-chart-question">In the next 5 years, how do you expect the global design industry to evolve?</p>
     <div class="stacked-bar-wrap chart-fade">
       <div id="industry-bar-chart"></div>
       <div id="industry-bar-tooltip" class="stacked-tooltip"></div>
@@ -1903,7 +1851,7 @@
   <div class="explore-cta-inner reveal">
     <span class="eyebrow">Dive deeper</span>
     <h2 class="explore-cta-title">There's more beneath<br>the <em>surface</em></h2>
-    <p class="explore-cta-desc type-l">Dive deeper to see how leaders are thinking about the future of the field. Explore all 31 survey topics to see patterns, insights, and gaps visualized.</p>
+    <p class="explore-cta-desc type-l">Dive deeper to see how design leaders are thinking about the future of their field. Explore all 31 survey topics to see visualized patterns, insights, and gaps.</p>
     <a href="explore.html" class="explore-cta-btn">Explore all 31 topics →</a>
   </div>
 </section>
@@ -1916,8 +1864,9 @@
   <div class="about-project-inner reveal">
     <h2 id="about-project-heading" class="about-project-title">About this project</h2>
     <div class="about-project-body">
-      <p>This site summarizes quantitative findings from a 2026 survey conducted by Design Leadership, a seminar led by Doug Powell for Washington University in St. Louis. This seminar brings together undergraduate and graduate students from across disciplines to examine how design shapes and is shaped by the organizations it lives inside.</p>
-      <p>The survey results represent 119 design leaders: how they entered the field, their first organizations, current level, tool expectations, and outlook on the profession. Each respondent completed a 34-item questionnaire (plus timestamp and an optional email for interviews). Three main findings are presented as chapters; the <a href="explore.html">explore</a> view charts 31 of those topics, with optional filters for age, gender, and region. Three free-text role-detail fields are not shown as charts.</p>
+      <p>This project summarizes findings from research conducted on the state of Design Leadership in 2026.</p>
+      <p>The results represent 119 design leaders across the world: how they entered the field, their first organizations, current levels, tool expectations, and outlooks on the profession. Each respondent completed a 34-item questionnaire with some participating in recorded interviews. Three main findings are presented as chapters; the <a href="explore.html">explore</a> view charts 31 of those topics, with optional filters for age, gender, and region.</p>
+      <p>Research was conducted as a part of Design Leadership, a seminar at Washington University in St. Louis led by Doug Powell. This seminar brings together undergraduate and graduate students from across disciplines to examine how design shapes and is shaped by the organizations it lives inside.</p>
     </div>
   </div>
 </section>
@@ -1944,15 +1893,15 @@
 const RAW_DATA = [["Engineering / Computer Science","I hold an undergraduate degree in design","Agency / Consultancy","Staff level designer"],["Psychology, Fine Art, Animation & Multimedia","I hold a Master's degree or higher in design.","Corporate (In-house)","Creative Director (consulting / design services)"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Corporate (In-house)","Senior IC / Principal designer"],["Engineering / Computer Science","I did not study design formally.","Startup","Senior IC / Principal designer"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Agency / Consultancy","Director level designer"],["Social Sciences (Psychology, Sociology, Anthropology)","I did not study design formally.","Corporate (In-house)","CX strategist with behavioural/user research expertise "],["Arts / Fine Arts / Humanities","I did not study design formally.","NGO / Non-profit","Partner (consulting / design services)"],["Business / Economics","I hold a degree in design from a community college.","Agency / Consultancy","Director level designer"],["I was always on a design-specific track","I hold an undergraduate degree in design","Corporate (In-house)","Senior design manager (managing multiple teams)"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Corporate (In-house)","Chief Design Officer"],["Advertising ","I hold a Master's degree or higher in design.","Agency / Consultancy","Senior IC / Principal designer"],["Business / Economics","I did not study design formally.","Corporate (In-house)","VP level designer"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Corporate (In-house)","Senior / Lead designer"],["Natural Sciences","I did not study design formally.","Agency / Consultancy","Senior design manager (managing multiple teams)"],["Arts / Fine Arts / Humanities","I did not study design formally.","Agency / Consultancy","Director level designer"],["Medical","I did not study design formally.","Startup","Director level designer"],["Arts / Fine Arts / Humanities","I did not study design formally.","Agency / Consultancy","Director level designer"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Agency / Consultancy","VP level designer"],["Social Sciences (Psychology, Sociology, Anthropology)","I hold a Master's degree or higher in design.","Corporate (In-house)","VP level designer"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Freelance / Independent","Associate partner consulting"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Agency / Consultancy","Senior design manager (managing multiple teams)"],["I was always on a design-specific track","I hold a degree in design from a community college.","Agency / Consultancy","Senior / Lead designer"],["Architecture","I hold a Master's degree or higher in design.","Startup","Senior / Lead designer"],["I was always on a design-specific track","I hold an undergraduate degree in design","Freelance / Independent","Senior IC / Principal designer"],["Engineering / Computer Science","I hold a Master's degree or higher in design.","Agency / Consultancy","Director level designer"],["Arts / Fine Arts / Humanities","I did not study design formally.","Corporate (In-house)","Senior IC / Principal designer"],["Engineering / Computer Science","I hold a Master's degree or higher in design.","Agency / Consultancy","Design manager (managing one team of designers)"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Agency / Consultancy","Senior design manager (managing multiple teams)"],["Engineering / Computer Science","I have a bootcamp certificate.","Corporate (In-house)","Design manager (managing one team of designers)"],["I was always on a design-specific track","I hold an undergraduate degree in design","Startup","Senior / Lead designer"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Corporate (In-house)","Partner (consulting / design services)"],["I was always on a design-specific track","I hold an undergraduate degree in design","Agency / Consultancy","Director level designer"],["I was always on a design-specific track","I hold an undergraduate degree in design","Agency / Consultancy","Director level designer"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Academic","Senior design manager (managing multiple teams)"],["Arts / Fine Arts / Humanities","I did not study design formally.","NGO / Non-profit","Advisor / Mentor"],["Business / Economics","I have a bootcamp certificate.","Corporate (In-house)","Director level designer"],["Visual FX and Post Production for Film and TV","I did not study design formally.","Freelance / Independent","Design Founder"],["Marketing","I did not study design formally.","Agency / Consultancy","Project Manager"],["Arts / Fine Arts / Humanities","I did not study design formally.","Agency / Consultancy","Senior design manager (managing multiple teams)"],["Arts / Fine Arts / Humanities","I did not study design formally.","Agency / Consultancy","Advisor / Mentor"],["Law","I hold an undergraduate degree in design","Corporate (In-house)","VP level designer"],["Social Sciences (Psychology, Sociology, Anthropology)","I did not study design formally.","Startup","Director level designer"],["Architecture","I hold a Master's degree or higher in design.","Corporate (In-house)","Director level designer"],["Social Sciences (Psychology, Sociology, Anthropology)","I hold a Master's degree or higher in design.","Agency / Consultancy","Director level designer"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Contractor","Design System Program Manager (IC)"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Agency / Consultancy","VP level designer"],["Engineering / Computer Science","I hold a Master's degree or higher in design.","Corporate (In-house)","VP level designer"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","Academic","VP level designer"],["I was always on a design-specific track","I hold an undergraduate degree in design","Corporate (In-house)","Senior IC / Principal designer"],["I was always on a design-specific track","I hold an undergraduate degree in design","Public Sector / Government","Design manager (managing one team of designers)"],["Arts / Fine Arts / Humanities","I did not study design formally.","Agency / Consultancy","Director level designer"],["Medical ","I hold an undergraduate degree in design","Agency / Consultancy","Director level designer"],["Social Sciences (Psychology, Sociology, Anthropology)","I hold an undergraduate degree in design","Corporate (In-house)","Senior / Lead designer"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Corporate (In-house)","Design manager (managing one team of designers)"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Agency / Consultancy","Staff level designer"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Agency / Consultancy","Senior IC / Principal designer"],["Business / Economics","I have a bootcamp certificate.","Agency / Consultancy","Director level designer"],["I was always on a design-specific track","I hold an undergraduate degree in design","Agency / Consultancy","Director level designer"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","NGO / Non-profit","VP level designer"],["Engineering / Computer Science","I did not study design formally.","Corporate (In-house)","Director of Design Ops"],["Business / Economics","I did not study design formally.","Corporate (In-house)","Partner (consulting / design services)"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","Corporate (In-house)","Senior design manager (managing multiple teams)"],["I was always on a design-specific track","I hold an undergraduate degree in design","Agency / Consultancy","Partner (consulting / design services)"],["Social Sciences (Psychology, Sociology, Anthropology)","I did not study design formally.","Agency / Consultancy","Director level designer"],["Engineering / Computer Science","I did not study design formally.","Corporate (In-house)","Senior / Lead designer"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","Corporate (In-house)","Senior / Lead designer"],["Social Sciences (Psychology, Sociology, Anthropology)","I did not study design formally.","Corporate (In-house)","Senior Director"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Corporate (In-house)","Director level designer"],["Architecture","I hold a Master's degree or higher in design.","Agency / Consultancy","Senior design manager (managing multiple teams)"],["Engineering / Computer Science","I hold a Master's degree or higher in design.","Corporate (In-house)","Senior IC / Principal designer"],["I was always on a design-specific track","I hold an undergraduate degree in design","Agency / Consultancy","Director level designer"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Agency / Consultancy","Senior design manager (managing multiple teams)"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","Agency / Consultancy","Creative Director (consulting / design services)"],["Engineering / Computer Science","I hold an undergraduate degree in design","Corporate (In-house)","Senior design manager (managing multiple teams)"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Agency / Consultancy","Senior design manager (managing multiple teams)"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Corporate (In-house)","Director level designer"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Corporate (In-house)","VP level designer"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Corporate (In-house)","Advisor / Mentor"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Corporate (In-house)","Design manager (managing one team of designers)"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","Corporate (In-house)","Director level designer"],["Business / Economics","I did not study design formally.","Freelance / Independent","Senior IC / Principal designer"],["I was always on a design-specific track","I hold an undergraduate degree in design","Corporate (In-house)","Senior design manager (managing multiple teams)"],["Engineering / Computer Science","I hold a Master's degree or higher in design.","Corporate (In-house)","Design manager (managing one team of designers)"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Corporate (In-house)","VP level designer"],["Natural Sciences","I hold a Master's degree or higher in design.","NGO / Non-profit","Senior / Lead designer"],["Business / Economics","I hold a Master's degree or higher in design.","Corporate (In-house)","Multiple Roles & Levels depending on the nature of the problem, initiative, project or crisis"],["Social Sciences (Psychology, Sociology, Anthropology)","I hold a Master's degree or higher in design.","Corporate (In-house)","Combo design and UXR manager"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","Startup","Senior design manager (managing multiple teams)"],["Engineering / Computer Science","I did not study design formally.","Corporate (In-house)","Advisor / Mentor"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Corporate (In-house)","VP level designer"],["Social Sciences (Psychology, Sociology, Anthropology)","I did not study design formally.","Agency / Consultancy","Director level designer"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Agency / Consultancy","Senior IC / Principal designer"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","Agency / Consultancy","Executive Director "],["Social Sciences (Psychology, Sociology, Anthropology)","I hold an undergraduate degree in design","Agency / Consultancy","Senior / Lead designer"],["Architecture","I hold a Master's degree or higher in design.","Corporate (In-house)","Director level designer"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","Agency / Consultancy","Director level designer"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Agency / Consultancy","product manager bridge to design"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Freelance / Independent","Executive Creative Director"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","Agency / Consultancy","Advisor / Mentor"],["Industrial Design x Industrial Engineering","I hold a Master's degree or higher in design.","Startup","Senior design manager (managing multiple teams)"],["I was always on a design-specific track","I hold an undergraduate degree in design","Startup","After long period of Chief Designer or VP of design I am back into a start-up"],["Arts / Fine Arts / Humanities","I hold a degree in design from a community college.","Freelance / Independent","Chief Design Officer"],["I was always on a design-specific track","I hold an undergraduate degree in design","Freelance / Independent","Design manager (managing one team of designers)"],["I was always on a design-specific track","I hold an undergraduate degree in design","Agency / Consultancy","Master's student"],["I was always on a design-specific track","I hold an undergraduate degree in design","NGO / Non-profit","Director level designer"],["I was always on a design-specific track","I hold an undergraduate degree in design","Startup","Director level designer"],["Engineering / Computer Science","I hold an undergraduate degree in design","Agency / Consultancy","Senior IC / Principal designer"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","Startup","Director level designer"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Corporate (In-house)","VP level designer"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","Agency / Consultancy","Hybrid IC/ Head of Design"],["Business / Economics","I hold a Master's degree or higher in design.","Corporate (In-house)","Senior design manager (managing multiple teams)"],["I was always on a design-specific track","I hold an undergraduate degree in design","Corporate (In-house)","Global Head of UI/UX"],["animation","I hold an undergraduate degree in design","Corporate (In-house)","Director level designer"],["Arts / Fine Arts / Humanities","I hold a Master's degree or higher in design.","Freelance / Independent","Partner (consulting / design services)"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","Agency / Consultancy","Chief Design Officer"],["Arts / Fine Arts / Humanities","I hold an undergraduate degree in design","NGO / Non-profit","Senior design manager (managing multiple teams)"],["I was always on a design-specific track","I hold an undergraduate degree in design","Agency / Consultancy","Design manager (managing one team of designers)"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Corporate (In-house)","Design manager (managing one team of designers)"],["I was always on a design-specific track","I hold a Master's degree or higher in design.","Agency / Consultancy","Design manager (managing one team of designers)"]];
 
 const stageTitles = ["Background", "Design Education", "First Org Type", "Current Career Level"];
-const bgOrder  = ["Design-specific track","Arts / humanities","Engineering / CS","Social sciences","Business / economics","Architecture","Other non-design background"];
+const bgOrder  = ["Design","Arts / humanities","Engineering / CS","Social sciences","Business / economics","Architecture","Other non-design background"];
 /* Sankey vertical order (top → bottom): education high→low; org corporate→…→other; level CDO→…→other */
 const eduOrder = ["Master's+ in design","Undergrad design degree","Community college design","Bootcamp certificate","No formal design education","Other design education"];
-const orgOrder = ["Corporate / in-house","Agency / consultancy","Startup","NGO / non-profit","Freelance / independent","Academic","Other org type"];
+const orgOrder = ["Corporate / In-House","Agency / consultancy","Startup","NGO / non-profit","Freelance / independent","Academic","Other org type"];
 const lvlOrder = ["CDO / chief","VP","Director","Manager","IC","Consulting / founder","Other / hybrid"];
 
 function mapBg(v) {
   return ({
-    "I was always on a design-specific track": "Design-specific track",
+    "I was always on a design-specific track": "Design",
     "Arts / Fine Arts / Humanities": "Arts / humanities",
     "Engineering / Computer Science": "Engineering / CS",
     "Social Sciences (Psychology, Sociology, Anthropology)": "Social sciences",
@@ -1972,7 +1921,7 @@ function mapEdu(v) {
 function mapOrg(v) {
   return ({
     "Agency / Consultancy": "Agency / consultancy",
-    "Corporate (In-house)": "Corporate / in-house",
+    "Corporate (In-house)": "Corporate / In-House",
     "Startup": "Startup",
     "Freelance / Independent": "Freelance / independent",
     "NGO / Non-profit": "NGO / non-profit",
@@ -2311,7 +2260,7 @@ renderSankey();
   ];
   const ORG_DATA = [
     { org: "Agency / Consultancy",    n: 46, exec: 4,  mid: 29, rest: 13 },
-    { org: "Corporate (In-house)",    n: 45, exec: 9,  mid: 22, rest: 14 },
+    { org: "Corporate (In-House)",    n: 45, exec: 9,  mid: 22, rest: 14 },
     { org: "Freelance / Independent", n:  9, exec: 2,  mid:  1, rest:  6 },
   ];
 
@@ -2735,9 +2684,14 @@ renderSankey();
     bandAfterSegIndex: 0,
     renderTipHtml(d) {
       const pctStr = (d.pct * 100).toFixed(1);
-      const agreement = d.label.toLowerCase();
+      const key = String(d.label || '').toLowerCase();
+      let changePhrase = key;
+      if (key === "a lot") changePhrase = "a lot of";
+      else if (key === "quite a bit") changePhrase = "quite a bit of";
+      else if (key === "moderate") changePhrase = "a moderate amount of";
+      else if (key === "a little") changePhrase = "a little";
       return (
-        `<strong>${pctStr}%</strong> of design leaders surveyed expect <strong>${agreement}</strong> change to their design tool stack over the next five years.` +
+        `<strong>${pctStr}%</strong> of design leaders surveyed expect <strong>${changePhrase}</strong> change to their design tool stack over the next five years.` +
         (d.isLeader ? ` <span class="stacked-tooltip-note">(largest share)</span>` : "") +
         `<span class="stacked-tooltip-meta">Scale: ${d.rating}/5 · ${d.n} of ${totalN} responses</span>`
       );
@@ -2830,110 +2784,6 @@ renderSankey();
   } else {
     animated.forEach(el => obsReveal.observe(el));
   }
-})();
-</script>
-<!-- Mirror of data/qualitative-quotes.json — keeps voices visible without fetch (e.g. file://); update both when editing. -->
-<script type="application/json" id="qualitative-quotes-embed">
-{"version":1,"quotes":[{"id":"paths-001","text":"I guess the lesson learned was: do things unconventionally in order to get unconventional results.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-002","text":"I believe heavily in not staying tied to design to do design work. I think some of the best design work happens when you're not under a design title.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-003","text":"I see myself starting as a front-end developer, then a graphic designer — and then shifting toward the role of product designer as the market and tools evolved.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-004","text":"Not intentionally, though. I went to school to study architecture, and I couldn't do calculus, so they said sorry, you can't be an architect.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-005","text":"I grew up as a civil engineer. I never thought in my life I could be in that design world... When I realized that I was focusing during my working day more and more on presenting the project... I said, oh, maybe all the physics and math I've studied wasn't really what I really wanted to do.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-006","text":"I'm probably going to be pretty different from a lot of the people you speak to... I was in marketing and I'm an immigrant. And so the idea of design, it was lucrative... it was really about the financial potential.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-007","text":"I was a designer for five years, I was a senior designer for five years, and now I'm back in school because of all this.","finding":1,"suggestedPlacement":"finding-1"},{"id":"paths-008","text":"I have three majors. I was professional writing, English and cultural anthropology... my dad convinced me on a whim to throw a portfolio in for the design program.","finding":1,"suggestedPlacement":"finding-1"},{"id":"starting-001","text":"Nobody teaches you how to be a design leader in school. They teach you how to be a designer. And nobody teaches you how to manage a team, and how to grow and develop people, and how to navigate really complicated client situations, and how to deal with things when they don't go well.","finding":2,"suggestedPlacement":"finding-2","notes":"Transcript lightly edited: merged line break; 'an, how' → 'and how'; opening capitalized."},{"id":"starting-002","text":"I did not go to an art school — there was no formal design program at the school I was at.","finding":2,"suggestedPlacement":"finding-2"},{"id":"starting-003","text":"Now I'm in a strategy role, which I think is still a creative act. But it's worlds apart from what I did right out of school.","finding":2,"suggestedPlacement":"finding-2"},{"id":"tools-001","text":"It's a tool. Don't forget it's a tool. We will always need someone to address it, to check it, to double check the output.","finding":3,"suggestedPlacement":"finding-3"},{"id":"tools-002","text":"That wasn't even a thing six months ago. Right? Crazy.","finding":3,"suggestedPlacement":"finding-3"},{"id":"tools-003","text":"When the internet started, it caused a lot of people to stop doing things the internet could now do for them, but it opened up a whole new world of possibility. I see AI as another cycle, but this one's moving fast.","finding":3,"suggestedPlacement":"finding-3"}]}
-</script>
-<script>
-(function () {
-  var ROTATE_MS = 3000;
-  var FADE_MS = 350;
-  var quotes = [];
-  var index = 0;
-  var timerId = null;
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function loadQuotes() {
-    var embed = document.getElementById('qualitative-quotes-embed');
-    if (embed && embed.textContent.trim()) {
-      try {
-        return Promise.resolve(JSON.parse(embed.textContent));
-      } catch (e) {
-        /* fall through */
-      }
-    }
-    return fetch('data/qualitative-quotes.json').then(function (r) {
-      if (!r.ok) throw new Error('quotes');
-      return r.json();
-    });
-  }
-
-  function fillQuote(el, text) {
-    el.textContent = '';
-    var open = document.createElement('span');
-    open.className = 'hero-voices__mark';
-    open.setAttribute('aria-hidden', 'true');
-    open.textContent = '\u201c';
-    var body = document.createTextNode(String(text || ''));
-    var close = document.createElement('span');
-    close.className = 'hero-voices__mark';
-    close.setAttribute('aria-hidden', 'true');
-    close.textContent = '\u201d';
-    el.appendChild(open);
-    el.appendChild(body);
-    el.appendChild(close);
-  }
-
-  function clearTimer() {
-    if (timerId) {
-      clearInterval(timerId);
-      timerId = null;
-    }
-  }
-
-  function startTimer() {
-    clearTimer();
-    if (quotes.length < 2) return;
-    timerId = window.setInterval(advanceQuote, ROTATE_MS);
-  }
-
-  function advanceQuote() {
-    if (!quotes.length) return;
-    var bq = document.getElementById('hero-voice-quote');
-    if (!bq) return;
-    index = (index + 1) % quotes.length;
-    var q = quotes[index];
-
-    function apply() {
-      fillQuote(bq, q.text);
-    }
-
-    if (reduceMotion) {
-      apply();
-      return;
-    }
-    bq.classList.add('is-dim');
-    window.setTimeout(function () {
-      apply();
-      bq.classList.remove('is-dim');
-    }, FADE_MS);
-  }
-
-  function init(data) {
-    quotes = data.quotes || [];
-    var panel = document.getElementById('hero-voices');
-
-    if (!quotes.length || !panel) return;
-    panel.removeAttribute('hidden');
-
-    fillQuote(document.getElementById('hero-voice-quote'), quotes[0].text);
-
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) clearTimer();
-      else startTimer();
-    });
-
-    startTimer();
-  }
-
-  loadQuotes()
-    .then(init)
-    .catch(function () {
-      var panel = document.getElementById('hero-voices');
-      if (panel) panel.setAttribute('hidden', '');
-    });
 })();
 </script>
 <script>

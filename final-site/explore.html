@@ -57,6 +57,8 @@
     /* Dark mode: hardcoded CSS overrides */
     [data-theme="dark"] .scale-seg-labels-row { color: rgba(245,240,232,0.48); }
     [data-theme="dark"] .stat-val             { color: rgba(245,240,232,0.80); }
+    [data-theme="dark"] .scale-bar-row        { background: rgba(245,240,232,0.09); }
+    [data-theme="dark"] .bar-track            { fill: rgba(245,240,232,0.10) !important; }
     [data-theme="dark"] .pill                 { border-color: rgba(245,240,232,0.18); color: var(--ink-2); }
     [data-theme="dark"] .pill:hover           { border-color: rgba(213,154,72,0.45); color: var(--ink-1); }
     [data-theme="dark"] .pill.active          { background: rgba(213,154,72,0.14); border-color: rgba(213,154,72,0.50); }
@@ -70,7 +72,7 @@
     [data-theme="dark"] text.hist-unit  { fill: rgba(245,240,232,0.45); }
     [data-theme="dark"] .grid-line      { stroke: rgba(245,240,232,0.10); }
     [data-theme="dark"] .y-label        { fill: rgba(245,240,232,0.45); }
-    [data-theme="dark"] .bar-row-label  { fill: rgba(245,240,232,0.70); }
+    [data-theme="dark"] .bar-row-label  { fill: rgba(245,240,232,0.94); }
     /* Theme toggle */
     .theme-toggle {
       display: flex;
@@ -132,7 +134,6 @@
       font-weight: 500;
       color: var(--ink-3);
       text-decoration: none;
-      margin-bottom: var(--s3);
       transition: color 0.15s;
     }
     .back-link:hover { color: var(--accent); }
@@ -154,11 +155,10 @@
       max-width: 36rem;
     }
 
-    /* ── Main ── */
+    /* ── Main (inside page-body grid) ── */
     main {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 0 var(--gutter) var(--s7);
+      padding: 0 0 var(--s7);
+      min-width: 0;
     }
 
     /* ── Section ── */
@@ -197,22 +197,22 @@
     .q-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: var(--s3);
+      gap: var(--s4);
     }
 
     /* ── Question card ── */
     .q-card {
-      background: var(--bg-1);
+      background: var(--bg-2);
       border: 1px solid var(--ink-4);
-      border-radius: var(--r-lg);
-      padding: var(--s4);
+      border-radius: 12px;
+      padding: var(--s3);
     }
     .q-card.wide { grid-column: span 2; }
     .q-label {
       font-family: var(--font-display);
-      font-size: var(--text-h4);
+      font-size: var(--text-lead);
       font-weight: 600;
-      letter-spacing: -0.015em;
+      letter-spacing: -0.012em;
       color: var(--ink-1);
       margin-bottom: var(--s2);
       line-height: var(--lh-snug);
@@ -244,11 +244,11 @@
     .scale-wrap { width: 100%; }
     .scale-bar-row {
       display: flex;
-      height: 72px;
+      height: 64px;
       border-radius: 9999px;
       overflow: hidden;
       margin-bottom: var(--s2);
-      background: #242424;
+      background: rgba(42,38,34,0.09);
     }
     .scale-seg {
       height: 100%;
@@ -264,9 +264,9 @@
       align-items: flex-start;
       margin-bottom: var(--s2);
       font-family: var(--font-sans);
-      font-size: var(--text-xs);
+      font-size: var(--text-sm);
       letter-spacing: 0.02em;
-      color: rgba(42,38,34,0.48);
+      color: var(--ink-2);
       line-height: 1.35;
     }
     .scale-seg-label {
@@ -329,14 +329,14 @@
       z-index: 20;
       background: var(--bg-1);
       border-bottom: 1px solid var(--ink-4);
-      padding: 11px var(--gutter);
+      padding: 7px var(--gutter);
       display: flex;
       align-items: center;
-      gap: var(--s3);
+      gap: var(--s2);
       flex-wrap: wrap;
     }
     .filter-label {
-      font-size: var(--t-cap);
+      font-size: 0.6875rem;
       font-weight: 600;
       letter-spacing: var(--ls-caps);
       text-transform: uppercase;
@@ -346,28 +346,29 @@
     .filter-group {
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 5px;
     }
     .filter-group-name {
-      font-size: var(--t-cap);
+      font-size: 0.6875rem;
       font-weight: 600;
       color: var(--ink-3);
       white-space: nowrap;
+      letter-spacing: 0.03em;
     }
     .filter-pills { display: flex; gap: 4px; flex-wrap: wrap; }
     .pill {
       font-family: var(--font-sans);
-      font-size: var(--text-sm);
+      font-size: 0.75rem;
       font-weight: 500;
-      padding: 3px 10px;
-      border-radius: 6px;
-      border: 1px solid rgba(42, 38, 34, 0.22);
+      padding: 2px 8px;
+      border-radius: 5px;
+      border: 1px solid rgba(42, 38, 34, 0.20);
       background: transparent;
       color: var(--ink-2);
       cursor: pointer;
       transition: all 0.12s;
       white-space: nowrap;
-      line-height: 1.6;
+      line-height: 1.55;
     }
     .pill:hover { border-color: var(--accent-mid); color: var(--ink-1); }
     .pill.active {
@@ -429,6 +430,164 @@
     }
     .toast-icon { margin-right: 7px; }
 
+
+    /* ── Narrow card title — smaller when card is half-width ── */
+    .q-card:not(.wide) .q-label { font-size: var(--text-md); }
+
+    /* ── Scale group (stacked scale rows in one card) ── */
+    .scalegroup-wrap { display: flex; flex-direction: column; gap: var(--s3); }
+    .scalegroup-item-label {
+      font-size: var(--text-sm);
+      font-weight: 500;
+      color: var(--ink-3);
+      margin-bottom: var(--s1);
+      line-height: var(--lh-snug);
+    }
+
+    /* ── Split stat (binary question) ── */
+    .split-wrap { display: flex; flex-direction: column; gap: var(--s2); }
+    .split-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .split-stat { display: flex; flex-direction: column; }
+    .split-stat:last-child { text-align: right; }
+    .split-pct {
+      font-family: var(--font-numbers);
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--ink-1);
+    }
+    .split-label {
+      font-size: var(--t-sm);
+      color: var(--ink-2);
+      margin-top: 6px;
+    }
+    .split-bar {
+      height: 48px;
+      border-radius: 9999px;
+      overflow: hidden;
+      display: flex;
+    }
+    .split-seg-a { height: 100%; background: #D59A48; }
+    .split-seg-b { height: 100%; background: rgba(42,38,34,0.15); }
+    [data-theme="dark"] .split-seg-b { background: rgba(245,240,232,0.12); }
+
+    /* ── Expand button for long charts ── */
+    .chart-expand-btn {
+      display: block;
+      margin-top: var(--s2);
+      font-family: var(--font-sans);
+      font-size: var(--t-cap);
+      font-weight: 600;
+      color: var(--ink-3);
+      background: none;
+      border: 1px solid var(--ink-4);
+      border-radius: var(--r-md);
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: color 0.12s, border-color 0.12s;
+      letter-spacing: var(--ls-caps);
+      text-transform: uppercase;
+    }
+    .chart-expand-btn:hover { color: var(--ink-1); border-color: var(--ink-3); }
+
+    /* ── Page body layout (sidebar + content) ── */
+    .page-body {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+      display: grid;
+      grid-template-columns: 148px 1fr;
+      gap: var(--s3);
+      align-items: start;
+    }
+
+    /* ── Side nav ── */
+    .side-nav {
+      position: sticky;
+      top: 44px;
+      align-self: start;
+      padding-top: var(--s6);
+    }
+    .side-nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .side-nav-link {
+      display: flex;
+      align-items: baseline;
+      gap: 7px;
+      padding: 6px 10px;
+      border-radius: var(--r-md);
+      text-decoration: none;
+      color: var(--ink-3);
+      transition: background 0.12s, color 0.12s;
+      line-height: 1.3;
+    }
+    .side-nav-link:hover { background: var(--ink-5); color: var(--ink-2); }
+    .side-nav-item.active .side-nav-link { background: var(--ink-5); color: var(--ink-1); }
+    .side-nav-num {
+      font-family: var(--font-sans);
+      font-size: 0.625rem;
+      font-weight: 700;
+      letter-spacing: var(--ls-caps);
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+    .side-nav-title {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+    .side-nav-item.active .side-nav-title { font-weight: 600; color: var(--ink-1); }
+
+    /* ── Page header top row ── */
+    .page-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--s3);
+    }
+
+    /* ── Pie / donut chart ── */
+    .pie-slice-0 { fill: #D59A48; }
+    .pie-slice-1 { fill: rgba(213,154,72,0.52); }
+    .pie-slice-2 { fill: rgba(42,38,34,0.32); }
+    .pie-slice-3 { fill: rgba(42,38,34,0.16); }
+    .pie-slice-4 { fill: rgba(42,38,34,0.09); }
+    [data-theme="dark"] .pie-slice-2 { fill: rgba(245,240,232,0.32); }
+    [data-theme="dark"] .pie-slice-3 { fill: rgba(245,240,232,0.16); }
+    [data-theme="dark"] .pie-slice-4 { fill: rgba(245,240,232,0.09); }
+    .pie-wrap { display: flex; align-items: center; gap: var(--s4); }
+    .pie-legend { flex: 1; display: flex; flex-direction: column; gap: 7px; }
+    .pie-legend-item { display: flex; align-items: center; gap: 9px; }
+    .pie-legend-swatch {
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .pie-legend-label {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      color: var(--ink-2);
+      flex: 1;
+      line-height: 1.3;
+    }
+    .pie-legend-pct {
+      font-family: var(--font-sans);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    /* ── Histogram: constrain width on wide cards ── */
+    .hist-chart { max-width: 760px; }
 
     /* ── Footer ── */
     .page-footer {
@@ -508,12 +667,30 @@
 <div id="cursor-dot" class="cursor-dot" aria-hidden="true"></div>
 
 <header class="page-header">
-  <a href="index.html" class="back-link">← Back to findings</a>
+  <div class="page-header-row">
+    <a href="index.html" class="back-link">← Back to findings</a>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode">
+      <svg class="theme-icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="10" cy="10" r="4"/>
+        <line x1="10" y1="1.5" x2="10" y2="3.5"/>
+        <line x1="10" y1="16.5" x2="10" y2="18.5"/>
+        <line x1="1.5" y1="10" x2="3.5" y2="10"/>
+        <line x1="16.5" y1="10" x2="18.5" y2="10"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="14.36" y1="14.36" x2="15.78" y2="15.78"/>
+        <line x1="15.78" y1="4.22" x2="14.36" y2="5.64"/>
+        <line x1="5.64" y1="14.36" x2="4.22" y2="15.78"/>
+      </svg>
+      <svg class="theme-icon-moon" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17 12.5A7 7 0 0 1 7.5 3a.6.6 0 0 0-.75-.72A8 8 0 1 0 17.72 13.25.6.6 0 0 0 17 12.5z"/>
+      </svg>
+    </button>
+  </div>
   <h1 class="page-title">Dive into the data</h1>
   <p class="page-subtitle">Here's the full picture — 31 survey topics across 119 design leaders, filterable by age, gender, and region.</p>
 </header>
 
-<div class="filter-bar" id="filter-bar" style="visibility:hidden; min-height:46px;">
+<div class="filter-bar" id="filter-bar" style="visibility:hidden; min-height:40px;">
   <span class="filter-label">Filter</span>
   <div class="filter-group">
     <span class="filter-group-name">Age</span>
@@ -532,25 +709,14 @@
   <div class="filter-divider"></div>
   <button class="filter-reset" id="filter-reset" disabled>Clear filters</button>
   <span class="filter-count" id="filter-count"></span>
-  <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Switch to dark mode">
-    <svg class="theme-icon-sun" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="10" cy="10" r="4"/>
-      <line x1="10" y1="1.5" x2="10" y2="3.5"/>
-      <line x1="10" y1="16.5" x2="10" y2="18.5"/>
-      <line x1="1.5" y1="10" x2="3.5" y2="10"/>
-      <line x1="16.5" y1="10" x2="18.5" y2="10"/>
-      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-      <line x1="14.36" y1="14.36" x2="15.78" y2="15.78"/>
-      <line x1="15.78" y1="4.22" x2="14.36" y2="5.64"/>
-      <line x1="5.64" y1="14.36" x2="4.22" y2="15.78"/>
-    </svg>
-    <svg class="theme-icon-moon" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17 12.5A7 7 0 0 1 7.5 3a.6.6 0 0 0-.75-.72A8 8 0 1 0 17.72 13.25.6.6 0 0 0 17 12.5z"/>
-    </svg>
-  </button>
 </div>
 
-<main id="main-content"></main>
+<div class="page-body">
+  <nav class="side-nav" id="side-nav">
+    <ul class="side-nav-list" id="side-nav-list"></ul>
+  </nav>
+  <main id="main-content"></main>
+</div>
 
 <div class="toast" id="toast"><span class="toast-icon">⚠</span><span id="toast-msg"></span></div>
 
@@ -573,7 +739,7 @@ const SECTIONS = [
     questions: [
       { label: 'Age range', col: 'Select the age range that applies', type: 'bar',
         order: ['24-35','36-45','46-55','56-65','65+'] },
-      { label: 'Gender identity', col: 'What gender do you identify with?', type: 'bar' },
+      { label: 'Gender identity', col: 'What gender do you identify with?', type: 'pie' },
       { label: 'Region', col: 'In what region do you currently live / work?', type: 'map', wide: true },
       { label: 'Years as a professional designer', wide: true,
         col: 'How many years have you been a professional designer? (regardless of career level)',
@@ -585,43 +751,54 @@ const SECTIONS = [
     questions: [
       { label: 'Academic / professional background before design', wide: true,
         col: 'Before starting your design career, what was your primary academic or professional trajectory?',
-        type: 'bar' },
-      { label: 'Highest design education completed',
+        type: 'bar', mapFn: 'pass1Bg' },
+      { label: 'Highest design education completed', wide: true,
         col: 'What is the highest level of design education you have completed?',
         type: 'bar',
         order: ["I hold a Master's degree or higher in design.", "I hold an undergraduate degree in design",
                 "I hold a degree in design from a community college.", "I have a bootcamp certificate.",
                 "I did not study design formally."] },
-      { label: 'When first considered design as a career',
+      { label: 'When first considered design as a career', wide: true,
         col: 'When did you first consider design as a career path', type: 'bar' },
-      { label: 'Confidence when first considering design',
-        col: 'When you first considered design as a career path, what was your level of confidence in your decision?',
-        type: 'scale', lo: 'No confidence', hi: 'Complete confidence' },
-      { label: 'Support from people around you',
-        col: 'How supportive were the people around you about pursuing design as career?',
-        type: 'scale', lo: 'Not at all supportive', hi: 'Extremely supportive' },
-      { label: 'Natural leadership qualities growing up',
-        col: 'To what degree do you feel like you displayed natural qualities of leadership when you were growing up?',
-        type: 'scale', lo: 'Not at all', hi: 'Very strongly' },
+      { label: 'Early confidence, support & leadership qualities', wide: true,
+        type: 'scalegroup',
+        items: [
+          { label: 'Confidence when first considering design',
+            col: 'When you first considered design as a career path, what was your level of confidence in your decision?',
+            lo: 'No confidence', hi: 'Complete confidence' },
+          { label: 'Support from people around you',
+            col: 'How supportive were the people around you about pursuing design as career?',
+            lo: 'Not at all supportive', hi: 'Extremely supportive' },
+          { label: 'Natural leadership qualities growing up',
+            col: 'To what degree do you feel like you displayed natural qualities of leadership when you were growing up?',
+            lo: 'Not at all', hi: 'Very strongly' },
+        ]
+      },
       { label: 'How you describe your entry into design', wide: true,
-        col: 'How would you describe your entry into design as a career?', type: 'bar' },
-      { label: '"Someone actively invited or guided me into design"',
+        col: 'How would you describe your entry into design as a career?', type: 'bar', mapFn: 'pass2Entry' },
+      { label: '"Someone actively invited or guided me into design"', wide: true,
         col: 'How much do you agree with the following statement: "Someone actively invited or guided me into the design field (e.g., a mentor, professor, or peer)."',
         type: 'scale', lo: 'Strongly disagree', hi: 'Strongly agree' },
-      { label: 'First career job — designer or different field?',
-        col: 'Was your first career job as a designer or in a different profession/industry?', type: 'bar' },
+      { label: 'First career job — designer or different field?', wide: true,
+        col: 'Was your first career job as a designer or in a different profession/industry?',
+        type: 'split',
+        values: [
+          { raw: 'My first job was as a designer.', label: 'Started in design' },
+          { raw: 'My first job was in a different profession / industry.', label: 'Came from another field' },
+        ]
+      },
     ]
   },
   {
     num: '03', title: 'First Role',
     questions: [
-      { label: 'Scale of first design team',
-        col: ' How would you describe the scale of the first design team you worked in?', type: 'bar' },
-      { label: 'Type of first organization',
-        col: ' How would you describe the type of organization you first worked in as a designer?', type: 'bar' },
+      { label: 'Scale of first design team', wide: true,
+        col: ' How would you describe the scale of the first design team you worked in?', type: 'bar', mapFn: 'pass1Team' },
+      { label: 'Type of first organization', wide: true,
+        col: ' How would you describe the type of organization you first worked in as a designer?', type: 'bar', mapFn: 'pass1FirstOrg' },
       { label: 'First design discipline(s)', wide: true,
         col: ' How would you describe the design discipline / practice of your first professional design job?',
-        type: 'multi' },
+        type: 'multi', mapFn: 'pass2Discipline', topN: 12 },
     ]
   },
   {
@@ -631,15 +808,20 @@ const SECTIONS = [
         col: 'What career level best describes your current position?',
         type: 'bar', mapFn: 'level',
         order: ['CDO / Chief','VP','Director','Manager','Senior IC / Lead','Consulting / founding','Other / hybrid'] },
-      { label: 'Sufficiently onboarded / trained for current role',
-        col: 'When you began your current role, to what degree were you sufficiently onboarded or trained? ',
-        type: 'scale', lo: 'Not at all', hi: 'Completely' },
-      { label: 'Influence of coaches, mentors, or sponsors',
-        col: "As you've advanced in your career, how much have coaches, mentors, or sponsors influenced your journey? ",
-        type: 'scale', lo: 'Not at all', hi: 'Greatly' },
-      { label: 'Formal management / leadership training received',
-        col: "As you've advanced in your carer, have you received formal training in management or leadership? ",
-        type: 'scale', lo: 'None at all', hi: 'Extensive' },
+      { label: 'Current role experience', wide: true,
+        type: 'scalegroup',
+        items: [
+          { label: 'Sufficiently onboarded / trained for current role',
+            col: 'When you began your current role, to what degree were you sufficiently onboarded or trained? ',
+            lo: 'Not at all', hi: 'Completely' },
+          { label: 'Influence of coaches, mentors, or sponsors',
+            col: "As you've advanced in your career, how much have coaches, mentors, or sponsors influenced your journey? ",
+            lo: 'Not at all', hi: 'Greatly' },
+          { label: 'Formal management / leadership training received',
+            col: "As you've advanced in your carer, have you received formal training in management or leadership? ",
+            lo: 'None at all', hi: 'Extensive' },
+        ]
+      },
     ]
   },
   {
@@ -647,42 +829,52 @@ const SECTIONS = [
     questions: [
       { label: 'Major career setbacks (select all that apply)', wide: true,
         col: 'Which of the following have been major setbacks in your career [select all that apply]',
-        type: 'multi' },
-      { label: 'Years until first formal design leadership role',
+        type: 'multi', stdOptions: 'setbacks' },
+      { label: 'Years until first formal design leadership role', wide: true,
         col: 'How many years into your career did you first hold a formal design leadership role? (i.e. managing people or leading a project/initiative)',
         type: 'hist', unit: 'years into career' },
-      { label: 'Designers who report up to you',
+      { label: 'Designers who report up to you', wide: true,
         col: 'In your current role, how many designers report up to you? (directly or indirectly)',
-        type: 'hist', unit: 'designers' },
+        type: 'hist', unit: 'designers', capAt: 30 },
       { label: 'Factors most important to career advancement (top 3)', wide: true,
         col: 'Which factors have been most important to you advancing in your career as a design leader? [select at most 3]',
-        type: 'multi' },
+        type: 'multi', stdOptions: 'factors' },
     ]
   },
   {
     num: '06', title: 'Looking Forward',
     questions: [
-      { label: 'How design industry will evolve in next 5 years',
-        col: 'In the next 5 years, how do you expect the global design industry to evolve?',
-        type: 'scale', lo: 'Stay the same', hi: 'Change dramatically' },
-      { label: 'How much tool stack will change in next 5 years',
-        col: 'In the next 5 years, how much do you expect your tool stack to change?',
-        type: 'scale', lo: 'Very little', hi: 'Completely' },
+      { label: 'Industry & tool stack outlook', wide: true,
+        type: 'scalegroup',
+        items: [
+          { label: 'How design industry will evolve in next 5 years',
+            col: 'In the next 5 years, how do you expect the global design industry to evolve?',
+            lo: 'Stay the same', hi: 'Change dramatically' },
+          { label: 'How much tool stack will change in next 5 years',
+            col: 'In the next 5 years, how much do you expect your tool stack to change?',
+            lo: 'Very little', hi: 'Completely' },
+        ]
+      },
       { label: 'Intended career trajectory (next 5 years)', wide: true,
         col: 'In the next 5 years, which direction best describes your intended career trajectory? ',
-        type: 'bar' },
-      { label: 'Actively investing in own career growth',
-        col: 'How much are you actively investing in your own career aspirations?',
-        type: 'scale', lo: 'Not much', hi: 'A great deal' },
-      { label: 'Developing successors / next-gen leaders',
-        col: 'How much are you actively developing successors or next-generation leaders in your team or org?',
-        type: 'scale', lo: 'Not much', hi: 'A great deal' },
-      { label: 'People mentored in past 3 years',
+        type: 'bar', mapFn: 'pass2Trajectory' },
+      { label: 'Personal investment in career & team', wide: true,
+        type: 'scalegroup',
+        items: [
+          { label: 'Actively investing in own career growth',
+            col: 'How much are you actively investing in your own career aspirations?',
+            lo: 'Not much', hi: 'A great deal' },
+          { label: 'Developing successors / next-gen leaders',
+            col: 'How much are you actively developing successors or next-generation leaders in your team or org?',
+            lo: 'Not much', hi: 'A great deal' },
+        ]
+      },
+      { label: 'People mentored in past 3 years', wide: true,
         col: 'How many people have you mentored in the past 3 years? (rough estimate)',
-        type: 'hist', unit: 'people' },
+        type: 'hist', unit: 'people', capAt: 30 },
       { label: 'Engaged in activities outside primary role (select all)', wide: true,
         col: 'Outside of your primary role, are you currently engaged in any of the following? (Select all that apply)',
-        type: 'multi' },
+        type: 'multi', stdOptions: 'outside' },
     ]
   },
 ];
@@ -693,11 +885,11 @@ const SECTIONS = [
 
 /* Likert stacked bars only: ramp from light to full accent (horizontal bars + histogram stay solid #D59A48) */
 const SCALE_COLORS = [
-  'rgba(213,154,72,0.30)',  // 1
-  'rgba(213,154,72,0.42)',  // 2
-  'rgba(213,154,72,0.56)',  // 3
-  'rgba(213,154,72,0.78)',  // 4
-  '#D59A48', // 5
+  'rgba(42,38,34,0.18)',    // 1 — warm neutral (clearly distinct from amber)
+  'rgba(213,154,72,0.32)',  // 2 — muted amber
+  'rgba(213,154,72,0.56)',  // 3 — medium amber
+  'rgba(213,154,72,0.80)',  // 4 — strong amber
+  '#D59A48',                // 5 — full amber
 ];
 
 // ══════════════════════════════════════
@@ -727,7 +919,7 @@ function drawMap(container, rows, col) {
   const total = rows.length;
   const regionMax = Math.max(...counts.values());
   const FONT = "'Space Mono', ui-monospace, monospace";
-  const W = 960, H = 460;
+  const W = 960, H = 360;
 
   const wrap = d3.select(container).append('div').attr('class', 'map-wrap');
   const svg = wrap.append('svg')
@@ -739,7 +931,7 @@ function drawMap(container, rows, col) {
   const tooltip = wrap.append('div').attr('class', 'map-tooltip');
 
   const projection = d3.geoNaturalEarth1()
-    .scale(155).translate([W / 2, H / 2 + 16]);
+    .scale(140).translate([W / 2, H / 2 + 10]);
   const path = d3.geoPath().projection(projection);
 
   function regionColor(region) {
@@ -856,22 +1048,159 @@ function mapLevel(v) {
   return 'Other / hybrid';
 }
 
+/* Pass 1: display labels only (CSV cell text unchanged). See CONTENT-EDITORIAL-PASSES.md */
+function mapPass1FirstOrg(v) {
+  const t = String(v || '').trim();
+  if (t === 'Corporate (In-house)') return 'Corporate (In-House)';
+  return t;
+}
+function mapPass1TeamScale(v) {
+  const t = String(v || '').trim();
+  if (t === 'Solo designer (I was the only designer in the organization)') return 'Solo designer (1 designer)';
+  if (t === 'Large, established design organization (21+)') return 'Large design org (21+)';
+  return t;
+}
+function mapPass1Background(v) {
+  const t = String(v || '').trim();
+  if (t === 'I was always on a design-specific track') return 'Design';
+  return t;
+}
+
+/* Pass 2: merges + rebucketing. See CONTENT-EDITORIAL-PASSES.md §H.1–H.3 */
+function mapPass2Discipline(token) {
+  const t = String(token || '').trim();
+  if (t === 'Web design' || t === 'Website Designer' || t === 'Webmaster') return 'Web Design';
+  if (t === 'Experience Design / events/ gathering') return 'Exhibition Design';
+  if (t === 'Digital product Design') return 'Digital Product Design';
+  if (t === 'UI Design') return 'User Interface Design';
+  if (t === 'UX Research' || t === 'General design research') return 'Design Research';
+  if (t === 'Spatial Design' || t === 'Interior Design' || t === 'Environmental/store design') return 'Spatial & Environmental Design';
+  if (t === 'UX Writer') return 'Content Design';
+  if (t === 'Behavioural science/design') return 'Behavioral Design';
+  if (t === 'Information Graphics') return 'Communication Design';
+  if (t === 'Game design') return 'Game Design';
+  if (t === 'Business Director & Design Partnerships') return 'Business';
+  if (['information architecture', 'Lean start-up design', 'not ux focused',
+       'Packaging Design', 'Point of sale', 'Production Design', 'UX Product Management'].includes(t)) return 'Other';
+  return t;
+}
+
+function mapPass2Entry(v) {
+  const t = String(v || '').trim();
+  if (t === 'A non-paid internship at Ogilvy Design' || t === 'an internship') return 'Internship';
+  if (t === 'Natural circling back from teenage years doing it for fun') return "A natural continuation of what I'd always been doing";
+  if (t === 'cheaper than film school') return 'A pragmatic decision based on job prospects or circumstances';
+  if (t === 'Took two moves and 1.5 years of trying to land first design job' ||
+      t === 'Both: early childhood abilities in Europe; then, a surprising door opened to my education in the US') return 'Other';
+  return t;
+}
+
+function mapPass2Trajectory(v) {
+  const t = String(v || '').trim();
+  if (t === 'this market with the combination of AI and tech layoffs make it hard to plan the future' ||
+      t === 'I’d like to stay in UX but with current trends I’m preparing to shift if needed.') return 'unsure';
+  if (t === 'Advance to next career level, or Academia') return 'advance to the next career level';
+  if (t === 'Experimenting on new business and exec roles in fractional consulting or new emerging roles in RAI') return 'start your own company (agency, startup, etc.)';
+  if (t === 'Stay within the discipline but likely pivot in some way (out of current role & org)') return 'shift to a different professional discipline / business area';
+  if (t === 'I already shifted from design to have flexibility on job choices') return 'Already shifted';
+  if (['seek to scale impact on the entire Design community (versus serving only one client at a time).  Helping to enable design leaders (and corporate C-suites and Boards) leverage Design more strategically and profoundly',
+       'Interdisciplinary, Multilateral and Multi-vertical',
+       'Become a consultant and shift to art practices'].includes(t)) return 'Other';
+  return t;
+}
+
+const ENTRY_DISPLAY = {
+  'A gradual accumulation of interests that reached a tipping point': 'Gradual accumulation',
+  "An unexpected opportunity I hadn't planned for": 'Unexpected opportunity',
+  "A natural continuation of what I'd always been doing": 'Natural continuation',
+  'A pragmatic decision based on job prospects or circumstances': 'Pragmatic decision',
+  'A single defining moment or experience': 'Defining moment',
+};
+
+const TRAJECTORY_DISPLAY = {
+  'advance to the next career level': 'Advance to next level',
+  'continue at current level': 'Continue at current level',
+  'unsure': 'Unsure',
+  'shift to a different professional discipline / business area': 'Shift discipline or domain',
+  'start your own company (agency, startup, etc.)': 'Start a company or go independent',
+  'shift your career away from design completely': 'Shift away from design',
+  'retirement': 'Retirement',
+};
+
+function applyDisplayMap(items, map) {
+  return items.map(d => {
+    const short = map[d.label];
+    return short ? { ...d, tooltip: d.label, label: short } : d;
+  });
+}
+
 function countValues(rows, col, opts) {
   const counts = new Map();
   rows.forEach(r => {
     let val = (r[col] || '').trim();
     if (!val) return;
     if (opts?.mapFn === 'level') val = mapLevel(val);
+    else if (opts?.mapFn === 'pass1FirstOrg') val = mapPass1FirstOrg(val);
+    else if (opts?.mapFn === 'pass1Team') val = mapPass1TeamScale(val);
+    else if (opts?.mapFn === 'pass1Bg') val = mapPass1Background(val);
+    else if (opts?.mapFn === 'pass2Entry') val = mapPass2Entry(val);
+    else if (opts?.mapFn === 'pass2Trajectory') val = mapPass2Trajectory(val);
     counts.set(val, (counts.get(val) || 0) + 1);
   });
   return counts;
 }
 
-function countMultiSelect(rows, col) {
+const STD_OPTIONS = {
+  setbacks: new Set([
+    'Lack of growth opportunities at my company',
+    'Non-design (product, engineering, etc.) team members / leaders not supporting design',
+    'Burnout',
+    'Layoffs / Contraction at my company',
+    'Under-compensation or financial pressure',
+    'Project or product being cancelled',
+    'Contracted design job market industry-wide',
+  ]),
+  factors: new Set([
+    'Proven business or user outcomes',
+    'Relationships with key stakeholders',
+    'Business accumen',
+    'Sponsorship or advocacy from senior leaders',
+    'Case studies with measurable business results',
+    'Years of experience',
+    'Previous team size or headcount managed',
+    'Advanced degree (MBA, MFA, etc.)',
+    'Published writing or thought leadership',
+    'Technical accumen',
+    'Budget or scope of management',
+    'Speaking at conferences or industry events',
+    'Awards or recognition',
+    'Design certifications',
+  ]),
+  outside: new Set([
+    'Mentoring or coaching (informal)',
+    'Attending conferences and events',
+    'Side projects or freelance work',
+    'Writing (blog, book, articles)',
+    'Presenting at conferences or events',
+    'Teaching or lecturing',
+    'Building a company or startup',
+    'Community organizing or design advocacy',
+    'Social media / content creation',
+  ]),
+};
+
+function countMultiSelect(rows, col, opts) {
   const counts = new Map();
+  const stdSet = opts?.stdOptions ? STD_OPTIONS[opts.stdOptions] : null;
   rows.forEach(r => {
-    parseMulti(r[col]).forEach(item => {
-      counts.set(item, (counts.get(item) || 0) + 1);
+    const raw = String(r[col] || '').trim();
+    if (!raw) return;
+    const tokens = parseMulti(raw);
+    const isWriteIn = stdSet && tokens.some(t => !stdSet.has(t.trim()));
+    const items = isWriteIn ? ['Other'] : tokens;
+    items.forEach(item => {
+      const val = opts?.mapFn === 'pass2Discipline' ? mapPass2Discipline(item) : item;
+      counts.set(val, (counts.get(val) || 0) + 1);
     });
   });
   return counts;
@@ -902,7 +1231,7 @@ const BAR_MR = 76;
 const BAR_MR_WIDE = 90;
 const BAR_MT = 6;
 const BAR_MB = 6;
-const BAR_ROW_H = 46;
+const BAR_ROW_H = 52;
 const BAR_H = 24;
 /** Space Mono: approximate em-width for label reserve (prevents SVG left-edge clip). */
 function approxBarLabelWidthPx(str, fontSize) {
@@ -913,9 +1242,9 @@ let _exploreBarClipId = 0;
 
 function drawBar(container, items, wide) {
   if (!items.length) return;
-  const truncLen = wide ? 52 : 42;
-  const labelFs = 14;
-  const pctFs = 13;
+  const truncLen = wide ? 64 : 52;
+  const labelFs = 16;
+  const pctFs = 14;
   const labels = items.map(d => trunc(d.label, truncLen));
   const maxStr = labels.reduce((a, b) => (a.length >= b.length ? a : b), '');
   const mr = wide ? BAR_MR_WIDE : BAR_MR;
@@ -927,7 +1256,8 @@ function drawBar(container, items, wide) {
   const n = items.length;
   const H = n * BAR_ROW_H + BAR_MT + BAR_MB;
 
-  const FONT = "'Space Mono', ui-monospace, monospace";
+  const FONT = "'Host Grotesk', ui-sans-serif, system-ui, sans-serif";
+  const FONT_MONO = "'Space Mono', ui-monospace, monospace";
 
   const svg = d3.select(container).append('svg')
     .attr('width', '100%')
@@ -958,7 +1288,7 @@ function drawBar(container, items, wide) {
       .attr('rx', pillR)
       .attr('ry', pillR);
 
-    const fullLabel = String(d.label || '').replace(/\s+/g, ' ').trim() || labels[i];
+    const fullLabel = String(d.tooltip || d.label || '').replace(/\s+/g, ' ').trim() || labels[i];
     const labelG = g.append('g').attr('class', 'bar-label-hit');
     const hitRect = labelG.append('rect')
       .attr('x', -ml + 4)
@@ -976,15 +1306,16 @@ function drawBar(container, items, wide) {
       .attr('dominant-baseline', 'middle')
       .attr('font-size', labelFs)
       .attr('font-weight', 500)
-      .attr('fill', 'rgba(42,38,34,0.62)')
+      .attr('fill', 'rgba(42,38,34,0.94)')
       .attr('pointer-events', 'none')
       .text(labels[i]);
 
     const barG = g.append('g').attr('clip-path', `url(#${clipId})`);
     barG.append('rect')
+      .attr('class', 'bar-track')
       .attr('x', 0).attr('y', barY)
       .attr('width', chartW).attr('height', BAR_H)
-      .attr('fill', '#242424');
+      .attr('fill', 'rgba(42,38,34,0.12)');
     barG.append('rect')
       .attr('x', 0).attr('y', barY)
       .attr('width', barW).attr('height', BAR_H)
@@ -995,6 +1326,7 @@ function drawBar(container, items, wide) {
       .attr('y', midY)
       .attr('dominant-baseline', 'middle')
       .attr('font-size', pctFs)
+      .attr('font-family', FONT_MONO)
       .attr('font-weight', 600)
       .attr('fill', '#D59A48')
       .text(`${d.pct}%`);
@@ -1050,10 +1382,120 @@ function drawScale(container, rows, col, lo, hi) {
     .html(`<strong>${mean.toFixed(1)}</strong><span style="color:var(--ink-3);font-size:var(--t-cap)"> / 5 avg</span>`);
 }
 
-function drawHistogram(container, rows, col, unit) {
-  const nums = rows.map(r => parseFloat((r[col] || '').trim()))
+const PIE_COLORS = [
+  '#D59A48',
+  'rgba(213,154,72,0.52)',
+  'rgba(42,38,34,0.32)',
+  'rgba(42,38,34,0.16)',
+  'rgba(42,38,34,0.09)',
+];
+
+function drawPie(container, rows, col) {
+  const counts = countValues(rows, col);
+  const data = sortedItems(counts).filter(d => d.count > 0);
+  const total = data.reduce((s, d) => s + d.count, 0);
+  if (!total) return;
+
+  const size = 160;
+  const cx = size / 2, cy = size / 2;
+  const outerR = size / 2 - 4;
+  const innerR = Math.round(outerR * 0.50);
+
+  const pie = d3.pie().value(d => d.count).sort(null);
+  const arcGen = d3.arc().innerRadius(innerR).outerRadius(outerR);
+
+  const wrap = d3.select(container).append('div').attr('class', 'pie-wrap');
+
+  const svg = wrap.append('svg')
+    .attr('width', size)
+    .attr('height', size)
+    .style('flex-shrink', '0');
+
+  const g = svg.append('g').attr('transform', `translate(${cx},${cy})`);
+
+  pie(data).forEach((d, i) => {
+    g.append('path')
+      .attr('class', `pie-slice pie-slice-${i}`)
+      .attr('d', arcGen(d));
+  });
+
+  const legendEl = wrap.append('div').attr('class', 'pie-legend');
+  data.forEach((d, i) => {
+    const pct = Math.round(d.count / total * 100);
+    const item = legendEl.append('div').attr('class', 'pie-legend-item');
+    item.append('span')
+      .attr('class', 'pie-legend-swatch')
+      .style('background', PIE_COLORS[i % PIE_COLORS.length]);
+    item.append('span').attr('class', 'pie-legend-label').text(d.label);
+    item.append('span').attr('class', 'pie-legend-pct').text(`${pct}%`);
+  });
+}
+
+function drawScaleGroup(container, rows, items) {
+  const wrap = document.createElement('div');
+  wrap.className = 'scalegroup-wrap';
+  items.forEach(item => {
+    const row = document.createElement('div');
+    const lbl = document.createElement('p');
+    lbl.className = 'scalegroup-item-label';
+    lbl.textContent = item.label;
+    row.appendChild(lbl);
+    const chartDiv = document.createElement('div');
+    row.appendChild(chartDiv);
+    wrap.appendChild(row);
+    drawScale(chartDiv, rows, item.col, item.lo, item.hi);
+  });
+  container.appendChild(wrap);
+}
+
+function drawSplit(container, rows, col, values) {
+  const counts = new Map();
+  rows.forEach(r => {
+    const v = (r[col] || '').trim();
+    if (v) counts.set(v, (counts.get(v) || 0) + 1);
+  });
+  const total = rows.length;
+  const [a, b] = values;
+  const cntA = counts.get(a.raw) || 0;
+  const cntB = counts.get(b.raw) || 0;
+  const pctA = Math.round(cntA / total * 100);
+  const pctB = 100 - pctA;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'split-wrap';
+
+  const stats = document.createElement('div');
+  stats.className = 'split-stats';
+  stats.innerHTML = `
+    <div class="split-stat">
+      <span class="split-pct">${pctA}%</span>
+      <span class="split-label">${a.label}</span>
+    </div>
+    <div class="split-stat">
+      <span class="split-pct">${pctB}%</span>
+      <span class="split-label">${b.label}</span>
+    </div>`;
+
+  const bar = document.createElement('div');
+  bar.className = 'split-bar';
+  bar.innerHTML = `<div class="split-seg-a" style="flex: 0 0 ${pctA}%"></div><div class="split-seg-b" style="flex: 0 0 ${pctB}%"></div>`;
+
+  wrap.appendChild(stats);
+  wrap.appendChild(bar);
+  container.appendChild(wrap);
+}
+
+function drawHistogram(container, rows, col, unit, capAt) {
+  container.classList.add('hist-chart');
+  let nums = rows.map(r => parseFloat((r[col] || '').trim()))
     .filter(v => !isNaN(v) && v >= 0 && v < 1000);
   if (!nums.length) return;
+
+  let overflowCount = 0;
+  if (capAt) {
+    overflowCount = nums.filter(v => v > capAt).length;
+    nums = nums.map(v => v > capAt ? capAt : v);
+  }
 
   const mn = d3.min(nums), mx = d3.max(nums);
   let thresh;
@@ -1089,7 +1531,7 @@ function drawHistogram(container, rows, col, unit) {
       .attr('x1', 0).attr('y1', y(t))
       .attr('x2', cW).attr('y2', y(t))
       .attr('stroke', 'rgba(42,38,34,0.10)')
-      .attr('stroke-dasharray', '3,3');
+      .attr('stroke-dasharray', '4,6');
     g.append('text')
       .attr('class', 'y-label')
       .attr('x', -5).attr('y', y(t))
@@ -1128,7 +1570,10 @@ function drawHistogram(container, rows, col, unit) {
     .attr('y', cH + 14)
     .attr('text-anchor', 'middle')
     .attr('font-size', 12).attr('fill', 'rgba(42,38,34,0.55)')
-    .text(b => b.x0);
+    .text((b, i, nodes) => {
+      const isLast = i === nodes.length - 1;
+      return (capAt && isLast && overflowCount > 0) ? `${capAt}+` : b.x0;
+    });
 
   // Unit label
   svg.append('text')
@@ -1164,6 +1609,8 @@ function renderAll(rows) {
   SECTIONS.forEach(section => {
     const secEl = document.createElement('div');
     secEl.className = 'data-section';
+    secEl.id = `section-${section.num}`;
+    secEl.dataset.section = section.num;
 
     const headerEl = document.createElement('div');
     headerEl.className = 'section-header';
@@ -1186,21 +1633,52 @@ function renderAll(rows) {
       if (q.type === 'scale') {
         drawScale(chartEl, rows, q.col, q.lo, q.hi);
 
+      } else if (q.type === 'scalegroup') {
+        drawScaleGroup(chartEl, rows, q.items);
+
+      } else if (q.type === 'split') {
+        drawSplit(chartEl, rows, q.col, q.values);
+
+      } else if (q.type === 'pie') {
+        drawPie(chartEl, rows, q.col);
+
       } else if (q.type === 'bar') {
         const counts = countValues(rows, q.col, { mapFn: q.mapFn });
-        const items = sortedItems(counts, q.order);
-        drawBar(chartEl, items, q.wide);
+        let items = sortedItems(counts, q.order);
+        if (q.mapFn === 'pass2Entry') items = applyDisplayMap(items, ENTRY_DISPLAY);
+        if (q.mapFn === 'pass2Trajectory') items = applyDisplayMap(items, TRAJECTORY_DISPLAY);
+        if (q.topN && items.length > q.topN) {
+          const all = items;
+          drawBar(chartEl, items.slice(0, q.topN), q.wide);
+          const btn = document.createElement('button');
+          btn.className = 'chart-expand-btn';
+          btn.textContent = `Show ${all.length - q.topN} more`;
+          btn.onclick = () => { chartEl.innerHTML = ''; drawBar(chartEl, all, q.wide); btn.remove(); };
+          chartEl.after(btn);
+        } else {
+          drawBar(chartEl, items, q.wide);
+        }
 
       } else if (q.type === 'hist') {
-        drawHistogram(chartEl, rows, q.col, q.unit || '');
+        drawHistogram(chartEl, rows, q.col, q.unit || '', q.capAt);
 
       } else if (q.type === 'map') {
         drawMap(chartEl, rows, q.col);
 
       } else if (q.type === 'multi') {
-        const counts = countMultiSelect(rows, q.col);
-        const items = sortedItems(counts).map(d => ({ ...d, pct: Math.round(d.count / total * 100) }));
-        drawBar(chartEl, items, true);
+        const counts = countMultiSelect(rows, q.col, { mapFn: q.mapFn, stdOptions: q.stdOptions });
+        let items = sortedItems(counts).map(d => ({ ...d, pct: Math.round(d.count / total * 100) }));
+        if (q.topN && items.length > q.topN) {
+          const all = items;
+          drawBar(chartEl, items.slice(0, q.topN), true);
+          const btn = document.createElement('button');
+          btn.className = 'chart-expand-btn';
+          btn.textContent = `Show ${all.length - q.topN} more`;
+          btn.onclick = () => { chartEl.innerHTML = ''; drawBar(chartEl, all, true); btn.remove(); };
+          chartEl.after(btn);
+        } else {
+          drawBar(chartEl, items, true);
+        }
       }
 
       gridEl.appendChild(card);
@@ -1209,6 +1687,31 @@ function renderAll(rows) {
     secEl.appendChild(gridEl);
     mainEl.appendChild(secEl);
   });
+
+  // Build sidebar nav (only on first render — IDs persist across filter changes)
+  const navList = document.getElementById('side-nav-list');
+  if (navList && !navList.querySelector('.side-nav-item')) {
+    SECTIONS.forEach(section => {
+      const li = document.createElement('li');
+      li.className = 'side-nav-item';
+      li.dataset.section = section.num;
+      li.innerHTML = `<a class="side-nav-link" href="#section-${section.num}"><span class="side-nav-num">${section.num}</span><span class="side-nav-title">${section.title}</span></a>`;
+      navList.appendChild(li);
+    });
+
+    const activeSet = new Set();
+    const navObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) activeSet.add(e.target.dataset.section);
+        else activeSet.delete(e.target.dataset.section);
+      });
+      navList.querySelectorAll('.side-nav-item').forEach(item => {
+        item.classList.toggle('active', activeSet.has(item.dataset.section));
+      });
+    }, { rootMargin: '0px 0px -60% 0px', threshold: 0 });
+
+    document.querySelectorAll('.data-section').forEach(el => navObserver.observe(el));
+  }
 }
 
 // ══════════════════════════════════════
