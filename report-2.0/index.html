@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Emerging Patterns 2.0 · Design Leadership Report</title>
+  <meta name="description" content="Findings from 119 design leaders — pathways, mentorship, tools, adaptability, and identity. A report from the Design Leadership course at Washington University in St. Louis." />
+  <meta property="og:title" content="Emerging Patterns 2.0 · Design Leadership Report" />
+  <meta property="og:description" content="Findings from 119 design leaders — pathways, mentorship, tools, adaptability, and identity." />
+  <meta property="og:type" content="website" />
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    (function(){var t=localStorage.getItem('theme-2');if(t==='dark')document.documentElement.dataset.theme='dark';})();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
+</head>
+<body>
+
+<!-- Reading progress -->
+<div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progress-fill"></div></div>
+
+<!-- Mobile chapter toggle -->
+<button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="sidebar">
+  <span class="nav-toggle-label">Chapters</span>
+  <span class="nav-toggle-mark" aria-hidden="true">☰</span>
+</button>
+<div class="nav-scrim" id="nav-scrim" hidden></div>
+
+<!-- ═══════════════ SIDEBAR ═══════════════ -->
+<nav class="sidebar" id="sidebar" aria-label="Report chapters">
+  <a class="sidebar-brand" href="#intro">
+    <span class="sidebar-brand-kicker">Washington University in St.&nbsp;Louis</span>
+    <span class="sidebar-brand-title">Emerging<br />Patterns <em>in<br />Design Leadership</em></span>
+  </a>
+
+  <div class="edition-switch">
+    <button class="sidebar-brand-edition" id="edition-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="edition-menu">
+      Fall 2026 Report
+      <span class="edition-caret" aria-hidden="true">▾</span>
+    </button>
+    <ul class="edition-menu" id="edition-menu" hidden>
+      <li><a class="edition-item is-current" href="#intro" aria-current="page">Fall 2026 <span class="edition-note">This report</span></a></li>
+      <li><a class="edition-item" href="../final-site/index.html">Spring 2026 <span class="edition-note">1.0 edition</span></a></li>
+    </ul>
+  </div>
+
+  <ol class="chapter-list">
+    <li><a href="#intro"      class="chapter-link" data-chapter="intro"><span class="chapter-num">00</span><span class="chapter-name">Introduction</span></a></li>
+    <li><a href="#insight-1"  class="chapter-link" data-chapter="insight-1"><span class="chapter-num">01</span><span class="chapter-name">Many backgrounds, many routes</span></a></li>
+    <li><a href="#insight-2"  class="chapter-link" data-chapter="insight-2"><span class="chapter-num">02</span><span class="chapter-name">The mentorship gap</span></a></li>
+    <li><a href="#insight-3"  class="chapter-link" data-chapter="insight-3"><span class="chapter-num">03</span><span class="chapter-name">Tools are changing the work</span></a></li>
+    <li><a href="#insight-4"  class="chapter-link" data-chapter="insight-4"><span class="chapter-num">04</span><span class="chapter-name">Adaptability as superpower</span></a></li>
+    <li><a href="#insight-5"  class="chapter-link" data-chapter="insight-5"><span class="chapter-num">05</span><span class="chapter-name">Identity beyond craft</span></a></li>
+    <li><a href="#conclusion" class="chapter-link" data-chapter="conclusion"><span class="chapter-num">06</span><span class="chapter-name">Conclusion</span></a></li>
+    <li><a href="#about"      class="chapter-link" data-chapter="about"><span class="chapter-num">07</span><span class="chapter-name">About &amp; methods</span></a></li>
+  </ol>
+
+  <div class="sidebar-footer">
+    <button class="theme-btn" id="theme-btn" type="button" aria-label="Toggle dark mode">
+      <span class="theme-btn-icon" aria-hidden="true"></span>
+      <span class="theme-btn-label">Dark mode</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════ MAIN ═══════════════ -->
+<main class="main">
+
+  <!-- ── 00 · INTRO / HERO ── -->
+  <section class="chapter hero" id="intro" data-chapter="intro">
+    <div class="chapter-inner">
+      <p class="eyebrow reveal">A report from the Design Leadership course · Washington University in St. Louis</p>
+      <h1 class="hero-title reveal">Emerging patterns in design leadership <em>in 2026.</em></h1>
+      <div class="hero-lede reveal">
+        <p>In Design Leadership, a course taught at Washington University in St.&nbsp;Louis, undergraduates and graduates enrolled to understand what it means to be a leader in the field of design. Alongside the students seated in the class was the presence of uncertainty, fear, and at times anxiety for the state of the design industry by the time these students will walk the stage and receive their respective degrees.</p>
+        <p>Where the state of design is heading might have many different avenues. Tools are changing and uncertainty is high. But what we see is that the diversity in experience and pathways emphasizes the fact that designers didn't get here using the same path in the first place.</p>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="stat-block">
+          <span class="stat-val" data-count="119">119</span>
+          <span class="stat-label">design leaders surveyed</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-val" data-count="93">93</span>
+          <span class="stat-label">distinct pathways found</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-val" data-count="5">5</span>
+          <span class="stat-label">insights in this report</span>
+        </div>
+      </div>
+      <a href="#insight-1" class="btn btn-primary reveal">Start reading ↓</a>
+    </div>
+  </section>
+
+  <!-- ── 01 · MANY BACKGROUNDS ── -->
+  <section class="chapter" id="insight-1" data-chapter="insight-1">
+    <div class="chapter-inner">
+      <header class="chapter-header reveal">
+        <p class="eyebrow">Insight 01</p>
+        <h2 class="chapter-title">Design leaders come from a myriad of <em>backgrounds and experiences.</em></h2>
+        <p class="chapter-note">This is parallel to the variety of interests and backgrounds of the students themselves.</p>
+      </header>
+
+      <div class="evidence reveal">
+        <h3 class="block-label">Evidence</h3>
+        <p>In our survey of 119 design leaders, we discovered <strong>93 distinct pathways</strong>. Almost everyone had a unique path to where they are today.</p>
+        <p>We heard from leaders that demonstrated the variety of these pathways. The domains where these leaders came from shape their paths today. Take for example one leader whose path to design research was only recognized after the fact.</p>
+      </div>
+
+      <figure class="figure reveal" id="figure-pathways">
+        <figcaption class="figure-caption">
+          <span class="figure-kicker">Fig. 01</span>
+          Background → design education → first organization → current level.
+          <span class="figure-hint">Hover a ribbon or block to trace the paths through it.</span>
+        </figcaption>
+        <div class="sankey-wrap" id="sankey-wrap">
+          <svg id="sankey-chart" viewBox="0 0 1400 780" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Sankey diagram of 93 distinct career pathways across 119 design leaders"></svg>
+          <div id="sankey-tooltip" class="chart-tooltip" aria-hidden="true"></div>
+          <div class="sankey-status">
+            <span id="sankey-total"></span>
+            <span id="sankey-active" class="sankey-active">Hover a ribbon or block to inspect</span>
+          </div>
+        </div>
+      </figure>
+
+      <blockquote class="pull-quote reveal">
+        <p>"I got my bachelor's in English literature at Loyola University in New Orleans, and, you know, hindsight is 20/20&hellip; back when I was getting my bachelor's, I had no idea I would be in-depth in user research. I didn't know what UX was. But looking back, I can see, oh, there were a lot of skills that I gained and that I use now."</p>
+        <!-- Attribution withheld per draft ("hidden but Amanda White") -->
+        <cite>Design research leader, interview</cite>
+      </blockquote>
+
+      <aside class="why-matters reveal">
+        <h3 class="block-label">Why does this matter?</h3>
+        <p>We are noticing growing anxiety about where the "right" experience to succeed in design leadership comes from. The data suggests there is no single right answer — and never was.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ── 02 · MENTORSHIP GAP ── -->
+  <section class="chapter alt" id="insight-2" data-chapter="insight-2">
+    <div class="chapter-inner">
+      <header class="chapter-header reveal">
+        <p class="eyebrow">Insight 02</p>
+        <h2 class="chapter-title">There is a lack of collective mentorship and guidance — <em>but people are taking action.</em></h2>
+      </header>
+
+      <div class="evidence reveal">
+        <h3 class="block-label">Evidence</h3>
+        <div class="stat-row">
+          <div class="stat-card">
+            <span class="stat-val" data-count="2.8">2.8</span>
+            <span class="stat-denom">/ 5</span>
+            <span class="stat-label">average answer to "were you sufficiently trained or onboarded for your current role?" (1 = not at all, 5 = completely)</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-val" data-count="66">66</span>
+            <span class="stat-denom">%</span>
+            <span class="stat-label">of respondents engage in mentoring or coaching outside their primary role</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-grid reveal">
+        <blockquote class="pull-quote">
+          <p>"I was researching groups last night. There's not a ton. And so I'm just gonna build my own."</p>
+          <cite>Amanda George</cite>
+        </blockquote>
+        <blockquote class="pull-quote">
+          <p>"You build confidence when you build more people who are gonna be supporting you&hellip; You're good as the people that you're leading. So, the first thing you have to do is find the supporters."</p>
+          <cite>Maria Giudice</cite>
+        </blockquote>
+      </div>
+
+      <aside class="why-matters reveal">
+        <h3 class="block-label">Why does this matter?</h3>
+        <p>We need to not shy away from design, leave it be "dead," and shed our identity — but rather embrace bidirectional leadership and mentorship in order to learn across disciplines, tool users, and expertise, teaching skills of adaptability, dealing with uncertainty, and catalyzing change all at once.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ── 03 · TOOLS ARE CHANGING ── -->
+  <section class="chapter" id="insight-3" data-chapter="insight-3">
+    <div class="chapter-inner">
+      <header class="chapter-header reveal">
+        <p class="eyebrow">Insight 03</p>
+        <h2 class="chapter-title">Tool stacks and methods are changing — <em>a signal of structural change in the field.</em></h2>
+        <p class="chapter-note">Shifts in tooling may indicate changes in ways of working, team composition, and other structural changes to design.</p>
+      </header>
+
+      <div class="evidence reveal">
+        <h3 class="block-label">Evidence</h3>
+        <div class="stat-row">
+          <div class="stat-card">
+            <span class="stat-val" data-count="94">94</span>
+            <span class="stat-denom">%</span>
+            <span class="stat-label">of respondents expect their tool stack to change significantly in the next five years</span>
+          </div>
+        </div>
+        <p>However, there is a more mixed response on how leaders see the industry evolving — from stability to fundamental transformation.</p>
+      </div>
+
+      <figure class="figure reveal">
+        <figcaption class="figure-caption">
+          <span class="figure-kicker">Fig. 02</span>
+          Expected industry evolution: stability ↔ fundamental transformation.
+        </figcaption>
+        <div class="chart-placeholder">
+          <span class="chart-placeholder-label">Chart placeholder</span>
+          <span class="chart-placeholder-desc">Diverging distribution of responses along the stability–transformation spectrum</span>
+        </div>
+      </figure>
+
+      <div class="quote-grid reveal">
+        <blockquote class="pull-quote is-placeholder">
+          <p>Quote to be selected from interviews.</p>
+          <cite>TBD</cite>
+        </blockquote>
+      </div>
+
+      <aside class="why-matters reveal is-placeholder">
+        <h3 class="block-label">Why does this matter?</h3>
+        <p>Draft in progress.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ── 04 · ADAPTABILITY ── -->
+  <section class="chapter alt" id="insight-4" data-chapter="insight-4">
+    <div class="chapter-inner">
+      <header class="chapter-header reveal">
+        <p class="eyebrow">Insight 04</p>
+        <h2 class="chapter-title">Adaptability is the constant anchor — <em>a superpower design leaders keep citing.</em></h2>
+        <p class="chapter-note">It is seen as a way to keep doing what they're doing, or to do something new entirely.</p>
+      </header>
+
+      <div class="evidence reveal">
+        <p>With the rise of agentic-aided design, design leaders are being asked to be builders who are able to deploy market-viable products in faster, leaner ways. Leaders who bring a design-first perspective into this kind of work are redefining what it means to design. Those who adapt into this redefined space are finding ways to diversify their professional practice.</p>
+        <div class="stat-row">
+          <div class="stat-card">
+            <span class="stat-val" data-count="45">45</span>
+            <span class="stat-denom">%</span>
+            <span class="stat-label">indicate they are doing side projects or freelance work</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="quote-grid reveal">
+        <blockquote class="pull-quote">
+          <p>"I have a deep respect and philosophy sitting in design, but I don't have to be a designer&hellip; you can call me whatever you want. I don't really care. I'm always going to use those skills and they're always going to get me where I need to go."</p>
+          <cite>Cori Schuaer</cite>
+        </blockquote>
+        <blockquote class="pull-quote">
+          <p>"I've always kind of hired on potential, but I think adaptability — and people who are more generalists, people who do a lot of different things — is where I'd want to spend to see."</p>
+          <cite>Amanda George, on adaptability in hiring</cite>
+        </blockquote>
+      </div>
+
+      <aside class="why-matters reveal">
+        <h3 class="block-label">Why does this matter?</h3>
+        <p>Economic instability means the path is rarely linear — "work for big tech, then escape," as one framing goes. Sometimes the industry itself can be draining, one leader expressed, but the ability to utilize tech experience in order to pivot has proved useful in leaving to pursue new opportunities.</p>
+        <blockquote class="inline-quote">
+          <p>"I wanted to be that chief design officer. But I'm over that. Like I got to live for me&hellip; 'cause it was costing me a lot — my health, my sanity — and I'm off that now."</p>
+        </blockquote>
+        <p>Adaptability allowed them to move out of a negative environment and use their agency to go to places that serve them. Designers are uniquely positioned to deal with change — it's our superpower. Designers are mosaics of changers, makers, and believers. Design work does not mirror a traditional ladder; it mirrors a <strong>portfolio</strong> — a collection of work, skills, and expertise that makes us right for the job.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ── 05 · BEYOND CRAFT ── -->
+  <section class="chapter" id="insight-5" data-chapter="insight-5">
+    <div class="chapter-inner">
+      <header class="chapter-header reveal">
+        <p class="eyebrow">Insight 05</p>
+        <h2 class="chapter-title">Design leaders are expanding their identity — <em>beyond the domain of craft.</em></h2>
+        <p class="chapter-note">In a world where digital agents are moving into the "making" space of design, leaders are allocating their energy to doing things outside the domain of craft.</p>
+      </header>
+
+      <div class="evidence reveal">
+        <h3 class="block-label">Evidence</h3>
+        <div class="stat-row">
+          <div class="stat-card">
+            <span class="stat-val" data-count="29">29</span>
+            <span class="stat-denom">%</span>
+            <span class="stat-label">are actively moving beyond craft — shifting discipline (11%), going independent (10%), shifting away from design (7%), or already shifted (1%)</span>
+          </div>
+        </div>
+      </div>
+
+      <figure class="figure reveal">
+        <figcaption class="figure-caption">
+          <span class="figure-kicker">Fig. 03</span>
+          Top activities respondents engage with outside their primary role.
+        </figcaption>
+        <div id="activities-chart" class="bars-chart"></div>
+      </figure>
+
+      <div class="quote-grid reveal">
+        <blockquote class="pull-quote">
+          <p>"I think a lot of people kind of plateau when they're only ever seen as the doers or the makers, right? And then you're always kind of production, or you're always somebody's helping hands — and you're not leading."</p>
+          <cite>Antonio Garcia</cite>
+        </blockquote>
+        <blockquote class="pull-quote">
+          <p>"I believe heavily in not staying tied to design to do design work. I think some of the best design work happens when you're not under a design title and you're not doing design work."</p>
+          <cite>Cori Schuaer</cite>
+        </blockquote>
+        <blockquote class="pull-quote">
+          <p>"I do think in the dawn of these vibe coding mechanisms, where everyone can be a designer, everyone could push a product into code."</p>
+          <cite>Amanda George</cite>
+        </blockquote>
+      </div>
+
+      <aside class="why-matters reveal is-placeholder">
+        <h3 class="block-label">Why does this matter?</h3>
+        <p>Draft in progress.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ── 06 · CONCLUSION ── -->
+  <section class="chapter alt" id="conclusion" data-chapter="conclusion">
+    <div class="chapter-inner">
+      <header class="chapter-header reveal">
+        <p class="eyebrow">Conclusion</p>
+        <h2 class="chapter-title">An inflection point — <em>and a continuing project.</em></h2>
+      </header>
+      <div class="evidence reveal">
+        <p>As students — the new generation of design leaders — had the opportunity to learn from leaders at top reputable companies, those leaders also had questions for our students, and shared similar uncertainties and sometimes anxieties about the road ahead. We posit that what will matter most going forward is a <strong>bidirectional model of community, mentorship, and learning</strong>. Our research project showed this happening firsthand.</p>
+        <p>This is a continuing project. Recognizing that we are at an inflection point — much like the shift from analog ways of making to desktop publishing, or the mobile revolution — we are at a similar moment now. It's not new, but the role of designers as leaders is something that's emerging.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 07 · ABOUT ── -->
+  <section class="chapter" id="about" data-chapter="about">
+    <div class="chapter-inner">
+      <header class="chapter-header reveal">
+        <p class="eyebrow">About &amp; methods</p>
+        <h2 class="chapter-title">About this <em>project.</em></h2>
+      </header>
+      <div class="evidence reveal">
+        <p>Survey of 119 design leaders (54 female, 63 male, 2 non-binary) · 71% North America, 29% global · Fielded 2026. Interviews conducted with design leaders as part of the Design Leadership course at Washington University in St.&nbsp;Louis.</p>
+        <p class="methods-note">Statistical methods: Mann-Whitney U, Fisher's exact, Chi-square, Spearman correlations, logistic regression · Significance threshold: p&nbsp;&lt;&nbsp;0.05</p>
+        <a class="btn btn-secondary" href="../final-site/index.html">Read the 1.0 report →</a>
+      </div>
+      <footer class="report-footer reveal">
+        <span>Design Leadership Research · 2026</span>
+        <a href="#intro" class="btn btn-ghost">Back to top ↑</a>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="data/pathways.js"></script>
+<script src="charts.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
